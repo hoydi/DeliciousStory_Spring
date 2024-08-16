@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Website</title>
+    <!-- 스타일 시트와 스크립트 포함 -->
+</head>
+<body>
+<!-- Header -->
+
+
+<!-- Main Content -->
+<div th:fragment="content">
+    <!-- 메인 콘텐츠가 여기에 삽입됩니다 -->
+    <h1>레이아웃</h1>
+    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+<!-- Footer -->
+
+</body>
+</html>
