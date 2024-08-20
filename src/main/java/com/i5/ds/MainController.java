@@ -9,4 +9,11 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+//    page 폴더 안의 login.html
+    @GetMapping("/login")
+    public String login(){
+        return "page/login";
+    }
+
 }

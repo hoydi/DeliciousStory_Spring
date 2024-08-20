@@ -23,9 +23,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll() // 모든 요청에 대해 인증 없이 접근 가능하도록 설정
-                )
-                .formLogin(Customizer.withDefaults())
-                .logout(Customizer.withDefaults());
+                );
+//                .formLogin(Customizer.withDefaults())
+//                .logout(Customizer.withDefaults());
         return http.build();
     }
 }

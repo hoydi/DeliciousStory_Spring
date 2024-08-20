@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
 
-<!-- 레이아웃 파일을 사용하여 콘텐츠 삽입 -->
-<div th:replace="layout :: content">
-    <h2>Welcome to My Website</h2>
-    <p>This is the home page.</p>
-</div>
+<th:block layout:fragment="title">
+    <title>index page</title>
+</th:block>
 
-</body>
+<th:block layout:fragment="css">
+<!--    <link rel="stylesheet" href="@{/css/index.css}">-->
+</th:block>
+
+<th:block layout:fragment="javascript">
+<!--    <script th:src="@{/js/index.js}"></script>-->
+</th:block>
+
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <div class="index">
+            <div class="index-con">
+                index page
+                <h1>하이하이</h1>
+                <div class="block"></div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
 </html>

@@ -1,7 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<!-- 다른 페이지에 포함시킬 영역을 th:fragment로 선언해준다.-->
-<div th:fragment="header">
-    header 영역입니다.
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="header" th:fragment="headerFragment">
+    <div class="nav">
+        <h1 class="logo">
+            <a th:href="@{/}">logo</a>
+        </h1>
+        <div class="gnb">
+            <ul>
+                <li><a th:href="@{/}">HOME</a></li>
+                <li><a th:href="@{/}">BEST</a></li>
+                <li><a th:href="@{/}">SEASON</a></li>
+                <li><a th:href="@{/}">MAN</a></li>
+                <li><a th:href="@{/login}">login</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
+
 </html>

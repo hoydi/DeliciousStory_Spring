@@ -1,13 +1,18 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<html xmlns:th="http://www.thymeleaf.org">
-
-<body>
-
-<div th:fragment="footer">
-    &copy; 2011 The Good Thymes Virtual Grocery
+<div class="footer" th:fragment="footerFragment">
+    <div class="fcon">
+        <ul>
+            <li>
+                <h1 class="title">Address</h1>
+                <p>주소</p>
+            </li>
+            <li>
+                <h1 class="title">CopyRight</h1>
+                <p>저작권</p>
+            </li>
+        </ul>
+    </div>
 </div>
-
-</body>
-
 </html>
