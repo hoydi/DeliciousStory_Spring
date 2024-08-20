@@ -16,12 +16,12 @@ public class BoardController {
     @GetMapping("/board")
     public String list(Model model) {
         model.addAttribute("boards", boardService.getAllBoards());
-        return "board/list";
+        return "pages/board/list";
     }
 
     @GetMapping("/board/{id}")
     public String detail(@PathVariable Long id, Model model) {
         model.addAttribute("board", boardService.getBoardById(id));
-        return "board/detail";
+        return "pages/board/detail";
     }
 }

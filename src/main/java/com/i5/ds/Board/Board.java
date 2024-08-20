@@ -1,10 +1,10 @@
 package com.i5.ds.Board;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Board {
@@ -13,6 +13,18 @@ public class Board {
     private Long id;
     private String title;
     private String content;
+
+    // 기본 생성자
+    public Board() {
+    }
+
+    // 매개변수 생성자
+    public Board(String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
 
     // Getters and setters
     public Long getId() {

@@ -10,10 +10,15 @@ public class MainController {
         return "index";
     }
 
-//    page 폴더 안의 login.html
-    @GetMapping("/login")
-    public String login(){
-        return "page/login";
+    // 로그인
+    @GetMapping("/signIn")
+    public String signIn() {
+        return "pages/signIn";
     }
 
+    //회원가입
+    @GetMapping("/signUp")
+    public String signUp() {
+        return "pages/signIn";
+    }
 }
