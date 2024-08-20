@@ -1,0 +1,106 @@
+/* 기본 스타일 */
+body, html {
+	
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header .nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.header .logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .gnb ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.header .gnb ul li {
+    margin-left: 20px;
+}
+
+.header .gnb ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.header .gnb ul li a:hover {
+    color: #ccc;
+}
+
+/* 헤더 아래 컨텐츠 공간 확보 */
+body {
+    padding-top: 80px; /* 헤더 높이에 맞게 조정 */
+}
+
+/* 푸터 스타일 */
+.footer {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer .fcon {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer .fcon ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer .fcon ul li {
+    width: 45%;
+}
+
+.footer .fcon ul li h1.title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.footer .fcon ul li p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* 푸터 위 컨텐츠 공간 확보 */
+body {
+    padding-bottom: 80px; /* 푸터 높이에 맞게 조정 */
+}
