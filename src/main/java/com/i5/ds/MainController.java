@@ -9,16 +9,4 @@ public class MainController {
     public String index() {
         return "index";
     }
-
-    // 로그인
-    @GetMapping("/signIn")
-    public String signIn() {
-        return "pages/signIn";
-    }
-
-    //회원가입
-    @GetMapping("/signUp")
-    public String signUp() {
-        return "pages/signIn";
-    }
 }

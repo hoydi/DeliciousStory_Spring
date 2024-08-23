@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <!-- Add your CSS links here -->
+</head>
+<body>
 <div class="header" th:fragment="headerFragment">
     <div class="nav">
         <h1 class="logo">
@@ -12,10 +18,21 @@
                 <li><a th:href="@{/}">BEST</a></li>
                 <li><a th:href="@{/}">SEASON</a></li>
                 <li><a th:href="@{/board}">board</a></li>
-                <li><a th:href="@{/signIn}">login</a></li>
+                <!-- Check if user is authenticated -->
+                <li th:if="${#authentication.principal == 'anonymousUser'}">
+                    <a th:href="@{/signin}">signin</a>
+                </li>
+                <li th:if="${#authentication.principal != 'anonymousUser'}">
+                    <a th:href="@{/signout}">signout</a>
+                </li>
+                <!--                <li>-->
+                <!--                    <span th:if="${#authentication.principal.username != 'anonymousUser'}"-->
+                <!--                          th:text="${#authentication.principal.username}">User</span>-->
+                <!--                    <span th:if="${#authentication.principal.username == 'anonymousUser'}">Guest</span>-->
+                <!--                </li>-->
             </ul>
         </div>
     </div>
 </div>
-
+</body>
 </html>
