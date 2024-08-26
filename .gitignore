@@ -41,3 +41,5 @@ build/
 /src/main/resources/wallet/tnsnames.ora
 /src/main/resources/wallet/truststore.jks
 /src/main/resources/Wallet_YZYGIGCNNC27QQFE.zip
+
+src/main/resources/application-db.properties

@@ -20,18 +20,28 @@
                 <li><a th:href="@{/user_recipe_page}">유저레시피상세</a></li>
 
                 <li><a th:href="@{/board}">board</a></li>
+                <li>
+                    <a th:href="@{/signin}">로그인</a>
+                </li>
+                <li>
+                    <a th:href="@{/signout}">로그아웃</a>
+                </li>
+                <li>
+                    <a th:href="@{/mypage}">마이페이지</a>
+                </li>
+
+
                 <!-- Check if user is authenticated -->
-                <li th:if="${#authentication.principal == 'anonymousUser'}">
-                    <a th:href="@{/signin}">signin</a>
-                </li>
-                <li th:if="${#authentication.principal != 'anonymousUser'}">
-                    <a th:href="@{/signout}">signout</a>
-                </li>
-                <!--                <li>-->
-                <!--                    <span th:if="${#authentication.principal.username != 'anonymousUser'}"-->
-                <!--                          th:text="${#authentication.principal.username}">User</span>-->
-                <!--                    <span th:if="${#authentication.principal.username == 'anonymousUser'}">Guest</span>-->
+                <!--                <li th:if="${#authentication.principal == 'anonymousUser'}">-->
+                <!--                    <a th:href="@{/signin}">로그인</a>-->
                 <!--                </li>-->
+                <!--                <li th:if="${#authentication.principal != 'anonymousUser'}">-->
+                <!--                    <a th:href="@{/signout}">로그아웃</a>-->
+                <!--                </li>-->
+                <!--                <li th:if="${#authentication.principal != 'anonymousUser'}">-->
+                <!--                    <a th:href="@{/mypage}">마이페이지</a>-->
+                <!--                </li>-->
+
             </ul>
         </div>
     </div>

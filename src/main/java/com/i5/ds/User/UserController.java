@@ -64,8 +64,33 @@ public class UserController {
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
 
-        return "pages/user/mypage"; // 뷰 파일 이름
+        return "pages/user/mypage_info"; // 뷰 파일 이름
     }
+
+    @GetMapping("/mypage_posts")
+    public String myPagePost(Model model, Principal principal) {
+        User user = null;
+        if (principal != null) {
+            String userId = principal.getName();
+            user = userService.findUserById(userId);
+
+        }
+        model.addAttribute("user", user);
+        return "pages/user/mypage_posts";
+    }
+
+    @GetMapping("/mypage_likes")
+    public String myPageLikes(Model model, Principal principal) {
+        User user = null;
+        if (principal != null) {
+            String userId = principal.getName();
+            user = userService.findUserById(userId);
+
+        }
+        model.addAttribute("user", user);
+        return "pages/user/mypage_likes";
+    }
+
 
     // 마이페이지에서 정보 수정 처리
     @PostMapping("/mypage")
