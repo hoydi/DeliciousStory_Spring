@@ -14,9 +14,11 @@
         </h1>
         <div class="gnb">
             <ul>
-                <li><a th:href="@{/}">HOME</a></li>
-                <li><a th:href="@{/}">BEST</a></li>
-                <li><a th:href="@{/}">SEASON</a></li>
+                <li><a th:href="@{/site_recipe}">사이트레시피</a></li>
+                <li><a th:href="@{/user_recipe}">유저레시피</a></li>
+                <li><a th:href="@{/site_recipe_page}">사이트레시피상세</a></li>
+                <li><a th:href="@{/user_recipe_page}">유저레시피상세</a></li>
+
                 <li><a th:href="@{/board}">board</a></li>
                 <!-- Check if user is authenticated -->
                 <li th:if="${#authentication.principal == 'anonymousUser'}">

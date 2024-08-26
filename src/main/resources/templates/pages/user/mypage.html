@@ -19,15 +19,16 @@
         <form action="/mypage" method="post">
             <div class="form-group">
                 <label for="userId">User ID:</label>
-                <input type="text" id="userId" name="userId" value="${user.userId}" readonly>
+                <!--                <input type="text" id="userId" name="userId" value="${user.userId}" readonly>-->
+                <input type="text" id="userId" name="userId" value="" readonly>
             </div>
             <div class="form-group">
                 <label for="userPw">Password:</label>
-                <input type="password" id="userPw" name="userPw" value="${user.userPw}" required>
+                <input type="password" id="userPw" name="userPw" value="" required>
             </div>
             <div class="form-group">
                 <label for="userEmail">Email:</label>
-                <input type="email" id="userEmail" name="userEmail" value="${user.userEmail}" required>
+                <input type="email" id="userEmail" name="userEmail" value="" required>
             </div>
             <button type="submit" class="btn">Update</button>
         </form>

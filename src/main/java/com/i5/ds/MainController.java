@@ -9,4 +9,25 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+    //--------레시피류 임시 매핑--------------------------------
+    @GetMapping("/site_recipe")
+    public String siteRecipeList() {
+        return "pages/siteRecipe/siteRecipe_list"; // 뷰 파일 이름
+    }
+
+    @GetMapping("/site_recipe_page")
+    public String siteRecipeDetail() {
+        return "pages/siteRecipe/siteRecipe_detail"; // 뷰 파일 이름
+    }
+
+    @GetMapping("/user_recipe")
+    public String userRecipeList() {
+        return "pages/userRecipe/userRecipe_list"; // 뷰 파일 이름
+    }
+
+    @GetMapping("/user_recipe_page")
+    public String userRecipeDetail() {
+        return "pages/userRecipe/userRecipe_detail"; // 뷰 파일 이름
+    }
 }

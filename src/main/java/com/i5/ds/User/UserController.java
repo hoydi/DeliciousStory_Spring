@@ -53,9 +53,13 @@ public class UserController {
     // 마이페이지 이동
     @GetMapping("/mypage")
     public String myPage(Model model, Principal principal) {
+        User user = null;
+
         // 현재 로그인된 사용자의 정보를 가져옴
-        String userId = principal.getName();
-        User user = userService.findUserById(userId);
+        if (principal != null) {
+            String userId = principal.getName();
+            user = userService.findUserById(userId);
+        }
 
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
