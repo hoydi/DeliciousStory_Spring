@@ -4,7 +4,7 @@
       layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
-    <title>로그인</title>
+    <title>자유게시판</title>
 </th:block>
 
 <th:block layout:fragment="css">
@@ -17,14 +17,27 @@
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <h1>게시판 목록</h1>
-        <ul>
-            <li th:each="board : ${boards}">
-                <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}">게시글 제목</a>
-            </li>
-        </ul>
-    </div>
+        <h1>자유게시판</h1>
+        
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성 날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="board, iterStat : ${boards}">
+                    <td th:text="${iterStat.index + 1}">1</td>
+                    <td><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}">게시글 제목</a></td>
+                    <td th:text="${board.author}">작성자</td>
+                    <td th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}">2024-08-26 14:00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>  
 </th:block>
 
 </html>
-
