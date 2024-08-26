@@ -43,3 +43,5 @@ build/
 /src/main/resources/Wallet_YZYGIGCNNC27QQFE.zip
 
 src/main/resources/application-db.properties
+/.mvn/
+/src/
