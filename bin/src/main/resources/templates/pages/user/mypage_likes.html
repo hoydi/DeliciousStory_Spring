@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/mypage_layout}">
+<th:block layout:fragment="title">
+    <title>타이틀</title>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</th:block>
+
+<th:block layout:fragment="javascript">
+    <!--    <script th:src="@{/js/index.js}"></script>-->
+</th:block>
+
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <!--        여기다가 코드 작성하면 됨!-->
+        <!--        전체 복붙하고 챗지피티한테 container class 안에다가 코드 작성해달라고 하기? -->
+    </div>
+</th:block>
+
+</html>
+

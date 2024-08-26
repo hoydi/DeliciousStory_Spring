@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/wallet/cwallet.sso
+/src/main/resources/wallet/ewallet.p12
+/src/main/resources/wallet/ewallet.pem
+/src/main/resources/wallet/keystore.jks
+/src/main/resources/wallet/ojdbc.properties
+/src/main/resources/wallet/README
+/src/main/resources/wallet/sqlnet.ora
+/src/main/resources/wallet/tnsnames.ora
+/src/main/resources/wallet/truststore.jks
+/src/main/resources/Wallet_YZYGIGCNNC27QQFE.zip
+
+src/main/resources/application-db.properties
