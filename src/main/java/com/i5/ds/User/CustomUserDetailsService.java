@@ -1,34 +1,26 @@
 package com.i5.ds.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    @Autowired
-    public CustomUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    // 생성자 주입으로 변경
+    public CustomUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.i5.ds.User.User user = userRepository.findByUserId(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUserId())
-                .password(user.getUserPw())
-                .roles("USER")
-                .build();
+        User user = userService.findByUserId(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        return new org.springframework.security.core.userdetails.User(user.getUserId(), user.getUserPw(), new ArrayList<>());
     }
 }

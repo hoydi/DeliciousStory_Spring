@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<th:block layout:fragment="title">
+    <title>로그인</title>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</th:block>
+
+<th:block layout:fragment="javascript">
+    <!--    <script th:src="@{/js/index.js}"></script>-->
+</th:block>
+
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <h1>게시판 목록</h1>
+        <ul>
+            <li th:each="board : ${boards}">
+                <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}">게시글 제목</a>
+            </li>
+        </ul>
+    </div>
+</th:block>
+
+</html>
+

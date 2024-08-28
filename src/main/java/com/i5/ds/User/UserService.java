@@ -1,55 +1,52 @@
 package com.i5.ds.User;
 
-import com.i5.ds.User.User;
-import com.i5.ds.User.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date; // Java SQL Date
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
+    // 생성자 주입으로 변경
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Transactional
-    public User registerUser(String userId, String encodedPassword, String userName, String userEmail) {
-        
-        com.i5.ds.User.User user = new com.i5.ds.User.User(userEmail, userId, userName, encodedPassword, new Date(System.currentTimeMillis()));
+    public User registerUser(String userId, String userPw, String userName, String userEmail) {
+        if (userRepository.findByUserId(userId).isPresent()) {
+            throw new IllegalArgumentException("User ID already exists: " + userId);
+        }
+        java.util.Date currentDate = new java.util.Date();
+        java.sql.Date userRegister = new java.sql.Date(currentDate.getTime());
+        String encodedPassword = passwordEncoder.encode(userPw);
+        User user = new User(userId, encodedPassword, userName, userEmail, userRegister);
         return userRepository.save(user);
     }
 
-    public User findUserById(String userId) {
+    public Optional<User> findByUserId(String userId) {
         return userRepository.findByUserId(userId);
     }
 
-    @Transactional
-    public boolean isUserExist(String userId) {
-        return userRepository.findByUserId(userId) != null;
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
     }
 
-    @Transactional
-    public void updateUserInfo(String userId, String userEmail, String userPw) {
-        User user = userRepository.findByUserId(userId);
-        if (user != null) {
-            user.setUserEmail(userEmail);
-            user.setUserPw(userPw);
-            userRepository.save(user);
+    public User updateUser(String userId, String userName, String userEmail, String userPw) {
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+        user.setUserName(userName);
+        user.setUserEmail(userEmail);
+
+        if (userPw != null && !userPw.isEmpty()) {
+            user.setUserPw(passwordEncoder.encode(userPw));
         }
-    }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+        return userRepository.save(user);
     }
 }
