@@ -49,7 +49,8 @@ public class UserController {
     public String registerUser(@RequestParam String userId,
                                @RequestParam String userPw,
                                @RequestParam String userName,
-                               @RequestParam String userEmail
+                               @RequestParam String userEmail,
+                               @RequestParam String userPw2
     ) {
         userService.registerUser(userId, userPw, userName, userEmail);
         return "redirect:/login";
