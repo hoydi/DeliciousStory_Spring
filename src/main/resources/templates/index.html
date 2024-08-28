@@ -12,19 +12,79 @@
 </th:block>
 
 <th:block layout:fragment="javascript">
-<!--    <script th:src="@{/js/index.js}"></script>-->
+<script th:src="@{/js/index.js}"></script>
 </th:block>
 
+
 <th:block layout:fragment="containerFragment">
-    <div class="container">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+    
         <div class="index">
-            <div class="index-con">
-                index page
-                <h1>호연하이하이하이</h1>
-                <div class="block"></div>
-            </div>
+			
+			<!-- 슬라이더 섹션 -->
+			<section class="slider-container">
+			    <div class="slider-wrapper" id="slider">
+			        <!-- 슬라이드 1 -->
+			        <div class="slide">
+			            <img src="/images/img3.png" alt="슬라이드 1">
+			        </div>
+			        <!-- 슬라이드 2 -->
+			        <div class="slide">
+			            <img src="/images/img2.png" alt="슬라이드 2">
+			        </div>
+			        <!-- 슬라이드 3 -->
+			        <div class="slide">
+			            <img src="/images/img1.png" alt="슬라이드 3">
+			        </div>
+			    </div>
+			    <!-- 화살표 버튼 -->
+			    <button class="arrow-button left" onclick="prevSlide()">&#9664;</button>
+			    <button class="arrow-button right" onclick="nextSlide()">&#9654;</button>
+			    <!-- 도트 컨테이너 -->
+			    <div class="dot-container" id="dots"></div>
+			</section>
+
+			<!-- 공식 레시피 섹션 -->
+			<div class="siterecipe">
+			                <h1
+			                    id="more-recipes"
+			                    class="butt"
+			                    onmouseover="speakText('공식레시피')"
+			                >
+			                    공식레시피
+			                </h1>
+			                <hr class="divider" />
+			            </div>
+			            <div class="recipe-list" id="recipe-list">
+			                <!-- 레시피 목록은 JavaScript를 통해 동적으로 추가됩니다. -->
+			            </div>
+			        </div>
+				
+			
+	<!-- 텍스트 영역 -->
+					   <div class="text-area">
+					       <h1>눈으로 보고 귀로 듣는 요리</h1>
+					       <p>
+					           <i>TTS로 들으면서 편하게</i><br><br>
+					           다른 사람들과 함께 맛있는 이야기를 나눠요
+					       </p>
+					       <br><br>
+					       <button class="join-button" onclick="handleJoinClick()">Join Us</button>
+					   </div>
+
+	<!-- 배경 이미지 -->
+					   <div class="background-container">
+					       <img src="/png/mainE.png" alt="Background" class="background-image"/>
+					   </div>		
+					
+
+			
+			<div class="foooot"></div>	
+	
+
         </div>
     </div>
+	<script src="/js/main.js"></script>
 </th:block>
 
 </html>
