@@ -1,0 +1,29 @@
+    컨테이너에 아래 코드 넣기.
+
+    설명
+    th:each="board : ${boards}" >>> boardController 의 model.addAttribute("boards", boards); << 부분의 "boards" ${boards} 리스트를 가져와서 각각(each) 을 하나씩 board 라는 이름으로 가져온다.
+    th:text="${board.postId}" >>> board 의 postId 를 불러온다. 각 항목은 Board 를 보면 알수있음
+
+    <h1>게시판 목록</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Post ID</th>
+                    <th>User ID</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Post Date</th>
+                    <th>Views</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="board : ${boards}">
+                    <td th:text="${board.postId}"></td>
+                    <td th:text="${board.userId}">User ID</td>
+                    <td th:text="${board.title}">Title</td>
+                    <td th:text="${board.content}">Content</td>
+                    <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">Post Date</td>
+                    <td th:text="${board.views}">Views</td>
+                </tr>
+            </tbody>
+        </table>
