@@ -8,7 +8,7 @@
 </th:block>
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/boardList.css}">
 </th:block>
 
 <th:block layout:fragment="javascript">
@@ -17,26 +17,30 @@
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <h1>자유게시판</h1>
-        
-        <table class="board-table">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성 날짜</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="board, iterStat : ${boards}">
-                    <td th:text="${iterStat.index + 1}">1</td>
-                    <td><a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}">게시글 제목</a></td>
-                    <td th:text="${board.author}">작성자</td>
-                    <td th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}">2024-08-26 14:00</td>
-                </tr>
-            </tbody>
-        </table>
+		<h1>자유게시판</h1>
+		       <table>
+		           <thead>
+		               <tr>
+		                   <th>번호</th>
+		                   <th>작성자</th>
+		                   <th>제목</th>
+		                   <th>내용</th>
+		                   <th>작성일자</th>
+		                   <th>조회 수</th>
+		               </tr>
+		           </thead>
+		           <tbody>
+		               <tr th:each="board : ${boards}">
+		                   <td th:text="${board.postId}"></td>
+		                   <td th:text="${board.userId}">작성자</td>
+		                   <td th:text="${board.title}">제목</td>
+		                   <td th:text="${board.content}">내용</td>
+		                   <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+		                   <td th:text="${board.views}">조회 수</td>
+		               </tr>
+		           </tbody>
+		       </table>
+	<a class="btn secondary" th:href="@{/}">글쓰기</a> <!--일단 메인으로 이동함-->
     </div>  
 </th:block>
 
