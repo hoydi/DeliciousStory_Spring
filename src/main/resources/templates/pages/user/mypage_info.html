@@ -16,19 +16,18 @@
 <th:block layout:fragment="containerFragment">
     <div class="container">
         <h2>My Page</h2>
-        <form action="/mypage" method="post">
+        <form action="/update" method="post">
             <div class="form-group">
                 <label for="userId">User ID:</label>
-                <!--                <input type="text" id="userId" name="userId" value="${user.userId}" readonly>-->
-                <input type="text" id="userId" name="userId" value="" readonly>
+                <input type="text" id="userId" name="userId" th:value="${user.userId}" readonly>
             </div>
             <div class="form-group">
                 <label for="userPw">Password:</label>
-                <input type="password" id="userPw" name="userPw" value="" required>
+                <input type="password" id="userPw" name="userPw" th:value="${user.userPw}" required>
             </div>
             <div class="form-group">
                 <label for="userEmail">Email:</label>
-                <input type="email" id="userEmail" name="userEmail" value="" required>
+                <input type="email" id="userEmail" name="userEmail" th:value="${user.userEmail}" required>
             </div>
             <button type="submit" class="btn">Update</button>
         </form>

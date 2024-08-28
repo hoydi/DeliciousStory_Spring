@@ -21,7 +21,7 @@ public class User {
 
     @Column(name = "user_email")
     private String userEmail;
-    
+
     @Temporal(TemporalType.DATE)
     @Column(name = "user_register")
     private Date userRegister;
@@ -30,11 +30,11 @@ public class User {
         // 기본 생성자
     }
 
-    public User(String userEmail, String userId, String userName, String userPw, Date userRegister) {
-        this.userEmail = userEmail;
+    public User(String userId, String userPw, String userName, String userEmail, Date userRegister) {
         this.userId = userId;
-        this.userName = userName;
         this.userPw = userPw;
+        this.userName = userName;
+        this.userEmail = userEmail;
         this.userRegister = userRegister;
     }
 

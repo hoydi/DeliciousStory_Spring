@@ -1,104 +1,96 @@
 package com.i5.ds.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserService userService;
 
-
-    private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    /**
+     * 로그인 페이지 표시
+     *
+     * @return 로그인 페이지 뷰
+     */
+    @GetMapping("/login")
+    public String loginPage() {
+        return "pages/user/signIn";
     }
 
-    // 회원가입 페이지 이동
-    @GetMapping("/signup")
-    public String signupPage() {
-        return "pages/user/signup"; // 뷰 파일 이름
+    /**
+     * 사용자 등록 페이지 표시
+     *
+     * @return 사용자 등록 페이지 뷰
+     */
+    @GetMapping("/register")
+    public String registerPage() {
+        return "pages/user/signUp";
     }
 
-    // 회원가입 처리
-    @PostMapping("/signup")
-    public String signup(@RequestParam String userId,
-                         @RequestParam String userPw,
-                         @RequestParam String userName,
-                         @RequestParam String userEmail,
-                         Model model) {
-        if (userService.isUserExist(userId)) {
-            model.addAttribute("error", "User already exists!");
-            return "pages/user/signup";
-        }
-        String encodedPassword = passwordEncoder.encode(userPw);
-        userService.registerUser(userId, encodedPassword, userName, userEmail);
-        return "redirect:/signin";
+    /**
+     * 사용자 등록 처리
+     *
+     * @param userId    사용자 ID
+     * @param userPw    사용자 비밀번호
+     * @param userName  사용자 이름
+     * @param userEmail 사용자 이메일
+     * @return 로그인 페이지로 리다이렉트
+     */
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String userId,
+                               @RequestParam String userPw,
+                               @RequestParam String userName,
+                               @RequestParam String userEmail
+    ) {
+        userService.registerUser(userId, userPw, userName, userEmail);
+        return "redirect:/login";
     }
 
-    // 로그인 페이지 이동
-    @GetMapping("/signin")
-    public String signinPage() {
-        return "pages/user/signin"; // 뷰 파일 이름
-    }
 
-    // 마이페이지 이동
     @GetMapping("/mypage")
-    public String myPage(Model model, Principal principal) {
-        User user = null;
+    public String updatePage(Model model) {
+        // 현재 사용자 정보를 가져오는 로직
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName(); // 현재 로그인한 사용자 ID를 가져옴
 
-        // 현재 로그인된 사용자의 정보를 가져옴
-        if (principal != null) {
-            String userId = principal.getName();
-            user = userService.findUserById(userId);
+        // 사용자 정보를 DB에서 가져오기
+        Optional<User> userOpt = userService.findByUserId(currentUserId);
+        if (userOpt.isPresent()) {
+            model.addAttribute("user", userOpt.get());
+        } else {
+            // 사용자 정보가 없을 경우 처리 (예: 에러 메시지 추가)
+            model.addAttribute("error", "User not found.");
         }
-
-        // 모델에 사용자 정보 추가
-        model.addAttribute("user", user);
-
-        return "pages/user/mypage_info"; // 뷰 파일 이름
+        System.out.println("User: " + userOpt.get());
+        System.out.println("User: " + userOpt.get().getUserId());
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        return "pages/user/mypage_info"; // Thymeleaf 템플릿 파일의 경로
     }
 
-    @GetMapping("/mypage_posts")
-    public String myPagePost(Model model, Principal principal) {
-        User user = null;
-        if (principal != null) {
-            String userId = principal.getName();
-            user = userService.findUserById(userId);
-
-        }
-        model.addAttribute("user", user);
-        return "pages/user/mypage_posts";
-    }
-
-    @GetMapping("/mypage_likes")
-    public String myPageLikes(Model model, Principal principal) {
-        User user = null;
-        if (principal != null) {
-            String userId = principal.getName();
-            user = userService.findUserById(userId);
-
-        }
-        model.addAttribute("user", user);
-        return "pages/user/mypage_likes";
-    }
-
-
-    // 마이페이지에서 정보 수정 처리
-    @PostMapping("/mypage")
-    public String updateUser(@RequestParam String userEmail,
-                             @RequestParam String userPw,
-                             Principal principal) {
-        String userId = principal.getName();
-        userService.updateUserInfo(userId, userEmail, userPw);
-        return "redirect:/mypage";
+    /**
+     * 사용자 정보 업데이트 처리
+     *
+     * @param userId    사용자 ID
+     * @param userName  사용자 이름
+     * @param userEmail 사용자 이메일
+     * @param userPw    사용자비번
+     * @return 사용자 정보 업데이트 완료 페이지로 리다이렉트
+     */
+    @PostMapping("/update")
+    public String updateUser(@RequestParam String userId,
+                             @RequestParam String userName,
+                             @RequestParam String userEmail,
+                             @RequestParam String userPw) {
+        userService.updateUser(userId, userName, userEmail, userPw);
+        return "redirect:/update";
     }
 }

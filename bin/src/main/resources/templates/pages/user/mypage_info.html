@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/mypage_layout}">
+
+<th:block layout:fragment="title">
+    <title>My Page</title>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+</th:block>
+
+<th:block layout:fragment="javascript">
+    <!--    <script th:src="@{/js/index.js}"></script>-->
+</th:block>
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <h2>My Page</h2>
+        <form action="/mypage" method="post">
+            <div class="form-group">
+                <label for="userId">User ID:</label>
+                <!--                <input type="text" id="userId" name="userId" value="${user.userId}" readonly>-->
+                <input type="text" id="userId" name="userId" value="" readonly>
+            </div>
+            <div class="form-group">
+                <label for="userPw">Password:</label>
+                <input type="password" id="userPw" name="userPw" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" name="userEmail" value="" required>
+            </div>
+            <button type="submit" class="btn">Update</button>
+        </form>
+    </div>
+</th:block>
+
+</html>
