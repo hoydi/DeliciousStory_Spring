@@ -3,7 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    
+
 }
 
 /* 헤더 스타일 */
@@ -55,7 +55,6 @@ body, html {
     color: #ccc;
 }
 
-<<<<<<< HEAD
 
 /* 푸터 스타일 */
 .footer {
@@ -133,13 +132,6 @@ nav ul li a {
     text-decoration: none;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 h2 {
     margin-bottom: 20px;
@@ -187,7 +179,7 @@ footer {
     bottom: 0;
     width: 100%;
 }
-=======
+
 /* 헤더 아래 컨텐츠 공간 확보 */
 body {
     padding-top: 180px; /* 헤더 높이에 맞게 조정 */
@@ -269,14 +261,6 @@ nav ul li a {
     text-decoration: none;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 h2 {
     margin-bottom: 20px;
 }
@@ -323,4 +307,3 @@ footer {
     bottom: 0;
     width: 100%;
 }
->>>>>>> branch 'master' of https://github.com/hoydi/DeliciousStory_Spring.git
