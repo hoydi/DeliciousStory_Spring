@@ -22,27 +22,22 @@
         <div class="index">
 			
 			<!-- 슬라이더 섹션 -->
-			<section class="slider-container">
-			    <div class="slider-wrapper" id="slider">
-			        <!-- 슬라이드 1 -->
-			        <div class="slide">
-			            <img src="/images/img3.png" alt="슬라이드 1">
+			<section class="slider-container" id="slider1">
+			        <div class="slider-wrapper" id="slider-wrapper1">
+			            <div class="slide">
+			                <img src="/images/img3.png" alt="슬라이드 1">
+			            </div>
+			            <div class="slide">
+			                <img src="/images/img2.png" alt="슬라이드 2">
+			            </div>
+			            <div class="slide">
+			                <img src="/images/img1.png" alt="슬라이드 3">
+			            </div>
 			        </div>
-			        <!-- 슬라이드 2 -->
-			        <div class="slide">
-			            <img src="/images/img2.png" alt="슬라이드 2">
-			        </div>
-			        <!-- 슬라이드 3 -->
-			        <div class="slide">
-			            <img src="/images/img1.png" alt="슬라이드 3">
-			        </div>
-			    </div>
-			    <!-- 화살표 버튼 -->
-			    <button class="arrow-button left" onclick="prevSlide()">&#9664;</button>
-			    <button class="arrow-button right" onclick="nextSlide()">&#9654;</button>
-			    <!-- 도트 컨테이너 -->
-			    <div class="dot-container" id="dots"></div>
-			</section>
+			        <button class="arrow arrow-button left" onclick="prevSlide(1)">&#9664;</button>
+			        <button class="arrow arrow-button right" onclick="nextSlide(1)">&#9654;</button>
+			        <div class="dot-container" id="dots1"></div>
+			    </section>
 
 			<!-- 공식 레시피 섹션 -->
 			<div class="siterecipe">
@@ -66,7 +61,7 @@
 					       <h1>눈으로 보고 귀로 듣는 요리</h1>
 					       <p>
 					           <i>TTS로 들으면서 편하게</i><br><br>
-					           다른 사람들과 함께 맛있는 이야기를 나눠요
+					           다른 사람들과 함께 맛있는 이야기를 나눠요 ♪
 					       </p>
 					       <br><br>
 					       <button class="join-button" onclick="handleJoinClick()">Join Us</button>
@@ -74,10 +69,72 @@
 
 	<!-- 배경 이미지 -->
 					   <div class="background-container">
-					       <img src="/png/mainE.png" alt="Background" class="background-image"/>
+					       <img src="/images/mainE.png" alt="Background" class="background-image"/>
 					   </div>		
-					
+		
+					   
+<!-- 사용자레시피 및 자유게시판 -->
+					       <div class="free-container">
+					           <!-- 텍스트 및 버튼 영역2 -->
+					           <div class="free-text-button-area">
+					               <!-- 왼쪽 이미지 -->
+					               <div class="free-image-container">
+					                   
+	  <!-- 두 번째 슬라이더 -->
+									   <section class="slider-container" id="slider2">
+									       <div class="slider-wrapper" id="slider-wrapper2">
+									           <div class="slide">
+									               <img src="/images/recipeImg1.png" alt="슬라이드 1">
+									           </div>
+									           <div class="slide">
+									               <img src="/images/recipeImg2.png" alt="슬라이드 2">
+									           </div>
+									           <div class="slide">
+									               <img src="/images/recipeImg3.png" alt="슬라이드 3">
+									           </div>
+									       </div>
+									       <button class="arrow2 arrow-button left" onclick="prevSlide(2)">&#9664;</button>
+									       <button class="arrow2 arrow-button right" onclick="nextSlide(2)">&#9654;</button>
+									       <div class="dot-container" id="dots2"></div>
+									   </section>				
+									
+									
+									
+					               </div>
 
+					               <!-- 오른쪽 텍스트 및 버튼 영역 -->
+					               <div class="free-text-button-content">
+					                   <h1 class="butt" onclick="handleUserRecipeClick()" onmouseover="speakText('모두의레시피')">
+					                       모두의레시피
+					                   </h1>
+					                   <p>서로의 이야기를 공유하며 요리하는 공간</p>
+					                   <div class="free-button-container">
+					                       <button class="free-button" onclick="handleUserRecipeClick()">
+					                           GO
+					                       </button>
+					                   </div>
+
+					                   <h1 class="butt" onclick="handleFreeClick()" onmouseover="speakText('자유게시판')">
+					                       자유게시판
+					                   </h1>
+					                   <p>궁금한 것이 있다면? 질문해도 좋아요!</p>
+					                   <div class="free-button-container">
+					                       <button class="free-button" onclick="handleFreeClick()">
+					                           GO
+					                       </button>
+					                   </div>
+					               </div>
+					           </div>
+					       </div>					   			
+
+
+						   
+						   <!--하단-->
+						   
+						   <div class="back-last2"></div>
+						   <div class="back-last"></div>
+						   						   
+						   
 			
 			<div class="foooot"></div>	
 	

@@ -1,3 +1,9 @@
+.index{
+	background-color: #ffffff;
+	padding-bottom: 60px;
+}
+
+
 /* 슬라이더 관련 스타일 */
 .slider-container {
     position: relative;
@@ -29,12 +35,23 @@
     object-fit: cover;
 }
 
+.arrow2 {
+	width: 40px;
+    height: 40px;
+    font-size: 24px;
+}
+
+.arrow{
+	width: 80px;
+	height: 80px;
+	font-size: 36px;
+	
+}
+
 .arrow-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 80px;
-    height: 80px;
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
     border-radius: 50%;
@@ -42,9 +59,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 36px;
     z-index: 1;
 }
+
+
+
 
 .arrow-button.left {
     left: 10px;
@@ -78,6 +97,20 @@
     background-color: black;
 }
 
+/* 두 번째 슬라이더 전용 스타일 */
+#slider2 {
+    /* 두 번째 슬라이더의 세로 높이는 고정되며 가로 사이즈만 조정됩니다. */
+}
+
+#slider-wrapper2 {
+    display: flex;
+    transition: transform 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 
@@ -254,6 +287,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
+	z-index: -1;
 }
 
 .background-image {
@@ -269,10 +303,137 @@
 
 
 
+/* 사용자레시피 및 자유게시판 */
+.free-container {
+    width: 100%;
+    background-color: white;
+	box-sizing: border-box;
+    padding: 40px;
+}
 
+.free-text-button-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    z-index: 1;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.free-image-container {
+    width: 500px;
+    height: 300px;
+    position: relative;
+}
+
+
+
+
+.free-text-button-content {
+    text-align: left;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 400px;
+}
+
+.free-text-button-content h1 {
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.free-divider {
+    background-color: #BDBDBD;
+    border: none;
+    height: 1px;
+}
+
+.free-text-button-content p {
+    font-size: 14px;
+}
+
+.free-button-container {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.free-button {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #F56565; /* Tailwind red-600 */
+    color: white;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.free-button:hover {
+    background-color: #C53030; /* Tailwind red-800 */
+}
+
+
+/*좌우에서 위아래로*/
+/* 슬라이더와 텍스트 영역의 스타일 */
+.free-image-container {
+    flex: 1;
+    max-width: 100%;
+}
+
+.free-text-button-content {
+    flex: 1;
+    max-width: 100%;
+}
+
+.free-button-container {
+    margin-top: 10px;
+}
+
+/* 미디어 쿼리: 1000px 이하일 때 레이아웃 조정 */
+@media (max-width: 1000px) {
+    .free-text-button-area {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;	
+    }
+
+    .free-image-container, .free-text-button-content {
+        width: 100%;
+        max-width: none;
+    }
+	
+	.arrow2 {
+				width: 80px;
+				height: 80px;
+				font-size: 36px;
+				
+			}
+}
+
+
+/* 하단 */
+.back-last2{
+	background-color: white;
+	width: 100%;
+	height: 50px;
+}
+
+.back-last {
+    width: 100%;
+    height: 200px;
+    background-image: url('/images/mainA.png');
+    background-size: cover;
+    background-position: center;
+}
 
 
 .foooot{
-	height:500px;
+	background-color: #ffffff;
+	height:300px;
 	width:100%;
 }

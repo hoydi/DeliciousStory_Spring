@@ -1,49 +1,73 @@
-// ** 슬라이더
-document.addEventListener('DOMContentLoaded', () => {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dotsContainer = document.getElementById('dots');
+// 슬라이더의 인스턴스를 관리하기 위한 객체
+const sliders = {
+    1: {
+        currentSlide: 0,
+        slides: document.querySelectorAll('#slider-wrapper1 .slide'),
+        dotsContainer: document.getElementById('dots1'),
+        sliderWrapper: document.getElementById('slider-wrapper1')
+    },
+    2: {
+        currentSlide: 0,
+        slides: document.querySelectorAll('#slider-wrapper2 .slide'),
+        dotsContainer: document.getElementById('dots2'),
+        sliderWrapper: document.getElementById('slider-wrapper2')
+    }
+};
 
-    // 도트 생성
-    slides.forEach((_, index) => {
+// 도트 생성 함수
+function createDots(sliderId) {
+    const slider = sliders[sliderId];
+    slider.slides.forEach((_, index) => {
         const dot = document.createElement('div');
         dot.className = 'dot';
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
+        dot.addEventListener('click', () => goToSlide(sliderId, index));
+        slider.dotsContainer.appendChild(dot);
     });
+}
 
-    function updateDots() {
-        document.querySelectorAll('.dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-    }
+// 도트 업데이트 함수
+function updateDots(sliderId) {
+    const slider = sliders[sliderId];
+    document.querySelectorAll(`#dots${sliderId} .dot`).forEach((dot, index) => {
+        dot.classList.toggle('active', index === slider.currentSlide);
+    });
+}
 
-    function showSlide(index) {
-        const slider = document.getElementById('slider');
-        slider.style.transform = `translateX(-${index * 100}%)`;
-        currentSlide = index;
-        updateDots();
-    }
+// 슬라이드 표시 함수
+function showSlide(sliderId, index) {
+    const slider = sliders[sliderId];
+    slider.sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+    slider.currentSlide = index;
+    updateDots(sliderId);
+}
 
-    function nextSlide() {
-        showSlide((currentSlide + 1) % slides.length);
-    }
+// 다음 슬라이드 함수
+function nextSlide(sliderId) {
+    const slider = sliders[sliderId];
+    showSlide(sliderId, (slider.currentSlide + 1) % slider.slides.length);
+}
 
-    function prevSlide() {
-        showSlide((currentSlide - 1 + slides.length) % slides.length);
-    }
+// 이전 슬라이드 함수
+function prevSlide(sliderId) {
+    const slider = sliders[sliderId];
+    showSlide(sliderId, (slider.currentSlide - 1 + slider.slides.length) % slider.slides.length);
+}
 
-    function goToSlide(index) {
-        showSlide(index);
-    }
+// 슬라이드로 이동 함수
+function goToSlide(sliderId, index) {
+    showSlide(sliderId, index);
+}
 
-    document.querySelector('.arrow-button.right').addEventListener('click', nextSlide);
-    document.querySelector('.arrow-button.left').addEventListener('click', prevSlide);
+// 초기화 함수
+function initializeSliders() {
+    Object.keys(sliders).forEach(sliderId => {
+        createDots(sliderId);
+        updateDots(sliderId);
+    });
+}
 
-    // 초기 도트 업데이트
-    updateDots();
-});
-
+// 이벤트 리스너 설정
+document.addEventListener('DOMContentLoaded', initializeSliders);
 
 
 // ** 공식레시피
@@ -131,3 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function handleJoinClick() {
             window.location.href = '/signup'; // 페이지를 /signup으로 이동
         }
+		
+		function handleFreeClick() {
+		    window.location.href = '/boards'; // 페이지를 /signup으로 이동
+		}
+		
+		function handleUserRecipeClick() {
+		    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
+		}
+		
+		
+	
