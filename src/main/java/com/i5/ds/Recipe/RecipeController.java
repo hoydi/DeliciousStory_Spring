@@ -31,7 +31,7 @@ public class RecipeController {
     public String getRecipes(Model model,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "20") int size) {
-    	System.out.println("siterecipe~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        
         Page<Recipe> recipePage = recipeService.getRecipes(page, size);
         model.addAttribute("recipes", recipePage.getContent());
         model.addAttribute("currentPage", page);
