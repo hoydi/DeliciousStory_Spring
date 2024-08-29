@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/boardList.css}">
 </th:block>
 
+
 <th:block layout:fragment="javascript">
     <!--    <script th:src="@{/js/index.js}"></script>-->
 </th:block>
@@ -29,8 +30,8 @@
 		                   <th>조회 수</th>
 		               </tr>
 		           </thead>
-		           <tbody>
-		               <tr th:each="board : ${boards}">
+		           <tbody> <!--게시글 클릭하면 이동하는 링크 만들어야 함-->
+		               <tr th:each="board : ${boards}"> <!--board 다 가지고 옴-->
 		                   <td th:text="${board.postId}"></td>
 		                   <td th:text="${board.userId}">작성자</td>
 		                   <td th:text="${board.title}">제목</td>
@@ -40,7 +41,7 @@
 		               </tr>
 		           </tbody>
 		       </table>
-	<a class="btn secondary" th:href="@{/}">글쓰기</a> <!--일단 메인으로 이동함-->
+	<a class="btn secondary" th:href="@{/boards/post}">글쓰기</a> 
     </div>  
 </th:block>
 

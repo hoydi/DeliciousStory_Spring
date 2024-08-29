@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>레시피 상세</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="recipe-detail">
+        <h1 th:text="${recipe.name}">레시피 이름</h1>
+        <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지" style="width: 100%; max-width: 600px; border-radius: 8px;">
+        <p><strong>칼로리:</strong> <span th:text="${recipe.calories} + ' kcal'">칼로리</span></p>
+        <p><strong>재료:</strong> <span th:text="${recipe.ingredients}">재료 목록</span></p>
+        <p><strong>조리법:</strong> <span th:text="${recipe.manual}">조리법</span></p>
+        <p><strong>팁:</strong> <span th:text="${recipe.tips}">레시피 팁</span></p>
+    </div>
+
+    <button onclick="history.back()" style="margin-top: 20px;">뒤로 가기</button>
+</div>
+
+</body>
+</html>

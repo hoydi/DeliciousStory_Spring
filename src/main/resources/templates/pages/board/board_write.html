@@ -3,23 +3,74 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 
+<!-- 페이지 제목 설정 -->
 <th:block layout:fragment="title">
-    <title>로그인</title>
+    <title>자유게시판 글 작성하기</title>
 </th:block>
 
+<!-- CSS 파일 연결 -->
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/boardList.css}">
+    <!-- Summernote CSS 추가 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
 </th:block>
 
+<!-- JavaScript 파일 연결 -->
 <th:block layout:fragment="javascript">
-    <!--    <script th:src="@{/js/index.js}"></script>-->
+    <!-- Summernote JS 및 의존성 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+    <!-- Summernote 초기화 스크립트 -->
+    <script>
+        $(document).ready(function () {
+            $('#content').summernote({
+                height: 300,                 // 에디터 높이 설정
+                minHeight: null,             // 최소 높이
+                maxHeight: null,             // 최대 높이
+                focus: true,                 // 에디터 로딩 시 포커스 설정
+                placeholder: '내용을 입력하세요', // placeholder 설정
+                toolbar: [                   // 툴바 옵션 설정
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['picture', 'link', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        });
+    </script>
 </th:block>
 
+<!-- 컨테이너 영역 시작 -->
 <th:block layout:fragment="containerFragment">
     <div class="container">
+        <!-- 글 작성 폼 시작 -->
+        <form th:action="@{/post}" method="post">
+            <!-- 제목 입력 필드 -->
+            <div class="form-group">
+                <h2>글 작성하기</h2>
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
+            </div>
 
+            <!-- 내용 입력 필드 -->
+            <div class="form-group">
+                <label for="content">내용</label>
+                <!-- Summernote 적용 -->
+                <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요" required></textarea>
+            </div>
+
+            <!-- 제출 버튼 -->
+            <button type="submit" class="btn btn-primary">작성하기</button>
+        </form>
+        <!-- 글 작성 폼 끝 -->
     </div>
 </th:block>
+<!-- 컨테이너 영역 끝 -->
 
 </html>
-

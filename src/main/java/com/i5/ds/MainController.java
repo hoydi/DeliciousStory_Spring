@@ -11,10 +11,6 @@ public class MainController {
     }
 
     //--------레시피류 임시 매핑--------------------------------
-    @GetMapping("/site_recipe")
-    public String siteRecipeList() {
-        return "pages/siteRecipe/siteRecipe_list"; // 뷰 파일 이름
-    }
 
     @GetMapping("/site_recipe_page")
     public String siteRecipeDetail() {

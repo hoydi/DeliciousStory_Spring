@@ -9,18 +9,46 @@
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/recipeList.css}">
 </th:block>
 
 <th:block layout:fragment="javascript">
-    <!--    <script th:src="@{/js/index.js}"></script>-->
+    <script th:src="@{/js/recipeList.js}"></script>
 </th:block>
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <!--        여기다가 코드 작성하면 됨!-->
-        <!--        전체 복붙하고 챗지피티한테 container class 안에다가 코드 작성해달라고 하기? -->
+        <div class="recipe-grid"
+             th:data-total-pages="${totalPages}"
+             th:data-current-page="${currentPage}"
+             style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; max-width: 1000px; width: 100%;">
+            <!-- Thymeleaf 반복문으로 레시피 항목 생성 -->
+            <th:block th:each="recipe : ${recipes}">
+                <div class="recipe-item"
+                     style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
+                     th:onclick="'location.href=\'/recipe/' + ${recipe.id} + '\''">
+                    <div class="image-container" style="position: relative;">
+                        <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지"
+                             style="border-radius: 4px; width: 250px; height: 250px;">
+                    </div>
+                    <div class="recipe-details" style="margin-top: 8px;">
+                        <p class="calories" style="font-size: 12px; color: #8C8C8C;"
+                           th:text="${recipe.calories} + ' kcal'"></p>
+                        <p class="recipe-name" style="font-size: 14px; font-weight: bold;" th:text="${recipe.name}">
+                        </p>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+        <!-- 페이지 상단으로 이동하는 버튼 -->
+        <button onclick="scrollToTop()"
+                style="color: #ffffff; background-color: #000000; position: fixed; bottom: 50px; right: 50px; width: 80px; height: 80px; border-radius: 40px; z-index: 10; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 17-7-7h14l-7 7z"></path>
+            </svg>
+        </button>
     </div>
 </th:block>
 
 </html>
-
