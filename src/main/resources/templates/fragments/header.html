@@ -12,23 +12,17 @@
         <h1 class="logo">
             <a th:href="@{/}">logo</a>
         </h1>
-        <div class="gnb">
+        <div class="gnb">	
             <ul>
                 <li><a th:href="@{/site_recipe}">사이트레시피</a></li>
                 <li><a th:href="@{/user_recipe}">유저레시피</a></li>
                 <li><a th:href="@{/site_recipe_page}">사이트레시피상세</a></li>
                 <li><a th:href="@{/user_recipe_page}">유저레시피상세</a></li>
 
-                <li><a th:href="@{/boards}">board</a></li>
-                <li>
-                    <a th:href="@{/login}">로그인</a>
-                </li>
-                <li>
-                    <a th:href="@{/logout}">로그아웃</a>
-                </li>
-                <li>
-                    <a th:href="@{/mypage}">마이페이지</a>
-                </li>
+                <li><a th:href="@{/boards}">자유게시판</a></li>
+                <li><a th:href="@{/login}">로그인</a></li>
+                <li><a th:href="@{/logout}">로그아웃</a></li>
+                <li><a th:href="@{/mypage}">마이페이지</a></li>
 
 
                 <!-- Check if user is authenticated -->
