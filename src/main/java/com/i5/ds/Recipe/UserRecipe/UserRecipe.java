@@ -1,11 +1,12 @@
-package com.i5.ds.Recipe;
+package com.i5.ds.Recipe.UserRecipe;
+
 
 import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "ds_site_recipe")
-public class Recipe {
+@Table(name = "ds_user_recipe")
+public class UserRecipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,9 @@ public class Recipe {
     @Column(name = "info_fat")
     private Double fat;
 
+    @Column(name = "hash_tag")
+    private String hashTag;
+
     @Column(name = "att_file_no_main")
     private String mainImageUrl;
 
@@ -47,11 +51,13 @@ public class Recipe {
 
     @Column(name = "manual")
     private String manual;
+    @Column(name = "manual_img")
+    private String manualImage;
 
-    public Recipe() {
+    public UserRecipe() {
     }
 
-    public Recipe(Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, String name, Double protein, String thumbnailImageUrl, String tips) {
+    public UserRecipe(Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, String name, Double protein, String thumbnailImageUrl, String tips, String hashTag, String manualImage) {
         this.calories = calories;
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
@@ -65,7 +71,10 @@ public class Recipe {
         this.protein = protein;
         this.thumbnailImageUrl = thumbnailImageUrl;
         this.tips = tips;
+        this.hashTag = hashTag;
+        this.manualImage = manualImage;
     }
+
 
     public Double getCalories() {
         return calories;
@@ -169,5 +178,21 @@ public class Recipe {
 
     public void setTips(String tips) {
         this.tips = tips;
+    }
+
+    public String getHashTag() {
+        return hashTag;
+    }
+
+    public void setHashTag(String hashTag) {
+        this.hashTag = hashTag;
+    }
+
+    public String getManualImage() {
+        return manualImage;
+    }
+
+    public void setManualImage(String manualImage) {
+        this.manualImage = manualImage;
     }
 }
