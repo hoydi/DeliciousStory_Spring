@@ -19,54 +19,33 @@
 <th:block layout:fragment="containerFragment">
     <div class="container">
 
-        <div class="header"
-             style="position: relative; width: 100%; height: 30vh; overflow: hidden; margin-bottom: 30px;">
-            <img src="/images/recipe-title.png" alt="공식 레시피" style="width: 100%; height: 100%; object-fit: cover;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 42px; font-weight: 600; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); z-index: 1; text-align: center;">
-                공식 레시피
-            </div>
-        </div>
-
         <!-- 레시피 그리드 -->
         <div class="recipe-grid"
              style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; max-width: 1000px; width: 100%;">
-            <!-- 첫 번째 더미 레시피 -->
-            <div class="recipe-item"
-                 style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
-                 onclick="location.href='/galleryPost?id=1'" onmouseover="speakText('김치찌개')">
-                <div class="image-container" style="position: relative;">
-                    <img src="/images/kimchi.jpg" alt="김치찌개" style="border-radius: 4px; width: 250px; height: 250px;">
-                    <div class="overlay"
-                         style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.6); color: white; opacity: 0; transition: opacity 0.3s; border-radius: 8px; cursor: pointer;">
-                        <div class="overlay-text" style="font-size: 18px; font-weight: bold;"
-                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">상세 보기
+            <!-- Thymeleaf 반복문으로 레시피 항목 생성 -->
+            <th:block th:each="recipe : ${recipes}">
+                <div class="recipe-item"
+                     style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
+                     th:onclick="'location.href=\'/recipe/' + ${recipe.rcpSeq} + '\''"
+                     onmouseover="speakText('${recipe.rcpNm}')">
+                    <div class="image-container" style="position: relative;">
+                        <img th:src="${recipe.attFileNoMain}" alt="레시피 이미지"
+                             style="border-radius: 4px; width: 250px; height: 250px;">
+                        <div class="overlay"
+                             style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.6); color: white; opacity: 0; transition: opacity 0.3s; border-radius: 8px; cursor: pointer;">
+                            <div class="overlay-text" style="font-size: 18px; font-weight: bold;"
+                                 onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">상세 보기
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="recipe-details" style="margin-top: 8px;">
-                    <p class="calories" style="font-size: 12px; color: #8C8C8C;">500 kcal</p>
-                    <p class="recipe-name" style="font-size: 14px; font-weight: bold;">김치찌개</p>
-                </div>
-            </div>
-
-            <!-- 두 번째 더미 레시피 -->
-            <div class="recipe-item"
-                 style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
-                 onclick="location.href='/galleryPost?id=2'" onmouseover="speakText('된장찌개')">
-                <div class="image-container" style="position: relative;">
-                    <img src="/images/doenjang.jpg" alt="된장찌개" style="border-radius: 4px; width: 250px; height: 250px;">
-                    <div class="overlay"
-                         style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.6); color: white; opacity: 0; transition: opacity 0.3s; border-radius: 8px; cursor: pointer;">
-                        <div class="overlay-text" style="font-size: 18px; font-weight: bold;"
-                             onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">상세 보기
-                        </div>
+                    <div class="recipe-details" style="margin-top: 8px;">
+                        <p class="calories" style="font-size: 12px; color: #8C8C8C;"
+                           th:text="${recipe.infoCar} + ' kcal'"></p>
+                        <p class="recipe-name" style="font-size: 14px; font-weight: bold;" th:text="${recipe.rcpNm}">
+                        </p>
                     </div>
                 </div>
-                <div class="recipe-details" style="margin-top: 8px;">
-                    <p class="calories" style="font-size: 12px; color: #8C8C8C;">400 kcal</p>
-                    <p class="recipe-name" style="font-size: 14px; font-weight: bold;">된장찌개</p>
-                </div>
-            </div>
+            </th:block>
         </div>
 
         <!-- 페이지 상단으로 이동하는 버튼 -->
@@ -80,4 +59,3 @@
 </th:block>
 
 </html>
-
