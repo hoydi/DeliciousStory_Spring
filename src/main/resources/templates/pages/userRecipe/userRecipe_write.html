@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 등록</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{/user_recipe/userRecipe_save}" method="post">
+        <div>
+            <label for="name">레시피 제목:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="cookingMethod">방법별:</label>
+            <input type="text" id="cookingMethod" name="cookingMethod" required>
+        </div>
+        <div>
+            <label for="dishType">재료별:</label>
+            <input type="text" id="dishType" name="dishType" required>
+        </div>
+        <div>
+            <label for="energy">에너지:</label>
+            <input type="number" id="energy" name="energy" step="0.01" required>
+        </div>
+        <div>
+            <label for="calories">칼로리:</label>
+            <input type="number" id="calories" name="calories" step="0.01" required>
+        </div>
+        <div>
+            <label for="protein">단백질:</label>
+            <input type="number" id="protein" name="protein" step="0.01" required>
+        </div>
+        <div>
+            <label for="fat">지방:</label>
+            <input type="number" id="fat" name="fat" step="0.01" required>
+        </div>
+        <div>
+            <label for="hashTag">해시태그:</label>
+            <input type="text" id="hashTag" name="hashTag">
+        </div>
+        <div>
+            <label for="mainImageUrl">메인 이미지 URL:</label>
+            <input type="text" id="mainImageUrl" name="mainImageUrl">
+        </div>
+        <div>
+            <label for="thumbnailImageUrl">썸네일 이미지 URL:</label>
+            <input type="text" id="thumbnailImageUrl" name="thumbnailImageUrl">
+        </div>
+        <div>
+            <label for="ingredients">재료:</label>
+            <textarea id="ingredients" name="ingredients" rows="4" required></textarea>
+        </div>
+        <div>
+            <label for="tips">요리 팁:</label>
+            <textarea id="tips" name="tips" rows="4"></textarea>
+        </div>
+        <div>
+            <label for="manual">조리법:</label>
+            <textarea id="manual" name="manual" rows="6" required></textarea>
+        </div>
+        <div>
+            <label for="manualImage">조리법 이미지 URL:</label>
+            <input type="text" id="manualImage" name="manualImage">
+        </div>
+        <button type="submit">저장</button>
+    </form>
+</div>
+
+</body>
+</html>

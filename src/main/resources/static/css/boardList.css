@@ -173,58 +173,6 @@ table tfoot tr {
     background-color: #c9302c; /* 버튼에 마우스를 올리면 배경색을 조금 더 어두운 빨간색으로 변경 */
 }
 
-/* 헤더 및 푸터 스타일 조정 */
-.header, .footer {
-    background-color: #333; /* 헤더와 푸터 배경색을 어두운 회색으로 설정 */
-    color: #fff; /* 헤더와 푸터 텍스트 색상을 흰색으로 설정 */
-    padding: 10px 0; /* 헤더와 푸터 상하단에 10px 패딩 추가 */
-    text-align: center; /* 텍스트를 중앙 정렬 */
-    width: 100%; /* 헤더와 푸터의 너비를 화면 전체로 설정 */
-}
-
-.header .nav, .footer .fcon {
-    max-width: 1200px; /* 헤더와 푸터 내용의 최대 너비를 1200px로 설정 */
-    margin: 0 auto; /* 헤더와 푸터 내용을 가운데 정렬 */
-    padding: 0 20px; /* 헤더와 푸터 좌우에 20px 패딩 추가 */
-}
-
-.header .gnb ul, .footer .fcon ul {
-    list-style: none; /* 헤더와 푸터 내 리스트의 기본 스타일 제거 */
-    margin: 0; /* 헤더와 푸터 내 리스트의 기본 여백 제거 */
-    padding: 0; /* 헤더와 푸터 내 리스트의 기본 패딩 제거 */
-    display: flex; /* 리스트 항목들을 가로로 나열 */
-    justify-content: center; /* 리스트 항목들을 중앙에 배치 */
-    align-items: center; /* 리스트 항목들을 수직 가운데 정렬 */
-}
-
-.header .gnb ul li, .footer .fcon ul li {
-    margin-left: 20px; /* 각 리스트 항목 사이에 20px 간격 추가 */
-}
-
-.header .gnb ul li a, .footer .fcon ul li a {
-    color: #fff; /* 리스트 항목 링크의 텍스트 색상을 흰색으로 설정 */
-    text-decoration: none; /* 리스트 항목 링크의 밑줄 제거 */
-    font-size: 16px; /* 리스트 항목 텍스트 크기를 16px로 설정 */
-}
-
-.header .gnb ul li a:hover, .footer .fcon ul li a:hover {
-    color: #ccc; /* 리스트 항목에 마우스를 올리면 색상을 연한 회색으로 변경 */
-}
-
-.header {
-    position: fixed; /* 헤더를 화면 상단에 고정 */
-    top: 0; /* 헤더를 페이지 최상단에 위치시킴 */
-    width: 100%; /* 헤더 너비를 화면 전체로 설정 */
-    z-index: 1000; /* 헤더가 다른 요소들 위에 표시되도록 우선순위 설정 */
-}
-
-.footer {
-    position: fixed; /* 푸터를 화면 하단에 고정 */
-    bottom: 0; /* 푸터를 페이지 최하단에 위치시킴 */
-    width: 100%; /* 푸터 너비를 화면 전체로 설정 */
-    z-index: 1000; /* 푸터가 다른 요소들 위에 표시되도록 우선순위 설정 */
-}
-
 body {
     padding-top: 60px; /* 헤더 높이에 맞게 페이지 상단에 여백 추가 */
     padding-bottom: 60px; /* 푸터 높이에 맞게 페이지 하단에 여백 추가 */

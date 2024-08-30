@@ -1,0 +1,264 @@
+/* 공통 스타일 */
+.header {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.logo {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* 기본 상태 이미지 */
+.logo-image {
+    width: 220px; /* 로고 너비 */
+    height: 100px; /* 로고 높이 (정확한 높이로 조정) */
+    background-image: url('/images/DSlogo3.png');
+    background-size: cover; /* 이미지 크기 조정 */
+    background-position: center; /* 이미지 위치 조정 */
+    transition: background-image 0.3s ease; /* 이미지 변경 애니메이션 */
+}
+
+/* 마우스 오버 시 이미지 변경 */
+.logo-link:hover .logo-image {
+    background-image: url('/images/DSlogo.png');
+}
+
+
+
+.gnb {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.gnb ul {
+    display: flex;
+    gap: 24px;
+}
+
+.gnb ul li {
+    list-style: none;
+}
+
+.gnb ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.gnb ul li a:hover {
+    color: #DB0000;
+}
+
+.gnb ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 3px;
+    background-color: #DB0000;
+    transition: width 0.3s ease;
+}
+
+.gnb ul li a:hover::after {
+    width: 100%;
+}
+
+
+
+.search-bar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 아이템을 수직 중앙 정렬 */
+    position: relative;
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: 1px solid #D1D5DB;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    outline: none;
+    margin-right: 4px; /* 입력 필드와 버튼 사이의 간격 조정 */
+}
+
+.search-bar button {
+    color: #888888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex; /* 버튼 내 아이콘 중앙 정렬 */
+    align-items: center;
+}
+
+
+
+.dropdown-menu {
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 16px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 240px;
+    overflow-y: auto;
+    position: absolute;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.dropdown-menu ul li button {
+    background: none;
+    border: none;
+    color: black;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown-menu ul li button:hover {
+    color: #DB0000;
+}
+
+/* 메뉴 토글 버튼 */
+.menu-toggle {
+    display: none;
+    position: relative;
+}
+
+.menu-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+/* 메뉴가 열릴 때 스타일 */
+.mobile-menu.show {
+    display: block;
+}
+
+/* 모바일 메뉴 버튼 */
+.mobile-menu {
+    display: none; /* 초기 상태: 숨김 */
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 16px;
+    width: 150px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 50;
+}
+
+/* 버튼 스타일 */
+.mobile-menu button {
+    background: none;
+    border: none;
+    color: black;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    padding: 3px 6px;
+    font-size: 14px;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* 버튼 오버 시 스타일 */
+.mobile-menu button:hover {
+    color: #DB0000;
+}
+
+/* 버튼 오버 시 밑줄 */
+.mobile-menu button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #DB0000;
+    transition: width 0.3s ease;
+}
+
+.mobile-menu button:hover::after {
+    width: 100%;
+}
+
+/* 각 버튼을 한 줄에 하나씩 배치 */
+.mobile-menu button {
+    display: block;
+    margin-bottom: 3px; /* 버튼 간의 간격 조정 */
+}
+
+/* 마지막 버튼의 여백 제거 */
+.mobile-menu button:last-child {
+    margin-bottom: 0;
+}
+
+
+
+/* 반응형 스타일 */
+@media (max-width: 1150px) {
+    .gnb {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+	
+	.search-bar input {
+	    max-width: 500px;
+}
+
+.search-bar button {
+	margin-right: 100px;
+}
+
+
+@media (max-width: 900px) {
+	.search-bar button {
+		margin-right: 50px;
+}
+
+@media (max-width: 700px) {
+	.search-bar button {
+		margin-right: 10px;
+}

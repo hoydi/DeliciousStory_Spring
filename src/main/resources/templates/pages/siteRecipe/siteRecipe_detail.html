@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
-    <title>타이틀</title>
+	<title th:text="${recipe.name}"></title>
 </th:block>
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/recipeDetail.css}">
 </th:block>
 
 <th:block layout:fragment="javascript">
-    <!--    <script th:src="@{/js/index.js}"></script>-->
+	<script th:src="@{/js/recipeDetail.js}"></script>
 </th:block>
 
 <th:block layout:fragment="containerFragment">
-    <div class="container">
-        <!--        여기다가 코드 작성하면 됨!-->
-        <!--        전체 복붙하고 챗지피티한테 container class 안에다가 코드 작성해달라고 하기? -->
-    </div>
+	<div class="container">
+		<div class="recipe-detail">
+			<img th:src="${recipe.mainImageUrl}" alt="레시피 이미지">
+			<h1 id="recipeTitle" class="clickable-text" th:text="${recipe.name}"
+				onclick="speakText('recipeTitle')">레시피 이름</h1>
+			<p>
+				<strong>칼로리:</strong> <span id="recipeCalories"
+					th:text="${recipe.calories} + ' kcal'" class="clickable-text"
+					onclick="speakText('recipeCalories')">칼로리</span>
+			</p>
+			<p>
+				<strong>재료:</strong> <span id="recipeIngredients"
+					th:text="${recipe.ingredients}" class="clickable-text"
+					onclick="speakText('recipeIngredients')">재료 목록</span>
+			</p>
+			<p>
+				<strong>조리법:</strong>
+
+				<div id="recipeManual" style="display: none;"
+				th:text="${recipe.manual}"></div>
+			<div id="recipeManualContainer"></div>
+                </p><!-- 이미지 URL 텍스트를 포함하는 요소 -->
+			<div id="recipeImageUrls" th:text="${recipe.manualImageUrl}"
+				style="display: none;"></div>
+
+			<!-- 이미지가 표시될 영역 -->
+			<div id="recipeImages"></div>
+
+			<p>
+				<strong>팁:</strong> <span id="recipeTips" th:text="${recipe.tips}"
+					class="clickable-text" onclick="speakText('recipeTips')">레시피
+					팁</span>
+			</p>
+
+			<button onclick="history.back()">뒤로 가기</button>
+
+
+		</div>
+	</div>
 </th:block>
 
 </html>
-
