@@ -1,4 +1,4 @@
-package com.i5.ds.Recipe;
+package com.i5.ds.Recipe.SiteRecipe;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

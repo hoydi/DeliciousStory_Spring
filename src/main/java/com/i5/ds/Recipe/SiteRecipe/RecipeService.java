@@ -1,8 +1,5 @@
-package com.i5.ds.Recipe;
+package com.i5.ds.Recipe.SiteRecipe;
 
-import com.i5.ds.Recipe.Recipe;
-import com.i5.ds.Recipe.RecipeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
