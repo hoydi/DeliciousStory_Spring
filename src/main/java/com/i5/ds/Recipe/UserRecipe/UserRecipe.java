@@ -66,13 +66,32 @@ public class UserRecipe {
     public UserRecipe() {
     }
 
-    public UserRecipe(String name, Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, Double protein, String thumbnailImageUrl, String tips, String hashTag, String manualImage, Date regDate, String userId) {
+    public UserRecipe(Long id, String name, String cookingMethod, String dishType, Double energy, Double calories, Double protein, Double fat, String hashTag, String mainImageUrl, String thumbnailImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
         this.calories = calories;
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
         this.energy = energy;
         this.fat = fat;
         this.id = id;
+        this.ingredients = ingredients;
+        this.mainImageUrl = mainImageUrl;
+        this.manual = manual;
+        this.name = name;
+        this.protein = protein;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.tips = tips;
+        this.hashTag = hashTag;
+        this.manualImage = manualImage;
+        this.regDate = regDate;
+        this.userId = userId;
+    }
+
+    public UserRecipe(String name, String cookingMethod, String dishType, Double energy, Double calories, Double protein, Double fat, String hashTag, String mainImageUrl, String thumbnailImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
+        this.calories = calories;
+        this.cookingMethod = cookingMethod;
+        this.dishType = dishType;
+        this.energy = energy;
+        this.fat = fat;
         this.ingredients = ingredients;
         this.mainImageUrl = mainImageUrl;
         this.manual = manual;

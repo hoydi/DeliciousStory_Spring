@@ -60,6 +60,7 @@ public class SecurityConfig {
         http
                 // 모든 요청을 허용합니다. (추후 필요에 따라 권한 설정을 추가할 수 있습니다.)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/userRecipe", "userRecipe_write").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin

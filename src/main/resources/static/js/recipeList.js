@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            fetch(`/site_recipe?page=${currentPage + 1}`)
+            fetch(`/siteRecipe?page=${currentPage + 1}`)
                 .then(response => response.text())
                 .then(html => {
                     const parser = new DOMParser();
