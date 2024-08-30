@@ -7,58 +7,66 @@
     <!-- Add your CSS links here -->
 </head>
 <header>
-	<div class="header" th:fragment="headerFragment">
-	    <link rel="stylesheet" th:href="@{/css/header.css}">
-	    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<div class="logo">
-		    <a th:href="@{/}" class="logo-link">
-		        <div class="logo-image"></div>
-		    </a>
-		</div>
-	    <div class="gnb">
-	        <ul>
-	            <li><a th:href="@{/site_recipe}">공식레시피</a></li>
-	            <li><a th:href="@{/user_recipe}">모두의레시피</a></li>
-	            <li><a th:href="@{/boards}">자유게시판</a></li>
-	            <li th:if="${#authentication.principal != 'anonymousUser'}"><a th:href="@{/mypage}">마이페이지</a></li>
-	            <li th:if="${#authentication.principal != 'anonymousUser'}"><a th:href="@{/logout}">로그아웃</a></li>
-	            <li th:if="${#authentication.principal == 'anonymousUser'}"><a th:href="@{/register}">회원가입</a></li>
-	            <li th:if="${#authentication.principal == 'anonymousUser'}"><a th:href="@{/login}">로그인</a></li>
-	        </ul>
-	    </div>
-		
-		
-		<div class="search-bar">
-		    <input type="text" placeholder="오늘의 메뉴">
-		    <button>
-		        <span class="material-icons">search</span>
-		    </button>
-		    <div class="dropdown-menu" style="display: none;">
-		        <ul>
-		            <li>
-		                <button>Sample Recipe 1</button>
-		            </li>
-		        </ul>
-		    </div>
-		</div>
-		
-		
-	    <div class="menu-toggle">
-	        <button id="toggleButton">
-	            <span class="material-icons">menu</span>
-	        </button>
-	        <div class="mobile-menu" id="mobileMenu">
-	            <button onclick="window.location.href='/site_recipe'">공식레시피</button>
-	            <button onclick="window.location.href='/user_recipe'">모두의레시피</button>
-	            <button onclick="window.location.href='/boards'">자유게시판</button>
-	            <button th:if="${#authentication.principal != 'anonymousUser'}" onclick="window.location.href='/myPage'">마이페이지</button>
-	            <button th:if="${#authentication.principal != 'anonymousUser'}" onclick="window.location.href='/logout'">로그아웃</button>
-	            <button th:if="${#authentication.principal == 'anonymousUser'}" onclick="window.location.href='/register'">회원가입</button>
-	            <button th:if="${#authentication.principal == 'anonymousUser'}" onclick="window.location.href='/login'">로그인</button>
-	        </div>
-	    </div>
-		<script src="/js/header.js"></script>
-	</div>
-	
-	</header>
+    <div class="header" th:fragment="headerFragment">
+        <link rel="stylesheet" th:href="@{/css/header.css}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <div class="logo">
+            <a th:href="@{/}" class="logo-link">
+                <div class="logo-image"></div>
+            </a>
+        </div>
+        <div class="gnb">
+            <ul>
+                <li><a th:href="@{/siteRecipe}">공식레시피</a></li>
+                <li><a th:href="@{/userRecipe}">모두의레시피</a></li>
+                <li><a th:href="@{/boards}">자유게시판</a></li>
+                <li th:if="${#authentication.principal != 'anonymousUser'}"><a th:href="@{/mypage}">마이페이지</a></li>
+                <li th:if="${#authentication.principal != 'anonymousUser'}"><a th:href="@{/logout}">로그아웃</a></li>
+                <li th:if="${#authentication.principal == 'anonymousUser'}"><a th:href="@{/register}">회원가입</a></li>
+                <li th:if="${#authentication.principal == 'anonymousUser'}"><a th:href="@{/login}">로그인</a></li>
+            </ul>
+        </div>
+
+
+        <div class="search-bar">
+            <input type="text" placeholder="오늘의 메뉴">
+            <button>
+                <span class="material-icons">search</span>
+            </button>
+            <div class="dropdown-menu" style="display: none;">
+                <ul>
+                    <li>
+                        <button>Sample Recipe 1</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="menu-toggle">
+            <button id="toggleButton">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+                <button onclick="window.location.href='/site_recipe'">공식레시피</button>
+                <button onclick="window.location.href='/user_recipe'">모두의레시피</button>
+                <button onclick="window.location.href='/boards'">자유게시판</button>
+                <button th:if="${#authentication.principal != 'anonymousUser'}"
+                        onclick="window.location.href='/myPage'">마이페이지
+                </button>
+                <button th:if="${#authentication.principal != 'anonymousUser'}"
+                        onclick="window.location.href='/logout'">로그아웃
+                </button>
+                <button th:if="${#authentication.principal == 'anonymousUser'}"
+                        onclick="window.location.href='/register'">회원가입
+                </button>
+                <button th:if="${#authentication.principal == 'anonymousUser'}" onclick="window.location.href='/login'">
+                    로그인
+                </button>
+            </div>
+        </div>
+        <script src="/js/header.js"></script>
+    </div>
+
+</header>
 </html>

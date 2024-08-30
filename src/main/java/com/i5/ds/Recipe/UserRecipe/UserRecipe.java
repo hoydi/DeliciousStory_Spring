@@ -3,6 +3,8 @@ package com.i5.ds.Recipe.UserRecipe;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 
 @Entity
 @Table(name = "ds_user_recipe")
@@ -12,6 +14,13 @@ public class UserRecipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rcp_seq")
     private Long id;
+
+    @Column(name = "user_id")
+    private String userId;
+
+    @Column(name = "reg_date")
+    @Temporal(TemporalType.DATE)
+    private Date regDate;
 
     @Column(name = "rcp_nm")
     private String name;
@@ -57,7 +66,7 @@ public class UserRecipe {
     public UserRecipe() {
     }
 
-    public UserRecipe(Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, String name, Double protein, String thumbnailImageUrl, String tips, String hashTag, String manualImage) {
+    public UserRecipe(String name, Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, Double protein, String thumbnailImageUrl, String tips, String hashTag, String manualImage, Date regDate, String userId) {
         this.calories = calories;
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
@@ -73,6 +82,8 @@ public class UserRecipe {
         this.tips = tips;
         this.hashTag = hashTag;
         this.manualImage = manualImage;
+        this.regDate = regDate;
+        this.userId = userId;
     }
 
 
@@ -194,5 +205,21 @@ public class UserRecipe {
 
     public void setManualImage(String manualImage) {
         this.manualImage = manualImage;
+    }
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date date) {
+        this.regDate = date;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

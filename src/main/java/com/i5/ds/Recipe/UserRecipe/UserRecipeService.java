@@ -31,7 +31,6 @@ public class UserRecipeService {
         return userRecipeRepository.findById(id).orElse(null);
     }
 
-
     public void saveUserRecipe(UserRecipe userRecipe) {
         userRecipeRepository.save(userRecipe);
     }
