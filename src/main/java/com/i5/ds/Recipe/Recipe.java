@@ -50,11 +50,14 @@ public class Recipe {
 
     @Column(name = "manual")
     private String manual;
+    
+    @Column(name = "manual_img")
+    private String manualImageUrl;
 
     public Recipe() {
     }
 
-    public Recipe(Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, String name, Double protein, String thumbnailImageUrl, String tips) {
+    public Recipe(Double calories, String cookingMethod, String dishType, Double energy, Double fat, Long id, String ingredients, String mainImageUrl, String manual, String name, Double protein, String thumbnailImageUrl, String tips, String manualImageUrl) {
         this.calories = calories;
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
@@ -68,5 +71,6 @@ public class Recipe {
         this.protein = protein;
         this.thumbnailImageUrl = thumbnailImageUrl;
         this.tips = tips;
+        this.manualImageUrl = manualImageUrl;
     }
 }

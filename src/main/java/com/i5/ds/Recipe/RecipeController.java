@@ -23,7 +23,9 @@ public class RecipeController {
 
     @GetMapping("/siteRecipetest")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
+    	System.out.println("dbTest");
         List<Recipe> recipes = recipeService.getAllRecipes();
+        System.out.println(recipes.get(0));
         return ResponseEntity.ok(recipes);
     }
 
@@ -31,6 +33,7 @@ public class RecipeController {
     public String getRecipes(Model model,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "20") int size) {
+    	
         Page<Recipe> recipePage = recipeService.getRecipes(page, size);
         model.addAttribute("recipes", recipePage.getContent());
         model.addAttribute("currentPage", page);
@@ -44,6 +47,6 @@ public class RecipeController {
     public String getRecipeById(@PathVariable("id") Long id, Model model) {
         Recipe recipe = recipeService.getRecipeById(id);
         model.addAttribute("recipe", recipe);
-        return "pages/siteRecipe/recipeDetail";
+        return "pages/siteRecipe/siteRecipe_detail";
     }
 }
