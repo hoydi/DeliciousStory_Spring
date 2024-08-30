@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 
@@ -19,6 +18,16 @@
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
+        <!-- 로그인한 유저에게만 보이는 저장 버튼 -->
+        <div th:if="${#authentication.principal != 'anonymousUser'}">
+            <p>로그인된 유저 아이디: <span th:text="${#authentication.principal.username}">User</span></p>
+            <a href="/userRecipe_write" class="button-link">
+                <button type="button">글쓰기</button>
+            </a>
+        </div>
+        <div th:if="${#authentication.principal == 'anonymousUser'}">
+            <p>로그인해주세요</p>
+        </div>
         <div class="recipe-grid"
              th:data-total-pages="${userTotalPages}"
              th:data-current-page="${userCurrentPage}"
