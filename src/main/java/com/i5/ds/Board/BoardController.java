@@ -32,11 +32,6 @@ public class BoardController {
 		return board.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
-	// 새로운 게시글을 생성
-	@PostMapping
-	public Board createBoard(@RequestBody Board board) {
-		return boardService.saveBoard(board); // 요청 본문의 게시글 데이터를 저장
-	}
 
 	// 특정 ID의 게시글을 수정
 	@PutMapping("/{id}")
@@ -66,7 +61,14 @@ public class BoardController {
 	public String showWritePage(Model model) {
 		// 새 글 작성을 위한 빈 Board 객체를 모델에 추가
 		model.addAttribute("board", new Board());
-		return "pages/board/board_write"; // 글쓰기 페이지 경로 (HTML 파일명)
+		return "pages/board/post"; // 글쓰기 페이지 경로 (HTML 파일명)
 	}
+	
+	// 새로운 게시글을 생성
+	@PostMapping
+	public Board createBoard(@RequestBody Board board) {
+		return boardService.saveBoard(board); // 요청 본문의 게시글 데이터를 저장
+	}
+
 
 }

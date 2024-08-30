@@ -1,20 +1,15 @@
-/* 기본 요소들의 마진과 패딩을 제거하고 박스 모델을 설정 */
-body, h2, form, input, button, a {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/*
 
-/* 페이지의 전반적인 배경 설정과 폰트 스타일 지정 */
+ 페이지의 전반적인 배경 설정과 폰트 스타일 지정 
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f2f5;
-    display: flex;
+
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
-
+*/
 /* 컨테이너 스타일 설정 */
 .container {
     background-color: #fff;
