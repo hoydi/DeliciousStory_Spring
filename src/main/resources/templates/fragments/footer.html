@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>footer</title>
+    <!-- Add your CSS links here -->
+</head>
 
-<div class="footer" th:fragment="footerFragment">
-    <div class="fcon">
-        <ul>
-            <li>
-                <h1 class="title">Address</h1>
-                <p>주소</p>
-            </li>
-            <li>
-                <h1 class="title">CopyRight</h1>
-                <p>저작권</p>
-            </li>
-        </ul>
-    </div>
-</div>
+	<div class="footer" th:fragment="footerFragment">
+		<link rel="stylesheet" th:href="@{/css/footer.css}">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	       <footer class="footer">
+	           <div class="fcontainer">
+	               <!-- 영역1 -->
+	               <div class="footer-section section1">
+	                   <div>
+	                       <img src="/images/DSlogo2.png" alt="logo" class="img-logo" />
+	                   </div>
+	                   <div>
+	                       <p>Team i5 | 김가영 | 김유미 | 전보람 | 추호연 | 이다은</p>
+	                   </div>
+	                   <div>
+	                       <p>대구 윤성 컴퓨터 디자인 DX아카데미 : 빅데이터 활용 SW개발 전문가 양성 과정</p>
+	                       <p>전화 : 053-252-8889 | 팩스 : 053-252-8889</p>
+	                       <p>COPYRIGHT © 맛있는이야기 ALL RIGHT RESERVED.</p>
+	                   </div>
+	               </div>
+
+	               <!-- 영역2 -->
+	               <div class="footer-section section2">
+					
+	                   
+	                   <div class="coming-soon">
+	                       <p>~ Delicious Story ~</p>
+	                       <div>
+<!--	                           <img src="/images/cs.png" alt="coming soon" class="img-coming-soon" />-->
+	                       </div>
+	                   </div>
+	               </div>
+	           </div>
+	       </footer>
+	   </div>
 </html>

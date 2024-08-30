@@ -26,7 +26,7 @@
             <th:block th:each="recipe : ${recipes}">
                 <div class="recipe-item"
                      style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
-                     th:onclick="'location.href=\'/recipe/' + ${recipe.id} + '\''">
+                     th:onclick="'location.href=\'/siteRecipe/' + ${recipe.id} + '\''">
                     <div class="image-container" style="position: relative;">
                         <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지"
                              style="border-radius: 4px; width: 250px; height: 250px;">
