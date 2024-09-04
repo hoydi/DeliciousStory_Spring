@@ -10,6 +10,34 @@ function speakText(elementId) {
 	}
 }
 
+// TTS 기능을 위한 JavaScript 코드
+let tts = null;
+let isPlaying = false;
+
+function speakTextAll(textId) {
+	if (tts) {
+		tts.cancel();  // 현재 재생 중인 TTS를 취소
+	}
+
+	const text = document.getElementById(textId).textContent;
+	tts = new SpeechSynthesisUtterance(text);
+	speechSynthesis.speak(tts);
+}
+
+function toggleTTS() {
+	const manualText = document.getElementById('recipeManual').textContent;
+
+	if (isPlaying) {
+		speechSynthesis.cancel();  // TTS 중지
+	} else {
+		tts = new SpeechSynthesisUtterance(manualText);
+		speechSynthesis.speak(tts);  // TTS 시작
+	}
+
+	isPlaying = !isPlaying;  // 상태 토글
+}
+
+
 // 메뉴얼 관련 함수
 document.addEventListener("DOMContentLoaded", function() {
 	const manualElement = document.getElementById('recipeManual');

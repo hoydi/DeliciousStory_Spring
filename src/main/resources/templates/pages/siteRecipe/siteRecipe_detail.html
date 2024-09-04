@@ -32,24 +32,22 @@
 					th:text="${recipe.ingredients}" class="clickable-text"
 					onclick="speakText('recipeIngredients')">재료 목록</span>
 			</p>
-			<p>
-				<strong>조리법:</strong>
-
-				<div id="recipeManual" style="display: none;"
-				th:text="${recipe.manual}"></div>
-			<div id="recipeManualContainer"></div>
-                </p><!-- 이미지 URL 텍스트를 포함하는 요소 -->
+			<!-- 이미지 URL 텍스트를 포함하는 요소 -->
 			<div id="recipeImageUrls" th:text="${recipe.manualImageUrl}"
 				style="display: none;"></div>
-
 			<!-- 이미지가 표시될 영역 -->
 			<div id="recipeImages"></div>
 
 			<p>
-				<strong>팁:</strong> <span id="recipeTips" th:text="${recipe.tips}"
-					class="clickable-text" onclick="speakText('recipeTips')">레시피
-					팁</span>
+				<strong>조리법:</strong>
+			<div id="recipeManual" style="display: none;"
+				th:text="${recipe.manual}"></div>
+			<button onclick="toggleTTS()">전체재생</button>
+			<div id="recipeManualContainer"></div>
 			</p>
+
+
+
 
 			<button onclick="history.back()">뒤로 가기</button>
 
