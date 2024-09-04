@@ -134,9 +134,15 @@ nav ul li a {
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-top: 300px;
+}
+
+.mypage_menu {
+	margin-top: 100px;
 }
 
 h2 {
+	margin-top: 20px;
     margin-bottom: 20px;
 }
 

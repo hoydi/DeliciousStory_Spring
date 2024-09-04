@@ -1,10 +1,15 @@
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage_menu.css}">
+</th:block>
+
 <div class="mypage_menu" th:fragment="mypageMenu">
     <div class="mypage_nav">
         <div class="mypage_gnb">
             <ul>
                 <li><a th:href="@{/mypage}">정보수정</a></li>
-                <li><a th:href="@{/mypage_posts}">내가쓴글</a></li>
-                <li><a th:href="@{/mypage_likes}">좋아요</a></li>
+                <li><a th:href="@{/mypage/posts}">게시글</a></li>
+                <li><a th:href="@{/mypage/likes}">좋아요</a></li>
 
             </ul>
         </div>
