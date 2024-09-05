@@ -84,20 +84,17 @@ function speakText(text) {
 }
 
 
-// ** 텍스트영역
-
-// Join 버튼 클릭 핸들러
-function handleJoinClick() {
-    window.location.href = '/signup'; // 페이지를 /signup으로 이동
-}
-
-function handleFreeClick() {
-    window.location.href = '/boards'; // 페이지를 /signup으로 이동
-}
-
-function handleUserRecipeClick() {
-    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
-}
+        function handleJoinClick() {
+            window.location.href = '/register'; // 페이지를 /signup으로 이동
+        }
+		
+		function handleFreeClick() {
+		    window.location.href = '/boards'; // 페이지를 /signup으로 이동
+		}
+		
+		function handleUserRecipeClick() {
+		    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
+		}
 		
 		
 	

@@ -1,43 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
-    <title>index page</title>
+	<title>index page</title>
 </th:block>
 
 <th:block layout:fragment="css">
-<link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
 </th:block>
 
 <th:block layout:fragment="javascript">
-<script th:src="@{/js/index.js}"></script>
+	<script th:src="@{/js/index.js}"></script>
+	<script th:src="@{/js/recipeList.js}"></script>
 </th:block>
 
 
 <th:block layout:fragment="containerFragment">
 	<link rel="stylesheet" th:href="@{/css/main.css}">
-    
-        <div class="index">
-			
-			<!-- 슬라이더 섹션 -->
-			<section class="slider-container" id="slider1">
-			        <div class="slider-wrapper" id="slider-wrapper1">
-			            <div class="slide">
-			                <img src="/images/img3.png" alt="슬라이드 1">
-			            </div>
-			            <div class="slide">
-			                <img src="/images/img2.png" alt="슬라이드 2">
-			            </div>
-			            <div class="slide">
-			                <img src="/images/img1.png" alt="슬라이드 3">
-			            </div>
-			        </div>
-			        <button class="arrow arrow-button left" onclick="prevSlide(1)">&#9664;</button>
-			        <button class="arrow arrow-button right" onclick="nextSlide(1)">&#9654;</button>
-			        <div class="dot-container" id="dots1"></div>
-			    </section>
+	<link rel="stylesheet" th:href="@{/css/recipeList.css}">
+
 
 			<!-- 공식 레시피 섹션  -->
 			<div class="siterecipe">
@@ -71,91 +53,125 @@
 			        </div>
 				
 			
+	<div class="index">
+
+		<!-- 슬라이더 섹션 -->
+		<section class="slider-container" id="slider1">
+			<div class="slider-wrapper" id="slider-wrapper1">
+				<div class="slide">
+					<img src="/images/img3.png" alt="슬라이드 1">
+				</div>
+				<div class="slide">
+					<img src="/images/img2.png" alt="슬라이드 2">
+				</div>
+				<div class="slide">
+					<img src="/images/img1.png" alt="슬라이드 3">
+				</div>
+			</div>
+			<button class="arrow arrow-button left" onclick="prevSlide(1)">&#9664;</button>
+			<button class="arrow arrow-button right" onclick="nextSlide(1)">&#9654;</button>
+			<div class="dot-container" id="dots1"></div>
+		</section>
+
+		<!-- 공식 레시피 섹션 -->
+		<div class="siterecipe">
+			<h1 id="more-recipes" class="butt" onmouseover="speakText('공식레시피')">
+				공식레시피
+			</h1>
+			<hr class="divider" />
+		</div>
+		<div class="recipe-list" id="recipe-list">
+		</div>
+	</div>
+
+
+
+
 	<!-- 텍스트 영역 -->
-					   <div class="text-area">
-					       <h1>눈으로 보고 귀로 듣는 요리</h1>
-					       <p>
-					           <i>TTS로 들으면서 편하게</i><br><br>
-					           다른 사람들과 함께 맛있는 이야기를 나눠요 ♪
-					       </p>
-					       <br><br>
-					       <button class="join-button" onclick="handleJoinClick()">Join Us</button>
-					   </div>
+	<div class="text-area">
+		<h1>눈으로 보고 귀로 듣는 요리</h1>
+		<p>
+			<i>TTS로 들으면서 편하게</i><br><br>
+			다른 사람들과 함께 맛있는 이야기를 나눠요 ♪
+		</p>
+		<br><br>
+		<button class="join-button" onclick="handleJoinClick()">Join Us</button>
+	</div>
 
 	<!-- 배경 이미지 -->
-					   <div class="background-container">
-					       <img src="/images/mainE.png" alt="Background" class="background-image"/>
-					   </div>		
-		
-					   
-<!-- 사용자레시피 및 자유게시판 -->
-					       <div class="free-container">
-					           <!-- 텍스트 및 버튼 영역2 -->
-					           <div class="free-text-button-area">
-					               <!-- 왼쪽 이미지 -->
-					               <div class="free-image-container">
-					                   
-	  <!-- 두 번째 슬라이더 -->
-									   <section class="slider-container" id="slider2">
-									       <div class="slider-wrapper" id="slider-wrapper2">
-									           <div class="slide">
-									               <img src="/images/recipeImg1.png" alt="슬라이드 1">
-									           </div>
-									           <div class="slide">
-									               <img src="/images/recipeImg2.png" alt="슬라이드 2">
-									           </div>
-									           <div class="slide">
-									               <img src="/images/recipeImg3.png" alt="슬라이드 3">
-									           </div>
-									       </div>
-									       <button class="arrow2 arrow-button left" onclick="prevSlide(2)">&#9664;</button>
-									       <button class="arrow2 arrow-button right" onclick="nextSlide(2)">&#9654;</button>
-									       <div class="dot-container" id="dots2"></div>
-									   </section>				
-									
-									
-									
-					               </div>
-
-					               <!-- 오른쪽 텍스트 및 버튼 영역 -->
-					               <div class="free-text-button-content">
-					                   <h1 class="butt" onclick="handleUserRecipeClick()" onmouseover="speakText('모두의레시피')">
-					                       모두의레시피
-					                   </h1>
-					                   <p>서로의 이야기를 공유하며 요리하는 공간</p>
-					                   <div class="free-button-container">
-					                       <button class="free-button" onclick="handleUserRecipeClick()">
-					                           GO
-					                       </button>
-					                   </div>
-
-					                   <h1 class="butt" onclick="handleFreeClick()" onmouseover="speakText('자유게시판')">
-					                       자유게시판
-					                   </h1>
-					                   <p>궁금한 것이 있다면? 질문해도 좋아요!</p>
-					                   <div class="free-button-container">
-					                       <button class="free-button" onclick="handleFreeClick()">
-					                           GO
-					                       </button>
-					                   </div>
-					               </div>
-					           </div>
-					       </div>					   			
+	<div class="background-container">
+		<img src="/images/mainE.png" alt="Background" class="background-image" />
+	</div>
 
 
-						   
-						   <!--하단-->
-						   
-						   <div class="back-last2"></div>
-						   <div class="back-last"></div>
-						   						   
-						   
-			
-			<div class="foooot"></div>	
-	
+	<!-- 사용자레시피 및 자유게시판 -->
+	<div class="free-container">
+		<!-- 텍스트 및 버튼 영역2 -->
+		<div class="free-text-button-area">
+			<!-- 왼쪽 이미지 -->
+			<div class="free-image-container">
 
-        </div>
-    </div>
+				<!-- 두 번째 슬라이더 -->
+				<section class="slider-container" id="slider2">
+					<div class="slider-wrapper" id="slider-wrapper2">
+						<div class="slide">
+							<img src="/images/recipeImg1.png" alt="슬라이드 1">
+						</div>
+						<div class="slide">
+							<img src="/images/recipeImg2.png" alt="슬라이드 2">
+						</div>
+						<div class="slide">
+							<img src="/images/recipeImg3.png" alt="슬라이드 3">
+						</div>
+					</div>
+					<button class="arrow2 arrow-button left" onclick="prevSlide(2)">&#9664;</button>
+					<button class="arrow2 arrow-button right" onclick="nextSlide(2)">&#9654;</button>
+					<div class="dot-container" id="dots2"></div>
+				</section>
+
+
+
+			</div>
+
+			<!-- 오른쪽 텍스트 및 버튼 영역 -->
+			<div class="free-text-button-content">
+				<h1 class="butt" onclick="handleUserRecipeClick()" onmouseover="speakText('모두의레시피')">
+					모두의레시피
+				</h1>
+				<p>서로의 이야기를 공유하며 요리하는 공간</p>
+				<div class="free-button-container">
+					<button class="free-button" onclick="handleUserRecipeClick()">
+						GO
+					</button>
+				</div>
+
+				<h1 class="butt" onclick="handleFreeClick()" onmouseover="speakText('자유게시판')">
+					자유게시판
+				</h1>
+				<p>궁금한 것이 있다면? 질문해도 좋아요!</p>
+				<div class="free-button-container">
+					<button class="free-button" onclick="handleFreeClick()">
+						GO
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--하단-->
+
+	<div class="back-last2"></div>
+	<div class="back-last"></div>
+
+
+
+	<div class="foooot"></div>
+
+
+	</div>
+	</div>
 	<script src="/js/main.js"></script>
 </th:block>
 
