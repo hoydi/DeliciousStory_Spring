@@ -82,7 +82,7 @@ function speakText(text) {
         console.error('TTS 기능을 지원하지 않는 브라우저입니다.');
     }
 }
-
+///////////////////////여기부터 더미
 // 레시피 데이터를 추가하는 함수
 function addRecipe(recipe) {
     const recipeList = document.getElementById('recipe-list');
@@ -104,7 +104,6 @@ function addRecipe(recipe) {
     
     recipeList.appendChild(recipeElement);
 }
-
 // 더미 레시피 데이터
 const dummyRecipes = [
     {
@@ -146,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
     dummyRecipes.forEach(recipe => addRecipe(recipe));
 });
 
+///////////////////////여기까지 더미
+
 
 
 
@@ -153,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Join 버튼 클릭 핸들러
         function handleJoinClick() {
-            window.location.href = '/signup'; // 페이지를 /signup으로 이동
+            window.location.href = '/register'; // 페이지를 /signup으로 이동
         }
 		
 		function handleFreeClick() {

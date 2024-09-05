@@ -363,7 +363,7 @@
 }
 
 .free-button {
-    border: 1px solid gray;
+    border: none;
     border-radius: 5px;
     background-color: #F56565; /* Tailwind red-600 */
     color: white;
