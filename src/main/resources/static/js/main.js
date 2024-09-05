@@ -93,7 +93,7 @@ function speakText(text) {
 		}
 		
 		function handleUserRecipeClick() {
-		    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
+		    window.location.href = '/userRecipe'; // 페이지를 /signup으로 이동
 		}
 		
 		

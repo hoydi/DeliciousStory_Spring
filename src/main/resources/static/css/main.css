@@ -99,6 +99,9 @@
 
 /* 두 번째 슬라이더 전용 스타일 */
 #slider2 {
+	border-radius: 10px;
+	justify-content: center;
+	width: 95%;
     /* 두 번째 슬라이더의 세로 높이는 고정되며 가로 사이즈만 조정됩니다. */
 }
 
@@ -109,7 +112,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+	height:100%;
+
 }
 
 
@@ -120,11 +124,10 @@
     max-width: 1400px;
     margin: 0 auto;
     text-align: center;
-	justify-content: center;
 }
 
-.siterecipe h1{
-	margin:20px auto;
+.siterecipe h1 {
+    margin: 20px auto;
 }
 
 .butt {
@@ -221,23 +224,20 @@
     opacity: 1;
 }
 
-.box-container p {
-    margin: 0; /* Remove default margin */
+.overlay-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
 }
 
-.box-container .calories {
-    font-size: 12px;
+.recipe-details {
     margin-top: 8px;
-    color: #8C8C8C;
 }
 
-.box-container .name {
+.recipe-name {
     font-size: 14px;
     font-weight: bold;
-    margin-top: 2px;
 }
-
-
 
 
 /* 텍스트 영역 스타일 */
@@ -306,6 +306,7 @@
 /* 사용자레시피 및 자유게시판 */
 .free-container {
     width: 100%;
+	height:max-content;
     background-color: white;
 	box-sizing: border-box;
     padding: 40px;
@@ -313,15 +314,16 @@
 
 .free-text-button-area {
     display: flex;
-    align-items: center;
+    
     justify-content: center;
-    gap: 10%;
+    margin:auto;
     z-index: 1;
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
 .free-image-container {
+	display: flex;
     width: 500px;
     height: 300px;
     position: relative;
@@ -329,6 +331,53 @@
 
 
 
+
+/*ㅇ*/
+
+
+.free-text-img-container{
+	background-color: #000000;
+	border-radius: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	max-width: 100%;
+	color: #ffffff;
+}
+
+
+.ftic1{
+	position: relative;
+	background-image: url('/images/recipeImg2.png');
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+	}
+.ftic2 {
+    position: relative;
+    background-image: url('/images/recipeImg3.png');
+    background-size: cover;
+    background-position: center;
+	overflow: hidden;
+}
+
+.ftic {
+	position: absolute;
+	top:0;
+	left: 0;
+	width:100%;
+	height:100%;
+	background-color: rgb(39, 39, 39,0.5);
+	border-radius: 10px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+
+.free-zindex{
+	position: relative;
+	z-index: 10;
+	text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
 
 .free-text-button-content {
     text-align: left;
@@ -344,6 +393,8 @@
     font-size: 22px;
     font-weight: bold;
     cursor: pointer;
+	margin:0;
+	
 }
 
 .free-divider {
@@ -365,7 +416,7 @@
 .free-button {
     border: none;
     border-radius: 5px;
-    background-color: #F56565; /* Tailwind red-600 */
+    background-color: #C53030; /* Tailwind red-600 */
     color: white;
     padding: 8px 15px;
     font-size: 16px;
@@ -374,7 +425,7 @@
 }
 
 .free-button:hover {
-    background-color: #C53030; /* Tailwind red-800 */
+    background-color: rgb(255, 0, 0); /* Tailwind red-800 */
 }
 
 
@@ -387,12 +438,10 @@
 
 .free-text-button-content {
     flex: 1;
-    max-width: 100%;
+    max-width: 50%
 }
 
-.free-button-container {
-    margin-top: 10px;
-}
+
 
 /* 미디어 쿼리: 1000px 이하일 때 레이아웃 조정 */
 @media (max-width: 1000px) {
@@ -400,17 +449,33 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;	
+		margin: auto;
     }
 
     .free-image-container, .free-text-button-content {
+		margin: auto;
         width: 100%;
         max-width: none;
+		justify-content: center;
     }
 	
+	.free-text-img-container{
+		width:100%;
+		margin:auto;
+		justify-content: center;
+		
+	}
+	
+	.arrow{
+		width:60px;
+		height:60px;
+		font-size: 30px;
+	}
+	
 	.arrow2 {
-				width: 80px;
-				height: 80px;
-				font-size: 36px;
+				width: 40px;
+				height: 40px;
+				font-size: 20px;
 				
 			}
 }
@@ -420,7 +485,7 @@
 .back-last2{
 	background-color: white;
 	width: 100%;
-	height: 50px;
+	height: 200px;
 }
 
 .back-last {
@@ -434,6 +499,22 @@
 
 .foooot{
 	background-color: #ffffff;
-	height:300px;
+	height:200px;
 	width:100%;
+}
+
+
+@media (max-width: 1000px) {
+	
+	.back-last2{
+		background-color: white;
+		width: 100%;
+		height: 50px;
+	}
+	.foooot{
+		background-color: #ffffff;
+		height:100px;
+		width:100%;
+	}
+	
 }
