@@ -39,7 +39,7 @@
 			        <div class="dot-container" id="dots1"></div>
 			    </section>
 
-			<!-- 공식 레시피 섹션 -->
+			<!-- 공식 레시피 섹션  -->
 			<div class="siterecipe">
 			                <h1
 			                    id="more-recipes"
@@ -50,8 +50,23 @@
 			                </h1>
 			                <hr class="divider" />
 			            </div>
+<!--			maincontroller에서 4개만 불러와서 뿌렸는데 추가하고 싶으면 maincontroller에서 갯수를 변경하면 됨-->
 			            <div class="recipe-list" id="recipe-list">
-			                <!-- 레시피 목록은 JavaScript를 통해 동적으로 추가됩니다. -->
+							<th:block th:each="recipe : ${recipes}">
+								<div class="recipe-item"
+									 style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
+									 th:onclick="'location.href=\'/siteRecipe/' + ${recipe.id} + '\''">
+									<div class="image-container" style="position: relative;">
+										<img th:src="${recipe.mainImageUrl}" alt="레시피 이미지"
+											 style="border-radius: 4px; width: 250px; height: 250px;">
+									</div>
+									<div class="recipe-details" style="margin-top: 8px;">
+
+										<p class="recipe-name" style="font-size: 14px; font-weight: bold;" th:text="${recipe.name}">
+										</p>
+									</div>
+								</div>
+							</th:block>
 			            </div>
 			        </div>
 				
