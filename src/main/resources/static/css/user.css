@@ -138,13 +138,64 @@ nav ul li a {
 }
 
 .mypage_menu {
-	margin-top: 100px;
+	margin-top: 80px;
 }
 
 h2 {
 	margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.mypage_menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    text-align: center;
+}
+
+.mypage_menu ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.mypage_menu ul li a {
+    display: inline-block;
+	width: 150px;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-left: -1px;  /* 버튼들 간의 간격을 없앰 */
+}
+
+.mypage_menu ul li:first-child a {
+    margin-left: 0;  /* 첫 번째 버튼에만 간격 없음 */
+}
+
+.mypage_menu ul li a:hover,
+.mypage_menu ul li a.active {
+    background-color: #e0e4e8;
+    color: #000;
+    font-weight: bold;
+}
+
+/* 아이콘과 텍스트의 간격 */
+.mypage_menu ul li a i {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* 아이콘 크기 조정 */
+.mypage_menu ul li a i::before {
+    font-size: 18px;
+}
+
+
 
 .form-group {
     margin-bottom: 15px;
