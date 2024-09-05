@@ -83,86 +83,21 @@ function speakText(text) {
     }
 }
 
-// 레시피 데이터를 추가하는 함수
-function addRecipe(recipe) {
-    const recipeList = document.getElementById('recipe-list');
-    const recipeElement = document.createElement('div');
-    recipeElement.className = 'box-container';
-    recipeElement.onclick = () => window.location.href = `/galleryPost?id=${recipe.id}`;
-    recipeElement.onmouseover = () => speakText(recipe.name);
-
-    recipeElement.innerHTML = `
-        <div class="image-container">
-            <img src="${recipe.image}" alt="${recipe.name}" width="250" height="250" style="border-radius: 4px;">
-            <div class="image-overlay">
-                <p style="font-size: 18px; font-weight: bold;">상세 보기</p>
-            </div>
-        </div>
-        <p style="font-size: 12px; margin-top: 8px; color: #8C8C8C;">${recipe.calories} kcal</p>
-        <p style="font-size: 14px; font-weight: bold; margin-top: 2px;">${recipe.name}</p>
-    `;
-    
-    recipeList.appendChild(recipeElement);
-}
-
-// 더미 레시피 데이터
-const dummyRecipes = [
-    {
-        "id": "1",
-        "name": "레시피 1",
-        "image": "/images/recipeImg1.png",
-        "ingredients": "재료 1, 재료 2",
-        "manual": "조리법 1",
-        "calories": "200"
-    },
-    {
-        "id": "2",
-        "name": "레시피 2",
-        "image": "/images/recipeImg2.png",
-        "ingredients": "재료 3, 재료 4",
-        "manual": "조리법 2",
-        "calories": "300"
-    },
-    {
-        "id": "3",
-        "name": "레시피 3",
-        "image": "/images/recipeImg3.png",
-        "ingredients": "재료 5, 재료 6",
-        "manual": "조리법 3",
-        "calories": "150"
-    },
-    {
-        "id": "4",
-        "name": "레시피 4",
-        "image": "/images/recipeImg4.png",
-        "ingredients": "재료 7, 재료 8",
-        "manual": "조리법 4",
-        "calories": "250"
-    }
-];
-
-// 페이지가 로드되면 더미 데이터를 추가합니다.
-document.addEventListener('DOMContentLoaded', () => {
-    dummyRecipes.forEach(recipe => addRecipe(recipe));
-});
-
-
-
 
 // ** 텍스트영역
 
 // Join 버튼 클릭 핸들러
-        function handleJoinClick() {
-            window.location.href = '/signup'; // 페이지를 /signup으로 이동
-        }
-		
-		function handleFreeClick() {
-		    window.location.href = '/boards'; // 페이지를 /signup으로 이동
-		}
-		
-		function handleUserRecipeClick() {
-		    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
-		}
+function handleJoinClick() {
+    window.location.href = '/signup'; // 페이지를 /signup으로 이동
+}
+
+function handleFreeClick() {
+    window.location.href = '/boards'; // 페이지를 /signup으로 이동
+}
+
+function handleUserRecipeClick() {
+    window.location.href = '/user_recipe'; // 페이지를 /signup으로 이동
+}
 		
 		
 	
