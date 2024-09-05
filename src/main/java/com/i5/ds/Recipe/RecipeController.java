@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class RecipeController {
@@ -24,7 +27,7 @@ public class RecipeController {
 
     @GetMapping("/siteRecipetest")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
-    	System.out.println("dbTest");
+        System.out.println("dbTest");
         List<Recipe> recipes = recipeService.getAllRecipes();
         System.out.println(recipes.get(0));
         return ResponseEntity.ok(recipes);
@@ -92,4 +95,19 @@ public class RecipeController {
         return "redirect:/user_recipe";
 
     }
+
+
+    // 모든 레시피 이름과 ID를 불러오는 API
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Map<String, Object>> getAllSiteRecipesSearch() {
+        List<Recipe> recipes = recipeService.getAllRecipes();
+        return recipes.stream().map(recipe -> {
+            Map<String, Object> recipeInfo = new HashMap<>();
+            recipeInfo.put("id", recipe.getId());
+            recipeInfo.put("name", recipe.getName());
+            return recipeInfo;
+        }).collect(Collectors.toList());
+    }
+
 }
