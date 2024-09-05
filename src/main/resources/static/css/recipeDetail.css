@@ -1,6 +1,6 @@
 /* 레시피 상세 스타일 */
-.recipe-detail {
-	/* text-align: center; */
+.container {
+	max-width: 1200px;
 }
 
 .recipe-detail img {
@@ -55,6 +55,7 @@ button:hover {
 .clickable-text {
 	cursor: pointer;
 }
+
 .clickable-text:hover {
 	color: blue;
 }
