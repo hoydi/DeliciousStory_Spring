@@ -22,6 +22,7 @@
 			<img th:src="${recipe.mainImageUrl}" alt="레시피 이미지">
 			<h1 id="recipeTitle" class="clickable-text" th:text="${recipe.name}"
 				onclick="speakText('recipeTitle')">레시피 이름</h1>
+			<button id="likeButton" onclick="handleLike()">좋아요</button>
 			<p>
 				<strong>칼로리:</strong> <span id="recipeCalories"
 					th:text="${recipe.calories} + ' kcal'" class="clickable-text"
@@ -32,19 +33,23 @@
 					th:text="${recipe.ingredients}" class="clickable-text"
 					onclick="speakText('recipeIngredients')">재료 목록</span>
 			</p>
-			<!-- 이미지 URL 텍스트를 포함하는 요소 -->
+
+
+
+			<p>
+				<strong>조리법:</strong>
+				<button onclick="toggleTTS()">전체재생</button>
+				<!-- 이미지 URL 텍스트를 포함하는 요소 -->
 			<div id="recipeImageUrls" th:text="${recipe.manualImageUrl}"
 				style="display: none;"></div>
 			<!-- 이미지가 표시될 영역 -->
 			<div id="recipeImages"></div>
-
-			<p>
-				<strong>조리법:</strong>
 			<div id="recipeManual" style="display: none;"
 				th:text="${recipe.manual}"></div>
-			<button onclick="toggleTTS()">전체재생</button>
+
 			<div id="recipeManualContainer"></div>
-			</p>
+
+
 
 
 
