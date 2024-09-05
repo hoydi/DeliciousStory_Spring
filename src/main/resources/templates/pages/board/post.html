@@ -49,26 +49,25 @@
 <!-- 컨테이너 영역 시작 -->
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <!-- 글 작성 폼 시작 -->
-        <form th:action="@{/post}" method="post">
-            <!-- 제목 입력 필드 -->
-            <div class="form-group">
-                <h2>글 작성하기</h2>
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
-            </div>
+		<form th:action="@{/boards/post}" method="post">
+		    <!-- 제목 입력 필드 -->
+		    <div class="form-group">
+		        <h2>글 작성하기</h2>
+		        <label for="title">제목</label>
+		        <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
+		    </div>
 
-            <!-- 내용 입력 필드 -->
-            <div class="form-group">
-                <label for="content">내용</label>
-                <!-- Summernote 적용 -->
-                <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요" required></textarea>
-            </div>
+		    <!-- 내용 입력 필드 -->
+		    <div class="form-group">
+		        <label for="content">내용</label>
+		        <!-- Summernote 적용 -->
+		        <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요" required></textarea>
+		    </div>
 
-            <!-- 제출 버튼 -->
-            <button type="submit" class="btn btn-primary">작성하기</button>
-        </form>
-        <!-- 글 작성 폼 끝 -->
+		    <!-- 제출 버튼 -->
+		    <button type="submit" class="btn btn-primary">작성하기</button>
+		    <a class="btn btn-secondary" th:href="@{/boards}">뒤로가기</a>
+		</form>
     </div>
 </th:block>
 <!-- 컨테이너 영역 끝 -->
