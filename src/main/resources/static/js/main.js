@@ -85,15 +85,15 @@ function speakText(text) {
 
 
         function handleJoinClick() {
-            window.location.href = '/register'; // 페이지를 /signup으로 이동
+            window.location.href = '/register';
         }
 		
 		function handleFreeClick() {
-		    window.location.href = '/boards'; // 페이지를 /signup으로 이동
+		    window.location.href = '/boards';
 		}
 		
 		function handleUserRecipeClick() {
-		    window.location.href = '/userRecipe'; // 페이지를 /signup으로 이동
+		    window.location.href = '/userRecipe';
 		}
 		
 		

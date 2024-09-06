@@ -183,7 +183,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    width: 250px;
+    width: 280px;
+	justify-content: center;
     height: 320px; /* Set a fixed height to ensure consistency */
     overflow: hidden;
     box-sizing: border-box; /* Include padding and border in element's total width and height */
