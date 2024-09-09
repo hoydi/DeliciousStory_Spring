@@ -81,10 +81,19 @@ function handleLike() {
 	fetch(`/siteRecipe/${recipeId}/like`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest'  // AJAX 요청임을 명시
 		}
 	})
-		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
 		.then(data => {
 			if (data.status === 'liked') {
 				alert('좋아요가 등록되었습니다.');
@@ -99,7 +108,6 @@ function handleLike() {
 		})
 		.catch(error => console.error('Error:', error));
 }
-
 // 좋아요 취소 처리
 function handleLikeCancel() {
 	const likeButton = document.getElementById("likeButton");
@@ -111,7 +119,15 @@ function handleLikeCancel() {
 			'Content-Type': 'application/json'
 		}
 	})
-		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
 		.then(data => {
 			if (data.status === 'cancelled') {
 				alert('좋아요가 취소되었습니다.');
