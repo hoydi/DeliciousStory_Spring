@@ -39,14 +39,22 @@ function toggleTTS() {
 		.filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
 		.join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
 
+	const ttsButton = document.getElementById('ttsButton');
+
 	if (isPlaying) {
 		speechSynthesis.cancel();  // TTS 중지
+		ttsButton.innerText = '전체재생';
 	} else {
 		tts = new SpeechSynthesisUtterance(filteredText);
+		tts.onend = () => {
+			// TTS가 종료되면 버튼 텍스트를 '전체재생'으로 변경
+			ttsButton.innerText = '전체재생';
+			isPlaying = false;
+		};
 		speechSynthesis.speak(tts);  // TTS 시작
+		ttsButton.innerText = '중지';
+		isPlaying = true;
 	}
-
-	isPlaying = !isPlaying;  // 상태 토글
 }
 
 // 좋아요 상태 확인 함수

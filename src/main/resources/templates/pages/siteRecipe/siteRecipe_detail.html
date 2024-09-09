@@ -22,24 +22,26 @@
 			<img th:src="${recipe.mainImageUrl}" alt="레시피 이미지">
 			<h1 id="recipeTitle" class="clickable-text" th:text="${recipe.name}"
 				onclick="speakText('recipeTitle')">레시피 이름</h1>
-
-			<button id="likeButton" th:data-recipe-id="${recipe.id}"
-				th:text="${liked != null && liked ? '좋아요 취소' : '좋아요'}"></button>
-
-			<p>
-				<strong>칼로리:</strong> <span id="recipeCalories"
-					th:text="${recipe.calories} + ' kcal'" class="clickable-text"
-					onclick="speakText('recipeCalories')">칼로리</span>
-			</p>
 			<p>
 				<strong>재료:</strong> <span id="recipeIngredients"
 					th:text="${recipe.ingredients}" class="clickable-text"
 					onclick="speakText('recipeIngredients')">재료 목록</span>
 			</p>
+			<button id="likeButton" th:data-recipe-id="${recipe.id}"
+				th:text="${liked != null && liked ? '좋아요 취소' : '좋아요'}"></button>
+
+			<!-- 
+			<p>
+				<strong>칼로리:</strong> <span id="recipeCalories"
+					th:text="${recipe.calories} + ' kcal'" class="clickable-text"
+					onclick="speakText('recipeCalories')">칼로리</span>
+			</p>
+			 -->
+
 
 			<p>
 				<strong>조리법:</strong>
-				<button onclick="toggleTTS()">전체재생</button>
+				<button id="ttsButton" onclick="toggleTTS()">전체재생</button>
 				<!-- 이미지 URL 텍스트를 포함하는 요소 -->
 			<div id="recipeImageUrls" th:text="${recipe.manualImageUrl}"
 				style="display: none;"></div>
