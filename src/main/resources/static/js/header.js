@@ -138,8 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert('음성 인식이 시작되었습니다.');
             };
 
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
+            recognition.onresult = (e) => {
+                let texts = Array.from(e.results)
+                    .map(results => results[0].transcript).join("");
                 alert("인식된 텍스트가있음");
                 // if (transcript.includes('레시피')) {
                 //     alert("음성에서 '레시피'라는 단어를 인식했습니다!");
