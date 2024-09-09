@@ -10,7 +10,6 @@ function speakText(elementId) {
 	}
 }
 
-// TTS 기능을 위한 JavaScript 코드
 let tts = null;
 let isPlaying = false;
 
@@ -50,6 +49,84 @@ function toggleTTS() {
 	isPlaying = !isPlaying;  // 상태 토글
 }
 
+// 좋아요 상태 확인 함수
+function checkLikeStatus(recipeId) {
+	const likeButton = document.getElementById("likeButton");
+
+	// 좋아요 상태 확인
+	fetch(`/siteRecipe/${recipeId}/like/status`, {
+		method: 'GET'
+	})
+		.then(response => response.json()) // JSON 응답으로 파싱
+		.then(status => {
+			if (status.status === "alreadyLiked") {
+				likeButton.innerText = "좋아요 취소";
+				likeButton.setAttribute('onclick', 'handleLikeCancel()');
+			} else if (status.status === "notLoggedIn") {
+				likeButton.innerText = "로그인이 필요합니다";
+				likeButton.removeAttribute('onclick');
+			} else {
+				likeButton.innerText = "좋아요";
+				likeButton.setAttribute('onclick', 'handleLike()');
+			}
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+// 좋아요 등록 처리
+function handleLike() {
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+
+	fetch(`/siteRecipe/${recipeId}/like`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(data => {
+			if (data.status === 'liked') {
+				alert('좋아요가 등록되었습니다.');
+				likeButton.innerText = "좋아요 취소";
+				likeButton.setAttribute('onclick', 'handleLikeCancel()');
+			} else if (data.status === 'alreadyLiked') {
+				alert('이미 좋아요를 누른 상태입니다.');
+			} else if (data.status === 'notLoggedIn') {
+				alert('로그인이 필요합니다.');
+				window.location.href = '/login';  // 로그인 페이지로 리다이렉트
+			}
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+// 좋아요 취소 처리
+function handleLikeCancel() {
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+
+	fetch(`/siteRecipe/${recipeId}/like/cancel`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(data => {
+			if (data.status === 'cancelled') {
+				alert('좋아요가 취소되었습니다.');
+				likeButton.innerText = "좋아요";
+				likeButton.setAttribute('onclick', 'handleLike()');
+			} else if (data.status === 'notLiked') {
+				alert('좋아요 상태가 아닙니다.');
+			} else if (data.status === 'notLoggedIn') {
+				alert('로그인이 필요합니다.');
+				window.location.href = '/login';  // 로그인 페이지로 리다이렉트
+			}
+		})
+		.catch(error => console.error('Error:', error));
+}
+
 // 조리법 및 이미지 매칭 처리 함수
 document.addEventListener("DOMContentLoaded", function() {
 	const manualElement = document.getElementById('recipeManual');
@@ -76,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const span = document.createElement('span');
 		span.id = `recipeManualLine${index}`;
 		span.classList.add('clickable-text');
-		span.innerText = `${line.trim()}`; // 번호 붙이기
+		span.innerText = `${line.trim()}`;
 		span.onclick = () => speakText(span.id);
 		stepDiv.appendChild(span);
 
@@ -95,7 +172,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		// 조리법 및 이미지를 컨테이너에 추가
 		manualContainer.appendChild(stepDiv);
 	});
+
+	// 페이지 로드 시 좋아요 상태 확인
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+	checkLikeStatus(recipeId);  // 좋아요 상태 확인
 });
-
-
-// 좋아요 관련 함수
