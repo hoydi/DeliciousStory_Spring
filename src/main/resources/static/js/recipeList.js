@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 스크롤을 페이지 상단으로 이동시키는 함수
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth', // 부드러운 스크롤 효과
-        });
-    }
+	function scrollToTop() {
+	    window.scrollTo({
+	        top: 0,
+	        behavior: 'smooth' // 부드러운 스크롤 효과
+	    });
+	}
 });

@@ -63,12 +63,19 @@ public class BoardController {
 		model.addAttribute("board", new Board());
 		return "pages/board/post"; // 글쓰기 페이지 경로 (HTML 파일명)
 	}
-	
-	// 새로운 게시글을 생성
-	@PostMapping
-	public Board createBoard(@RequestBody Board board) {
-		return boardService.saveBoard(board); // 요청 본문의 게시글 데이터를 저장
-	}
+		
+	// 게시글 추가
+    @PostMapping("/post")
+    public String postBoard(@RequestParam String title, @RequestParam String content) {
+        Board newBoard = new Board();
+        newBoard.setTitle(title);
+        newBoard.setContent(content);
+        boardService.saveBoard(newBoard); // 게시글 저장
+        return "redirect:/boards"; // 게시글 목록 페이지로 리다이렉트
+    }
+    
+    
+    
 
 
 }
