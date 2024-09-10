@@ -1,81 +1,128 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Speech Detection</title>-->
+<!--    <style>-->
+<!--        html {-->
+<!--            font-size: 10px;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background: #ffc600;-->
+<!--            font-family: 'helvetica neue';-->
+<!--            font-weight: 200;-->
+<!--            font-size: 20px;-->
+<!--            transition: background-color 0.5s ease; /* 배경색 변화에 부드러운 전환 효과 추가 */-->
+<!--        }-->
+
+<!--        .words {-->
+<!--            max-width: 500px;-->
+<!--            margin: 50px auto;-->
+<!--            background: white;-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);-->
+<!--            padding: 1rem 2rem 1rem 5rem;-->
+<!--            background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;-->
+<!--            background-size: 100% 3rem;-->
+<!--            position: relative;-->
+<!--            line-height: 3rem;-->
+<!--        }-->
+
+<!--        p {-->
+<!--            margin: 0 0 3rem;-->
+<!--        }-->
+
+<!--        .words:before {-->
+<!--            content: '';-->
+<!--            position: absolute;-->
+<!--            width: 4px;-->
+<!--            top: 0;-->
+<!--            left: 30px;-->
+<!--            bottom: 0;-->
+<!--            border: 1px solid;-->
+<!--            border-color: transparent #efe4e4;-->
+<!--        }-->
+
+<!--        #volume-display {-->
+<!--            font-size: 2rem;-->
+<!--            text-align: center;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        /* 모달 스타일 */-->
+<!--        #modal {-->
+<!--            display: none;-->
+<!--            position: fixed;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--            padding: 20px;-->
+<!--            background-color: white;-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);-->
+<!--            z-index: 1000;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="words" contenteditable></div>-->
+<!--<div>테스트</div>-->
+<!--<div id="audio-value">소리 크기: 0</div> &lt;!&ndash; 소리 크기를 표시할 부분 &ndash;&gt;-->
+<!--<div id="console-output" style="white-space: pre-wrap;"></div>-->
+<!--&lt;!&ndash; 모달 &ndash;&gt;-->
+<!--<div id="modal">-->
+<!--    <p id="modal-message"></p>-->
+<!--</div>-->
+<!--<button id="play-tts-btn" onclick="playTTS()">Play TTS</button>-->
+<!--<script src="/js/recognition.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-    <title>Speech Detection</title>
-    <style>
-        html {
-            font-size: 10px;
-        }
-
-        body {
-            background: #ffc600;
-            font-family: 'helvetica neue';
-            font-weight: 200;
-            font-size: 20px;
-            transition: background-color 0.5s ease; /* 배경색 변화에 부드러운 전환 효과 추가 */
-        }
-
-        .words {
-            max-width: 500px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
-            padding: 1rem 2rem 1rem 5rem;
-            background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
-            background-size: 100% 3rem;
-            position: relative;
-            line-height: 3rem;
-        }
-
-        p {
-            margin: 0 0 3rem;
-        }
-
-        .words:before {
-            content: '';
-            position: absolute;
-            width: 4px;
-            top: 0;
-            left: 30px;
-            bottom: 0;
-            border: 1px solid;
-            border-color: transparent #efe4e4;
-        }
-
-        #volume-display {
-            font-size: 2rem;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* 모달 스타일 */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
 </head>
 <body>
-<div class="words" contenteditable></div>
-<div>테스트</div>
-<div id="audio-value">소리 크기: 0</div> <!-- 소리 크기를 표시할 부분 -->
-<div id="console-output" style="white-space: pre-wrap;"></div>
-<!-- 모달 -->
-<div id="modal">
-    <p id="modal-message"></p>
-</div>
-<button id="play-tts-btn" onclick="playTTS()">Play TTS</button>
-<script src="/js/recognition.js"></script>
+<h1>Upload File</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="file" accept="image/*" />
+    <button type="button" onclick="uploadFile()">Upload</button>
+</form>
+
+<script>
+    function uploadFile() {
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert('Please select a file.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                alert('File uploaded successfully.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to upload file.');
+            });
+    }
+</script>
 </body>
 </html>

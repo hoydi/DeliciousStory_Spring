@@ -154,6 +154,12 @@
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+        <!-- https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-objectstorage -->
+        <dependency>
+            <groupId>com.oracle.oci.sdk</groupId>
+            <artifactId>oci-java-sdk-objectstorage</artifactId>
+            <version>3.48.0</version>
+        </dependency>
 
     </dependencies>
 
