@@ -8,13 +8,13 @@
 </th:block>
 
 <th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{/css/index.css}">
+	<link rel="stylesheet" th:href="@{/css/user.css}">
     <link rel="stylesheet" th:href="@{/css/mypage_posts.css}">
 </th:block>
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <h2>내 게시글</h2>
+        <h2>내2 게시글</h2>
 
         <!-- 게시글 테이블 -->
         <table class="table">
@@ -29,22 +29,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="post, stat : ${posts}">
-                    <td th:text="${stat.count}"></td> <!-- 게시글 번호 -->
-                    <td th:text="${post.title}"></td> <!-- 글 제목 -->
-                    <td th:text="${post.author}"></td> <!-- 작성자 -->
-                    <td th:text="${post.comments}"></td> <!-- 댓글수 -->
-                    <td th:text="${post.views}"></td> <!-- 조회수 -->
-                    <td th:text="${#dates.format(post.date, 'yyyy.MM.dd.')}"></td> <!-- 작성일 -->
-                </tr>
+				<tr th:each="board : ${boards}"> <!--board 다 가지고 옴-->
+				    <td th:text="${board.postId}"></td>
+				    <td th:text="${board.userId}">작성자</td>
+				    <td th:text="${board.title}">제목</td>
+				    <td th:text="${board.content}">내용</td>
+				    <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+				    <td th:text="${board.views}">조회 수</td>
+					</tr>
             </tbody>
         </table>
 
         <!-- 검색과 페이지네이션 -->
         <div class="search-pagination">
             <form method="get" th:action="@{/myposts}">
-                <input type="text" name="keyword" placeholder="검색어를 입력하세요..." />
-                <button type="submit">검색</button>
+                <input class="button1" type="text" name="keyword" placeholder="검색어를 입력하세요..." />
+                <button class="button2" type="submit">검색</button>
             </form>
         </div>
     </div>

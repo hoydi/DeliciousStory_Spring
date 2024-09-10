@@ -13,6 +13,7 @@
     margin: 0 auto;
     min-height: 100vh;
     text-align: center;
+    margin: 250px auto; /* 상하 여백 추가 */
 }
 
 /* 카드 리스트 */
@@ -47,35 +48,76 @@
 }
 
 /* 검색 바 */
+.button1 {
+	width: 300px;
+	height: 29px;
+	vertical-align: middle;
+}
+
+.button2 {
+	width: 50px;
+	height: 35px;
+	vertical-align: middle;
+}
+
 .search-bar {
     display: flex;
     justify-content: center;
-    align-items: center;
+	align-items: center;
     margin-bottom: 30px;
 }
 
 .search-bar input[type="text"] {
-    padding: 12px 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    margin-right: 10px;
     font-size: 1rem;
-    width: 400px; /* 가로 길이 조정 */
-    height: 45px; /* 세로 길이 조정 */
-    margin-right: 10px; /* 버튼과의 간격 */
+    height: 50px; /* 세로 길이 고정 */
 }
 
 .search-bar button {
-    padding: 12px 20px;
-    background-color: #6c757d;
+    padding: 10px 20px;
+    background-color: #5cb85c;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 1rem;
-    height: 45px; /* 입력 필드와 동일한 세로 길이 */
     cursor: pointer;
+    height: 50px; /* 세로 길이 고정 */
 }
 
 .search-bar button:hover {
-    background-color: #5a6268;
+    background-color: #4cae4c;
 }
 
+/* 페이지네이션 */
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination ul li {
+    margin: 0 5px;
+}
+
+.pagination ul li a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #eee;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination ul li a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination ul li a:hover {
+    background-color: #ddd;
+}
