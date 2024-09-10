@@ -31,30 +31,36 @@ function speakTextAll(textId) {
 }
 
 function toggleTTS() {
-	const manualText = document.getElementById('recipeManual').textContent;
+    const manualText = document.getElementById('recipeManual').textContent;
 
-	// ** 및 NULL을 제외하고 텍스트를 필터링
-	let filteredText = manualText
-		.split('**') // ** 구분자로 분리
-		.filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
-		.join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
+    // ** 및 NULL을 제외하고 텍스트를 필터링
+    let filteredText = manualText
+        .split('**') // ** 구분자로 분리
+        .filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
+        .join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
 
-	const ttsButton = document.getElementById('ttsButton');
+    const ttsButton = document.getElementById('ttsButton');
 
-	if (isPlaying) {
-		speechSynthesis.cancel();  // TTS 중지
-		ttsButton.innerText = '전체재생';
-	} else {
-		tts = new SpeechSynthesisUtterance(filteredText);
-		tts.onend = () => {
-			// TTS가 종료되면 버튼 텍스트를 '전체재생'으로 변경
-			ttsButton.innerText = '전체재생';
-			isPlaying = false;
-		};
-		speechSynthesis.speak(tts);  // TTS 시작
-		ttsButton.innerText = '중지';
-		isPlaying = true;
-	}
+    if (isPlaying) {
+        // TTS가 재생 중인 경우, 중지 처리
+        speechSynthesis.cancel();  // 현재 재생 중인 TTS를 중지
+        ttsButton.innerText = '전체재생';  // 버튼 텍스트 변경
+        isPlaying = false;  // 재생 상태 업데이트
+    } else {
+        // TTS가 중지되었거나 처음 시작하는 경우
+        tts = new SpeechSynthesisUtterance(filteredText);
+        tts.lang = 'ko-KR';  // 한국어 설정
+
+        // TTS가 끝났을 때 처리
+        tts.onend = () => {
+            ttsButton.innerText = '전체재생';  // TTS가 끝나면 버튼을 '전체재생'으로 변경
+            isPlaying = false;  // 재생 상태 업데이트
+        };
+
+        speechSynthesis.speak(tts);  // TTS 시작
+        ttsButton.innerText = '중지';  // 버튼 텍스트 변경
+        isPlaying = true;  // 재생 상태 업데이트
+    }
 }
 
 // 좋아요 상태 확인 함수

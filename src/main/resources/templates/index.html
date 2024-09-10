@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
@@ -47,13 +48,15 @@
 		<!-- 공식 레시피 섹션 -->
 		<div class="siterecipe">
 			<h1 id="more-recipes" class="butt" onmouseover="speakText('공식레시피')">
-				공식레시피
-			</h1>
+				공식레시피</h1>
 			<hr class="divider" />
 		</div>
 		<div class="recipe-list" id="recipe-list">
 			<th:block th:each="recipe : ${recipes}">
-				<div class="box-container" th:onclick="'location.href=\'/siteRecipe/' + ${recipe.id} + '\''">
+				<div class="box-container"
+					th:onclick="'location.href=\'/siteRecipe/' + ${recipe.id} + '\''"
+					th:data-recipe-name="${recipe.name}"
+					onmouseenter="speakRecipeName(this)">
 					<div class="image-container">
 						<img th:src="${recipe.mainImageUrl}" alt="레시피 이미지">
 						<div class="image-overlay">
@@ -74,11 +77,11 @@
 	<div class="text-area">
 		<h1>눈으로 보고 귀로 듣는 요리</h1>
 		<p>
-			<i>TTS로 들으면서 편하게</i><br><br>
-			다른 사람들과 함께 맛있는 이야기를 나눠요 ♪
+			<i>TTS로 들으면서 편하게</i><br> <br> 다른 사람들과 함께 맛있는 이야기를 나눠요 ♪
 		</p>
-		<br><br>
-		<button class="join-button" onclick="handleJoinClick()">Join Us</button>
+		<br> <br>
+		<button class="join-button" onclick="handleJoinClick()">Join
+			Us</button>
 	</div>
 
 	<!-- 배경 이미지 -->
@@ -121,15 +124,12 @@
 				<div class="free-text-img-container ftic1">
 					<div class="ftic"></div>
 					<div class="free-zindex">
-					<h1 class="butt" onclick="handleUserRecipeClick()" onmouseover="speakText('모두의레시피')">
-						모두의레시피
-					</h1>
-					<p>서로의 이야기를 공유하며 요리하는 공간</p>
-					<div class="free-button-container">
-						<button class="free-button">
-							GO
-						</button>
-					</div>
+						<h1 class="butt" onclick="handleUserRecipeClick()"
+							onmouseover="speakText('모두의레시피')">모두의레시피</h1>
+						<p>서로의 이야기를 공유하며 요리하는 공간</p>
+						<div class="free-button-container">
+							<button class="free-button">GO</button>
+						</div>
 					</div>
 					<div class="ftic"></div>
 				</div>
@@ -137,17 +137,15 @@
 				<div class="free-text-img-container ftic2">
 					<div class="ftic"></div>
 					<div class="free-zindex">
-					<h1 class="butt" onclick="handleFreeClick()" onmouseover="speakText('자유게시판')">
-						자유게시판
-					</h1>
-					<p>궁금한 것이 있다면? 질문해도 좋아요!</p>
-					<div class="free-button-container">
-						<button class="free-button" onclick="handleFreeClick()">
-							GO
-						</button>
+						<h1 class="butt" onclick="handleFreeClick()"
+							onmouseover="speakText('자유게시판')">자유게시판</h1>
+						<p>궁금한 것이 있다면? 질문해도 좋아요!</p>
+						<div class="free-button-container">
+							<button class="free-button" onclick="handleFreeClick()">
+								GO</button>
+						</div>
 					</div>
-					</div>
-					
+
 				</div>
 			</div>
 		</div>
