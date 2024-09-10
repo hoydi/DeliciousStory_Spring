@@ -48,9 +48,22 @@
 }
 
 /* 검색 바 */
+.button1 {
+	width: 300px;
+	height: 29px;
+	vertical-align: middle;
+}
+
+.button2 {
+	width: 50px;
+	height: 35px;
+	vertical-align: middle;
+}
+
 .search-bar {
     display: flex;
     justify-content: center;
+	align-items: center;
     margin-bottom: 30px;
 }
 
