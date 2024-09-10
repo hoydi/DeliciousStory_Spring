@@ -39,14 +39,22 @@ function toggleTTS() {
 		.filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
 		.join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
 
+	const ttsButton = document.getElementById('ttsButton');
+
 	if (isPlaying) {
 		speechSynthesis.cancel();  // TTS 중지
+		ttsButton.innerText = '전체재생';
 	} else {
 		tts = new SpeechSynthesisUtterance(filteredText);
+		tts.onend = () => {
+			// TTS가 종료되면 버튼 텍스트를 '전체재생'으로 변경
+			ttsButton.innerText = '전체재생';
+			isPlaying = false;
+		};
 		speechSynthesis.speak(tts);  // TTS 시작
+		ttsButton.innerText = '중지';
+		isPlaying = true;
 	}
-
-	isPlaying = !isPlaying;  // 상태 토글
 }
 
 // 좋아요 상태 확인 함수
@@ -81,10 +89,19 @@ function handleLike() {
 	fetch(`/siteRecipe/${recipeId}/like`, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest'  // AJAX 요청임을 명시
 		}
 	})
-		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
 		.then(data => {
 			if (data.status === 'liked') {
 				alert('좋아요가 등록되었습니다.');
@@ -99,7 +116,6 @@ function handleLike() {
 		})
 		.catch(error => console.error('Error:', error));
 }
-
 // 좋아요 취소 처리
 function handleLikeCancel() {
 	const likeButton = document.getElementById("likeButton");
@@ -111,7 +127,15 @@ function handleLikeCancel() {
 			'Content-Type': 'application/json'
 		}
 	})
-		.then(response => response.json()) // 응답을 JSON으로 받음
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
 		.then(data => {
 			if (data.status === 'cancelled') {
 				alert('좋아요가 취소되었습니다.');

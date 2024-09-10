@@ -1,16 +1,21 @@
 package com.i5.ds.config;
 
-import com.i5.ds.User.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.authentication.AuthenticationManager;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Spring Security 설정을 담당하는 클래스입니다.
@@ -78,8 +83,30 @@ public class SecurityConfig {
 						// 로그아웃 시 모든 사용자에게 접근을 허용합니다.
 						.permitAll())
 				// CSRF 보호를 비활성화합니다. (CSRF 공격에 대한 보호가 필요할 경우 활성화할 수 있습니다.)
-				.csrf(csrf -> csrf.disable());
+				.csrf(csrf -> csrf.disable())
+				// 인증되지 않은 AJAX 요청 처리
+				.exceptionHandling(exceptionHandling -> exceptionHandling
+						.authenticationEntryPoint(ajaxAwareAuthenticationEntryPoint()));
 		// 보안 필터 체인 객체를 반환합니다.
 		return http.build();
+	}
+
+	// AJAX 요청인지 확인 후 JSON 응답 또는 로그인 페이지 리다이렉트 처리
+	@Bean
+	public AuthenticationEntryPoint ajaxAwareAuthenticationEntryPoint() {
+		return new AuthenticationEntryPoint() {
+			@Override
+			public void commence(HttpServletRequest request, HttpServletResponse response,
+					AuthenticationException authException) throws IOException {
+				String ajaxHeader = request.getHeader("X-Requested-With");
+				if ("XMLHttpRequest".equals(ajaxHeader)) {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					response.setContentType("application/json");
+					response.getWriter().write("{\"status\": \"notLoggedIn\"}");
+				} else {
+					response.sendRedirect("/login");
+				}
+			}
+		};
 	}
 }
