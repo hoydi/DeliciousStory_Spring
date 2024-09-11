@@ -90,4 +90,11 @@ public class Board {
     public void setViews(Integer views) {
         this.views = views;
     }
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.postDate == null) {
+            this.postDate = new Date();
+        }
+    }
 }
