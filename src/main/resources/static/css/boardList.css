@@ -1,3 +1,12 @@
+a{
+	text-decoration:none;
+	color:gray; /* 제목 글자 색 그레이 */
+}
+
+a:hover{
+	color:black; /* 제목에 마우스 올리면 블랙으로 */
+}
+
 /* 테이블 기본 스타일 */
 table {
     width: 100%; /* 테이블 너비를 페이지 전체로 설정 */
@@ -12,13 +21,14 @@ table {
 .container h1 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #333;
+    color: black;
     font-weight: bold;
 	text-align: center; /* 버튼을 가운데 정렬 */
 }
 
 table th, table td {
     padding: 12px 15px; /* 테이블 셀 내 여백을 설정 */
+	color:gray; /* 테이블 글자 색깔 그레이 */
 }
 
 table thead tr {
@@ -46,78 +56,4 @@ table tbody tr td:last-child {
 table tfoot tr {
     background-color: #f2f2f2; /* 테이블 푸터 배경색을 연한 회색으로 설정 */
     font-weight: bold; /* 테이블 푸터 텍스트를 굵게 설정 */
-}
-
-/* 버튼 스타일 */
-.button-container {
-    text-align: right; /* 버튼을 오른쪽 정렬 */
-    margin-top: 10px; /* 버튼 상단에 10px 간격 추가 */
-}
-
-.button-container .btn {
-    background-color: #d9534f; /* 버튼 배경색을 빨간색으로 설정 */
-    color: white; /* 버튼 텍스트 색상을 흰색으로 설정 */
-    padding: 10px 20px; /* 버튼 내 여백 설정 */
-    text-decoration: none; /* 버튼 텍스트의 밑줄 제거 */
-    border-radius: 5px; /* 버튼 모서리를 둥글게 설정 */
-    font-size: 16px; /* 버튼 텍스트 크기를 16px로 설정 */
-}
-
-.button-container .btn:hover {
-    background-color: #c9302c; /* 버튼에 마우스를 올리면 배경색을 조금 더 어두운 빨간색으로 변경 */
-}
-
-body {
-    padding-top: 60px; /* 헤더 높이에 맞게 페이지 상단에 여백 추가 */
-    padding-bottom: 60px; /* 푸터 높이에 맞게 페이지 하단에 여백 추가 */
-    background-color: #f4f4f4; /* 페이지 배경색을 연한 회색으로 설정 */
-}
-
-/* 컨테이너 스타일 */
-.container {
-    max-width: 600px; /* 컨테이너 최대 너비를 600px로 설정 */
-    margin: 50px auto; /* 컨테이너를 가운데 정렬하고 상단에 50px 간격 추가 */
-    padding: 20px; /* 컨테이너 내 여백 설정 */
-    background-color: #fff; /* 컨테이너 배경색을 흰색으로 설정 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 컨테이너에 약간의 그림자 추가 */
-}
-
-/* 제목 스타일 */
-h2 {
-    margin-bottom: 20px; /* 제목 하단에 20px 간격 추가 */
-}
-
-/* 폼 그룹 스타일 */
-.form-group {
-    margin-bottom: 15px; /* 폼 그룹 하단에 15px 간격 추가 */
-}
-
-.form-group label {
-    display: block; /* 레이블을 블록 요소로 설정하여 전체 너비 차지 */
-    margin-bottom: 5px; /* 레이블 하단에 5px 간격 추가 */
-}
-
-.form-group input {
-    width: 100%; /* 입력 필드 너비를 컨테이너 전체로 설정 */
-    padding: 8px; /* 입력 필드 내 여백 설정 */
-    box-sizing: border-box; /* 패딩과 테두리를 포함하여 요소의 전체 너비를 계산 */
-}
-
-/* 버튼 스타일 */
-.btn {
-    padding: 10px 15px; /* 버튼 내 여백 설정 */
-    background-color: #333; /* 버튼 배경색을 어두운 회색으로 설정 */
-    color: #fff; /* 버튼 텍스트 색상을 흰색으로 설정 */
-    border: none; /* 버튼 테두리 제거 */
-    cursor: pointer; /* 버튼에 마우스를 올리면 커서가 포인터로 변경 */
-    text-align: center; /* 버튼 텍스트를 중앙 정렬 */
-    text-decoration: none; /* 버튼 텍스트의 밑줄 제거 */
-}
-
-.btn.secondary {
-    background-color: #555; /* 보조 버튼 배경색을 중간 회색으로 설정 */
-}
-
-.btn:hover {
-    background-color: #555; /* 버튼에 마우스를 올리면 배경색을 중간 회색으로 변경 */
 }

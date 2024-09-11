@@ -21,33 +21,35 @@
 <th:block layout:fragment="containerFragment">
     <div class="container">
 		<h1>자유게시판</h1>
+		<div>
 		       <table>
 		           <thead>
 		               <tr>
-		                   <th>번호</th>
-		                   <th>작성자</th>
-		                   <th>제목</th>
-		                   <th>내용</th>
-		                   <th>작성일자</th>
-		                   <th>조회 수</th>
+		                   <th style="width:40px;">번호</th>
+		                   <th style="width:500px; ">제목</th>
+						   <th style="width:100px;">작성자</th>
+		                   <th style="width:100px;">작성일자</th>
+		                   <th style="width:50px;">조회 수</th>
 		               </tr>
 		           </thead>
-		           <tbody> <!--게시글 클릭하면 이동하는 링크 만들어야 함-->
-		               <tr th:each="board : ${boards}"> <!--board 다 가지고 옴-->
-		                   <td th:text="${board.postId}"></td>
-		                   <td th:text="${board.userId}">작성자</td>
-						   <td>
-						              <!-- 제목을 클릭하면 상세보기 페이지로 이동하는 링크 생성 -->
-						              <a th:href="@{/boards/{id}(id=${board.postId})}" th:text="${board.title}">제목</a>
-						          </td>
-			                   <td th:text="${board.content}">내용</td>
-		                   <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
-		                   <td th:text="${board.views}">조회 수</td>
-		               </tr>
+				   
+		           <tbody> 					
+					<tr th:each="board : ${boards}"> 
+					    <td th:text="${board.postId}"></td>
+					    <td>
+					        <!-- 제목을 클릭하면 상세보기 페이지로 이동하는 링크 생성 -->
+					        <a th:href="@{/boards/{id}(id=${board.postId})}" th:text="${board.title}">제목</a>
+					    </td>
+						<td th:text="${board.userId}">작성자</td>
+					    <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+					    <td th:text="${board.views}">조회 수</td>
+					</tr>
 		           </tbody>
-		       </table>
-	<a class="btn secondary" th:href="@{/boards/post}">글쓰기</a> 
-    </div>  
+			   </table>
+			   <a class="btn secondary" th:href="@{/}">메인으로 이동하기</a> 
+			<a class="btn secondary" th:href="@{/boards/post}">글 작성하기</a> 
+    	</div>
+	</div>  
 </th:block>
 
 </html>
