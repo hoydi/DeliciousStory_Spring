@@ -21,8 +21,8 @@ ul, li{text-decoration: none; list-style:none;}
 
 /* 기본 상태 이미지 */
 .logo-image {
-    width: 220px; /* 로고 너비 */
-    height: 100px; /* 로고 높이 (정확한 높이로 조정) */
+    width: 220px; /* 기본 로고 너비 */
+    height: 100px; /* 기본 로고 높이 */
     background-image: url('/images/DSlogo3.png');
     background-size: cover; /* 이미지 크기 조정 */
     background-position: center; /* 이미지 위치 조정 */
@@ -33,6 +33,25 @@ ul, li{text-decoration: none; list-style:none;}
 .logo-link:hover .logo-image {
     background-image: url('/images/DSlogo.png');
 }
+
+/* 화면 너비가 1150px 이하일 때 */
+@media (max-width: 800px) {
+    .logo-image {
+        width: 100px; /* 변경된 로고 너비 */
+        height: 100px; /* 변경된 로고 높이 */
+		background-size: cover; /* 이미지 크기 조정 */
+		background-position: center; /* 이미지 위치 조정 */
+        background-image: url('/images/DSlogo4.png');
+    }
+	
+	.logo-link:hover .logo-image {
+	    background-image: url('/images/DSlogo5.png');
+}
+
+}
+
+
+
 
 .gnb {
     flex-grow: 1;
@@ -79,7 +98,7 @@ ul, li{text-decoration: none; list-style:none;}
 }
 
 /* 검색 바 */
-.search-bar {
+.h-search-bar {
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -87,7 +106,7 @@ ul, li{text-decoration: none; list-style:none;}
 }
 
 /* 검색 입력 */
-.search-bar input {
+.h-search-bar input {
     background-color: transparent;
     border: 1px solid #D1D5DB;
     color: black;
@@ -102,7 +121,7 @@ ul, li{text-decoration: none; list-style:none;}
 }
 
 /* 검색 버튼 */
-.search-bar button {
+.h-search-bar button {
     color: #888888;
     background: none;
     border: none;
@@ -113,7 +132,7 @@ ul, li{text-decoration: none; list-style:none;}
 
 /* 검색 결과 드롭다운 메뉴 */
 .dropdown-menu {
-    display: none; /* 기본적으로 숨김 */
+	display: none;
     background-color: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -168,6 +187,8 @@ ul, li{text-decoration: none; list-style:none;}
 
 /* 메뉴 토글 버튼 */
 .menu-toggle {
+	flex-grow: 1;
+	justify-content: end;
     display: none;
     position: relative;
 }
@@ -180,8 +201,6 @@ ul, li{text-decoration: none; list-style:none;}
 
 /* 모바일 메뉴 */
 .mobile-menu {
-/*    display: none;*/
-	/* 기본적으로 숨김 */
     position: absolute;
     top: 100%;
     right: 0;
@@ -192,7 +211,7 @@ ul, li{text-decoration: none; list-style:none;}
     width: 150px;
     max-height: 240px;
     overflow-y: auto;
-    z-index: 50;
+    z-index: 9999;
 }
 
 /* 버튼 스타일 */
@@ -252,29 +271,8 @@ ul, li{text-decoration: none; list-style:none;}
         display: flex;
     }
 
-    .search-bar {
-        display: flex; /* 검색 바는 기본적으로 표시 */
-    }
-
-    .search-bar.show {
-        display: flex; /* 토글 시 검색 바 표시 */
-    }
+	.logo{
+	justify-content: start;
+}
 }
 
-@media (max-width: 826px) {
-    .search-bar {
-        display: none; /* 작은 화면에서는 검색 바 숨김 */
-    }
-    .search-toggle {
-        display: flex; /* 검색 토글 버튼 표시 */
-    }
-}
-
-@media (min-width: 827px) {
-    .search-bar {
-        display: flex; /* 큰 화면에서는 검색 바 표시 */
-    }
-    .search-toggle {
-        display: none; /* 검색 토글 숨김 */
-    }
-}
