@@ -4,9 +4,13 @@ import com.i5.ds.Recipe.SiteRecipe.Recipe;
 import com.i5.ds.Recipe.SiteRecipe.RecipeService;
 import com.i5.ds.Recipe.UserRecipe.UserRecipe;
 import com.i5.ds.Recipe.UserRecipe.UserRecipeService;
+import com.i5.ds.User.User;
+import com.i5.ds.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class RecipeController {
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private RecipeService recipeService;
     @Autowired
@@ -84,8 +90,17 @@ public class RecipeController {
     }
 
     @GetMapping("/userRecipe_write")
-    public String getUserRecipeWrite() {
+    public String getUserRecipeWrite(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        Optional<User> userOpt = userService.findByUserId(currentUserId);
+        if (userOpt.isPresent()) {
+            model.addAttribute("user", userOpt.get());
+        } else {
+            model.addAttribute("error", "User not found.");
+        }
         return "pages/userRecipe/userRecipe_write";
     }
 
