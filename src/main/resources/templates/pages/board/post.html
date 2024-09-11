@@ -25,13 +25,10 @@
     <script>
         $(document).ready(function () {
             $('#content').summernote({
-                height: 300,                 // 에디터 높이 설정
-                minHeight: null,             // 최소 높이
-                maxHeight: null,             // 최대 높이
-                focus: true,                 // 에디터 로딩 시 포커스 설정
-                placeholder: '내용을 입력하세요', // placeholder 설정
-                toolbar: [                   // 툴바 옵션 설정
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                height: 300,
+                placeholder: '내용을 입력하세요',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline']],
                     ['font', ['strikethrough', 'superscript', 'subscript']],
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
@@ -49,6 +46,8 @@
 <th:block layout:fragment="containerFragment">
     <div class="container">
 		<form th:action="@{/boards/post}" method="post">
+		    <input type="hidden" name="userId" th:value="${user.userId}">
+
 		    <!-- 제목 입력 필드 -->
 		    <div class="form-group">
 		        <h2 style="text-align:center">글 작성하기</h2>
@@ -59,13 +58,14 @@
 		    <!-- 내용 입력 필드 -->
 		    <div class="form-group">
 		        <label for="content">내용</label>
-		        <!-- Summernote 적용 -->
 		        <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요" required></textarea>
 		    </div>
 
-		    <!-- 제출 버튼 -->
-		    <button type="submit" class="btn btn-primary">작성하기</button>
-		    <a class="btn btn-secondary" th:href="@{/boards}">뒤로가기</a>
+		    <!-- 제출 버튼 및 뒤로가기 버튼 -->
+		    <div style="text-align:center">
+		        <button type="submit" class="btn btn-primary">작성하기</button>
+		        <a class="btn btn-secondary" th:href="@{/boards}">뒤로가기</a>
+		    </div>
 		</form>
     </div>
 </th:block>
