@@ -2,6 +2,7 @@
     max-width: 800px;
     margin: 0 auto; /* 화면 가운데 정렬 */
     padding: 20px;
+	flex-direction: column;
 }
 
 .title-section {

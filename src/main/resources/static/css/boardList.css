@@ -3,6 +3,9 @@ a{
 	color:gray; /* 제목 글자 색 그레이 */
 }
 
+.container{flex-direction: column;}
+
+
 a:hover{
 	color:black; /* 제목에 마우스 올리면 블랙으로 */
 }
@@ -57,3 +60,24 @@ table tfoot tr {
     background-color: #f2f2f2; /* 테이블 푸터 배경색을 연한 회색으로 설정 */
     font-weight: bold; /* 테이블 푸터 텍스트를 굵게 설정 */
 }
+
+
+/* 기존 스타일은 그대로 유지 */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 모든 자식을 가운데 정렬 */
+}
+
+.button-container, .form-container {
+    display: flex;
+    justify-content: center; /* 가로로 가운데 정렬 */
+    margin-top: 20px; /* 위에 간격 추가 */
+}
+
+.button-container a,
+.form-container form {
+    margin: 0 10px; /* 버튼들 사이 간격 추가 */
+}
+

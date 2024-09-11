@@ -17,4 +17,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 	 // 대소문자 구분 없이 제목으로 검색
     @Query("SELECT b FROM Board b WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     List<Board> searchByTitleIgnoringCase(@Param("title") String title);
+
 }
