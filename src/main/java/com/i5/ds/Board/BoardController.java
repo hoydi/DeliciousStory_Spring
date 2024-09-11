@@ -2,17 +2,25 @@
 	
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.http.ResponseEntity;
-	import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 	import org.springframework.ui.Model;
 	import org.springframework.web.bind.annotation.*;
-	
-	import java.util.List;
+
+import com.i5.ds.User.User;
+import com.i5.ds.User.UserService;
+
+import java.util.Date;
+import java.util.List;
 	import java.util.Optional;
 	
 	@Controller
 	@RequestMapping("/boards") // "/boards" 경로로 들어오는 요청을 이 컨트롤러에서 처리
 	public class BoardController {
-	
+		@Autowired
+		private UserService userService;
+
 	    @Autowired
 	    private BoardService boardService; // BoardService를 주입 받아 사용
 	
@@ -61,6 +69,20 @@
 	    // 글쓰기 페이지로 이동하는 메서드
 	    @GetMapping("/post")
 	    public String showWritePage(Model model) {
+	    	// 현재 사용자 정보를 가져오는 로직
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String currentUserId = authentication.getName(); // 현재 로그인한 사용자 ID를 가져옴
+
+			// 사용자 정보를 DB에서 가져오기
+			Optional<User> userOpt = userService.findByUserId(currentUserId);
+			if (userOpt.isPresent()) {
+				model.addAttribute("user", userOpt.get());
+			} else {
+				// 사용자 정보가 없을 경우 처리 (예: 에러 메시지 추가)
+				model.addAttribute("error", "User not found.");
+			}
+	    	
+	    	
 	        // 새 글 작성을 위한 빈 Board 객체를 모델에 추가
 	        model.addAttribute("board", new Board());
 	        return "pages/board/post"; // 글쓰기 페이지 경로 (HTML 파일명)
@@ -71,7 +93,8 @@
 	    public String postBoard(@RequestParam String userId,
 	                            @RequestParam String title,
 	                            @RequestParam String content) {
-	        Board newBoard = new Board(userId, title, content, null, 0); // userId를 설정
+	        Date today = new Date(); // 현재 날짜와 시간
+	        Board newBoard = new Board(userId, title, content, today); // userId와 오늘 날짜를 설정
 	        boardService.saveBoard(newBoard); // 게시글 저장
 	        return "redirect:/boards"; // 게시글 목록 페이지로 리다이렉트
 	    }

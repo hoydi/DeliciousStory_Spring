@@ -25,6 +25,8 @@
         <form th:action="@{/boards/search}" method="get">
             <input type="text" name="query" placeholder="제목으로 검색" class="form-control" style="width:300px; display:inline-block;">
             <button type="submit" class="btn btn-primary">검색</button>
+			<a class="btn btn-secondary" th:href="@{/boards}" style="margin-left: 10px;">뒤로가기</a>
+
         </form>
         <div>
             <table>
@@ -55,6 +57,4 @@
         </div>
     </div>
 </th:block>
-
-
 </html>

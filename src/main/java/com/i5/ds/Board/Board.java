@@ -27,19 +27,20 @@ public class Board {
     private Date postDate;
 
     @Column(name = "VIEWS", nullable = false)
-    private Integer views;
+    private Integer views = 0; // 기본값 설정
 
     // 기본 생성자
     public Board() {
+    	this.views = 0;
     }
 
     // 매개변수 생성자
-    public Board(String userId, String title, String content, Date postDate, Integer views) {
+    public Board(String userId, String title, String content, Date postDate) {
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.postDate = postDate;
-        this.views = views;
+
     }
 
     // Getters and Setters
