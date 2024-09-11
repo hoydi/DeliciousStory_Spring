@@ -1,34 +1,30 @@
 package com.i5.ds.Upload;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @RestController
+@RequestMapping("/api")
 public class FileUploadController {
 
     @Autowired
-    private OraclePARUploadService oraclePARUploadService;
-
-    private final String parUrl = "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axpt92hqzxmy/b/bucket_img/o/";
+    private FileTransferService fileTransferService;
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("recipeName") String recipeName) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("fileUrl", "", "responseBody", "파일을 선택해 주세요."));
+        }
+
         try {
-            // Generate object name based on file original name
-            String objectName = file.getOriginalFilename();
-
-            // Complete URL with object name
-            String uploadUrl = parUrl + objectName;
-
-            // Upload file to Oracle Cloud
-            oraclePARUploadService.uploadFile(file, uploadUrl);
-
-            return "File uploaded successfully";
+            // 파일과 레시피 이름을 전달하여 응답 생성
+            return fileTransferService.uploadFileToExternalApi(file, recipeName);
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Failed to upload file: " + e.getMessage();
+            return ResponseEntity.status(500).body(Map.of("fileUrl", "", "responseBody", "파일 전송 실패: " + e.getMessage()));
         }
     }
 }

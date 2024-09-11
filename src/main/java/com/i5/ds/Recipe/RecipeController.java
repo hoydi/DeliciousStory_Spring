@@ -89,7 +89,7 @@ public class RecipeController {
         return "pages/userRecipe/userRecipe_write";
     }
 
-    @PostMapping("/userRecipe_save")
+    @PostMapping("/userRecipe_write")
     public String saveUserRecipe(@ModelAttribute UserRecipe userRecipe) {
         userRecipeService.saveUserRecipe(userRecipe);
         return "redirect:/user_recipe";

@@ -79,27 +79,57 @@
 <!--<script src="/js/recognition.js"></script>-->
 <!--</body>-->
 <!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #uploadForm {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        #response {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Upload File</h1>
-<form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" id="fileInput" name="file" accept="image/*" />
-    <button type="button" onclick="uploadFile()">Upload</button>
-</form>
+
+<div id="uploadForm">
+    <h1>File Upload</h1>
+    <form id="fileForm">
+        <input type="file" id="fileInput" name="file" required>
+        <input type="text" id="recipeName" name="recipeName" placeholder="Recipe Name" required>
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <div id="response"></div>
+</div>
 
 <script>
-    function uploadFile() {
-        const form = document.getElementById('uploadForm');
+    async function uploadFile() {
         const fileInput = document.getElementById('fileInput');
+        const recipeNameInput = document.getElementById('recipeName');
         const file = fileInput.files[0];
+        const recipeName = recipeNameInput.value;
+        const responseDiv = document.getElementById('response');
 
         if (!file) {
             alert('Please select a file.');
@@ -108,21 +138,29 @@
 
         const formData = new FormData();
         formData.append('file', file);
+        formData.append('recipeName', recipeName);
 
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.text())
-            .then(result => {
-                console.log('Success:', result);
-                alert('File uploaded successfully.');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to upload file.');
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
             });
+
+            if (response.ok) {
+                const responseBody = await response.json();
+                responseDiv.innerHTML = `
+                    <p>File uploaded successfully.</p>
+                    <p>File Name: ${responseBody.fileUrl}</p>
+                    <img src="${responseBody.fileUrl}"/>
+                `;
+            } else {
+                responseDiv.innerHTML = `<p>File upload failed: ${response.statusText}</p>`;
+            }
+        } catch (error) {
+            responseDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
     }
 </script>
+
 </body>
 </html>
