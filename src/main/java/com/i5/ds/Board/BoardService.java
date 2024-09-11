@@ -34,8 +34,10 @@ public class BoardService {
     public void deleteBoard(Integer id) {
         boardRepository.deleteById(id);
     }
- // 대소문자 구분 없이 제목으로 게시글 검색
+    // 대소문자 구분 없이 제목으로 게시글 검색
     public List<Board> searchBoardsByTitle(String title) {
         return boardRepository.searchByTitleIgnoringCase(title);
     }
+    
+    
 }

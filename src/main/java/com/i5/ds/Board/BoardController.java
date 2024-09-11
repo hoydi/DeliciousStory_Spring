@@ -106,5 +106,6 @@ import java.util.List;
 	        model.addAttribute("boards", boards);
 	        return "pages/board/list"; // 게시글 목록을 보여주는 뷰를 반환
 	    }
+	    
 
 	}
