@@ -55,14 +55,27 @@
                 <!-- 요리 순서와 이미지 출력 -->
                 <div th:each="manual, iterStat : ${manualList}">
                     <p th:text="${manual}"></p>
-                    <img th:src="${manualImageList[iterStat.index]}"
+                    <!-- 이미지 URL이 없는 경우 기본 이미지를 표시 -->
+                    <img th:if="${#lists.size(manualImageList) > iterStat.index}"
+                         th:src="${manualImageList[iterStat.index]}"
                          alt="요리 순서 이미지"
-                         style="width:200px"
-                         th:if="${manualImageList[iterStat.index] != ''}"/>
+                         style="width:200px"/>
                 </div>
             </div>
 
             <button onclick="history.back()">뒤로 가기</button>
+            <!-- Update and Delete buttons -->
+            <div name="write" th:if="${#authentication.principal != 'anonymousUser'}" style="padding-top: 30px;">
+                <!--            <p>로그인된 유저 아이디: <span th:text="${#authentication.principal.username}">User</span></p>-->
+                <a href="/userRecipe_write" class="button-link">
+                    <button type="button">글쓰기</button>
+                </a>
+            </div>
+            <a th:href="@{/userRecipe_update/{id}(id=${userRecipe.id})}"><button type="button">수정</button></a>
+
+            <form th:action="@{/userRecipe_delete/{id}(id=${userRecipe.id})}" method="post" style="display:inline;">
+                <button type="submit">삭제</button>
+            </form>
         </div>
     </div>
 </th:block>

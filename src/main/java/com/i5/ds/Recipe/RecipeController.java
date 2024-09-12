@@ -201,6 +201,132 @@ public class RecipeController {
         return "redirect:/userRecipe";
     }
 
+    // GET method for the update page
+    @GetMapping("/userRecipe_update/{id}")
+    public String getUserRecipeUpdate(@PathVariable("id") Long id, Model model) {
+        // Current user information
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        // Fetch user information
+        Optional<User> userOpt = userService.findByUserId(currentUserId);
+        if (userOpt.isPresent()) {
+            model.addAttribute("user", userOpt.get());
+        } else {
+            model.addAttribute("error", "User not found.");
+        }
+
+        // Fetch recipe information
+        UserRecipe userRecipe = userRecipeService.getRecipeById(id);
+        if (userRecipe == null) {
+            return "redirect:/userRecipe";
+        }
+
+        // Construct the URL for the main image
+        String baseUrl = "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F";
+        String mainImageUrl = userRecipe.getMainImageUrl();
+        if (mainImageUrl != null && !mainImageUrl.isEmpty()) {
+            mainImageUrl = baseUrl + mainImageUrl;
+            userRecipe.setMainImageUrl(mainImageUrl);
+        }
+
+        // Construct URLs for manual images
+        List<String> manualList = Arrays.asList(userRecipe.getManual().split("\\|,\\|"));
+        List<String> ingredientsList = Arrays.asList(userRecipe.getIngredients().split("\\|,\\|"));
+        List<String> manualImageList = Arrays.asList(userRecipe.getManualImage().split("\\|,\\|"));
+
+        List<String> updatedManualImageList = manualImageList.stream()
+                .map(imageName -> {
+                    if (imageName == "" || imageName.isEmpty()) {
+                        return imageName; // 그대로 반환
+                    } else {
+                        return baseUrl + imageName; // URL로 변환
+                    }
+                })
+                .collect(Collectors.toList());
+
+        // Add attributes to model
+        model.addAttribute("userRecipe", userRecipe);
+        model.addAttribute("manualList", manualList);
+        model.addAttribute("ingredientsList", ingredientsList);
+        model.addAttribute("manualImageList", updatedManualImageList);
+
+        return "pages/userRecipe/userRecipe_write";
+    }
+
+
+    // POST method for updating the recipe
+    @PostMapping("/userRecipe_update/{id}")
+    public String updateUserRecipe(@PathVariable("id") Long id,
+                                   @RequestParam("rcp_nm") String recipeName,
+                                   @RequestParam("rcp_way2") String cookingMethod,
+                                   @RequestParam("rcp_pat2") String dishType,
+                                   @RequestParam("att_file_no_main") MultipartFile mainImageFile,
+                                   @RequestParam("rcp_parts_dtls") List<String> ingredients,
+                                   @RequestParam("manual") List<String> manuals,
+                                   @RequestParam("manual_img") List<MultipartFile> manualImages,
+                                   @RequestParam("rcp_na_tip") String tips,
+                                   @RequestParam("hash_tag") String hashTag,
+                                   @RequestParam("user_id") String userId) throws IOException {
+
+        // Retrieve existing recipe
+        UserRecipe userRecipe = userRecipeService.getRecipeById(id);
+
+        if (userRecipe == null) {
+            return "redirect:/userRecipe"; // Redirect if the recipe is not found
+        }
+
+        // Update the recipe fields
+        userRecipe.setName(recipeName);
+        userRecipe.setCookingMethod(cookingMethod);
+        userRecipe.setDishType(dishType);
+        userRecipe.setHashTag(hashTag);
+        userRecipe.setTips(tips);
+
+        // Handle main image update
+        String mainImageUrl = userRecipe.getMainImageUrl(); // Retain existing image if no new image is uploaded
+        if (mainImageFile != null && !mainImageFile.isEmpty()) {
+            mainImageUrl = fileTransferService.uploadFileToExternalApi(mainImageFile, recipeName).getBody().get("fileName");
+        }
+        userRecipe.setMainImageUrl(mainImageUrl);
+
+        // Handle manual steps and images
+        StringBuilder manualBuilder = new StringBuilder();
+        StringBuilder manualImageBuilder = new StringBuilder();
+        for (int i = 0; i < manuals.size(); i++) {
+            manualBuilder.append(manuals.get(i));
+
+            String manualImageUrl = null;
+            if (manualImages.get(i) != null && !manualImages.get(i).isEmpty()) {
+                manualImageUrl = fileTransferService.uploadFileToExternalApi(manualImages.get(i), recipeName).getBody().get("fileName");
+            }
+            manualImageBuilder.append(manualImageUrl != null ? manualImageUrl : "");
+
+            if (i < manuals.size() - 1) {
+                manualBuilder.append("|,|");
+                manualImageBuilder.append("|,|");
+            }
+        }
+        userRecipe.setManual(manualBuilder.toString());
+        userRecipe.setManualImage(manualImageBuilder.toString());
+
+        // Update ingredients
+        userRecipe.setIngredients(String.join("|,|", ingredients));
+
+        // Save updated recipe
+        userRecipeService.saveUserRecipe(userRecipe);
+
+        return "redirect:/userRecipe";
+    }
+
+
+    // DELETE method for deleting a recipe
+    @PostMapping("/userRecipe_delete/{id}")
+    public String deleteUserRecipe(@PathVariable("id") Long id) {
+        userRecipeService.deleteUserRecipeById(id);
+        return "redirect:/userRecipe";
+    }
+
 
     // 모든 레시피 이름과 ID를 불러오는 API
     @GetMapping("/search")

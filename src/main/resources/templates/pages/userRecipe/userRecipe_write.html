@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
-    <title>타이틀</title>
+    <title th:text="${userRecipe != null ? userRecipe.name : '레시피 등록'}"></title>
 </th:block>
 
 <th:block layout:fragment="css">
@@ -45,7 +46,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
+            display: block;
         }
 
         .image-upload input[type="file"] {
@@ -71,26 +72,32 @@
 
 <th:block layout:fragment="javascript">
     <script th:src="@{/js/userRecipeList.js}"></script>
-
 </th:block>
 
 <th:block layout:fragment="containerFragment">
     <div class="container">
-        <form action="/userRecipe_write" method="post" enctype="multipart/form-data">
+        <!-- 폼 액션 URL과 메서드 설정 -->
+        <form th:action="@{${userRecipe != null ? '/userRecipe_update/' + userRecipe.id : '/userRecipe_write'}}"
+              method="post" enctype="multipart/form-data">
             <!-- 제목 (RCP_NM) -->
             <div class="form-group">
                 <label for="rcp_nm">레시피 제목</label>
-                <input type="text" id="rcp_nm" name="rcp_nm" required>
+                <input type="text" id="rcp_nm" name="rcp_nm" th:value="${userRecipe != null ? userRecipe.name : ''}"
+                       required>
             </div>
 
             <!-- 조리방법 (RCP_WAY2) -->
             <div class="form-group">
                 <label for="rcp_way2">조리방법</label>
                 <select id="rcp_way2" name="rcp_way2" required>
-                    <option value="찌기">찌기</option>
-                    <option value="굽기">굽기</option>
-                    <option value="끓이기">끓이기</option>
-                    <option value="기타">기타</option>
+                    <option value="찌기" th:selected="${userRecipe != null && userRecipe.cookingMethod == '찌기'}">찌기
+                    </option>
+                    <option value="굽기" th:selected="${userRecipe != null && userRecipe.cookingMethod == '굽기'}">굽기
+                    </option>
+                    <option value="끓이기" th:selected="${userRecipe != null && userRecipe.cookingMethod == '끓이기'}">끓이기
+                    </option>
+                    <option value="기타" th:selected="${userRecipe != null && userRecipe.cookingMethod == '기타'}">기타
+                    </option>
                 </select>
             </div>
 
@@ -98,21 +105,23 @@
             <div class="form-group">
                 <label for="rcp_pat2">요리종류</label>
                 <select id="rcp_pat2" name="rcp_pat2" required>
-                    <option value="반찬">반찬</option>
-                    <option value="국&찌개">국&찌개</option>
-                    <option value="디저트">디저트</option>
-                    <option value="기타">기타</option>
+                    <option value="반찬" th:selected="${userRecipe != null && userRecipe.dishType == '반찬'}">반찬</option>
+                    <option value="국&찌개" th:selected="${userRecipe != null && userRecipe.dishType == '국&찌개'}">국&찌개
+                    </option>
+                    <option value="디저트" th:selected="${userRecipe != null && userRecipe.dishType == '디저트'}">디저트</option>
+                    <option value="기타" th:selected="${userRecipe != null && userRecipe.dishType == '기타'}">기타</option>
                 </select>
             </div>
 
             <!-- 이미지 업로드 (ATT_FILE_NO_MAIN) -->
             <div class="form-group">
                 <label>메인 이미지</label>
-                <div class="image-upload" id="mainImageUpload" onclick="triggerFileUpload('att_file_no_main')">
+                <div class="image-upload" id="mainImageUpload" th:onclick="'triggerFileUpload(\'att_file_no_main\')'">
                     <input type="file" id="att_file_no_main" name="att_file_no_main" accept="image/*"
-                           onchange="previewImage(event, 'mainImagePreview')">
+                           th:onchange="'previewImage(event, \'mainImagePreview\')'">
                     <span>이미지 업로드</span>
-                    <img id="mainImagePreview">
+                    <img class="image-upload" id="mainImagePreview"
+                         th:src="${userRecipe != null && userRecipe.mainImageUrl != null ? userRecipe.mainImageUrl : ''}">
                 </div>
             </div>
 
@@ -120,40 +129,47 @@
             <div class="form-group">
                 <label>재료 정보</label>
                 <div id="ingredientsSection">
-                    <div class="ingredient-item">
-                        <input type="text" name="rcp_parts_dtls" placeholder="재료" required>
+                    <div class="ingredient-item" th:each="ingredient, iterStat : ${ingredientsList}">
+                        <input type="text" name="rcp_parts_dtls" th:value="${ingredient}" placeholder="재료" required>
                     </div>
                 </div>
-                <button type="button" class="plus-btn" onclick="addIngredient()">+</button>
+                <button type="button" class="plus-btn" th:onclick="'addIngredient()'">+</button>
             </div>
 
             <!-- 요리 순서 및 이미지 (MANUAL, MANUAL_IMG) -->
             <div class="form-group">
                 <label>요리 순서</label>
                 <div id="manualSection">
-                    <div class="manual-item">
-                        <input type="text" name="manual" placeholder="요리 순서" required>
-                        <div class="image-upload" onclick="triggerFileUpload('manual_img_0')">
-                            <input type="file" id="manual_img_0" name="manual_img" accept="image/*"
-                                   onchange="previewImage(event, 'manualImagePreview0')">
+                    <div class="manual-item" th:each="manual, iterStat : ${manualList}">
+                        <input type="text" name="manual" th:value="${manual}" placeholder="요리 순서" required>
+                        <div class="image-upload"
+                             th:onclick="'triggerFileUpload(\'manual_img_' + ${iterStat.index} + '\')'">
+                            <input type="file" th:id="'manual_img_' + ${iterStat.index}" name="manual_img"
+                                   accept="image/*"
+                                   th:onchange="'previewImage(event, \'manualImagePreview' + ${iterStat.index} + '\')'">
+
                             <span>이미지 업로드</span>
-                            <img id="manualImagePreview0">
+                            <img class="image-upload" th:id="'manualImagePreview' + ${iterStat.index}"
+                                 th:src="${manualImageList != null && iterStat.index < manualImageList.size() ? manualImageList[iterStat.index] : ''}">
+
                         </div>
                     </div>
                 </div>
-                <button type="button" class="plus-btn" onclick="addManualStep()">+</button>
+                <button type="button" class="plus-btn" th:onclick="'addManualStep()'">+</button>
             </div>
 
             <!-- 조리팁 (RCP_NA_TIP) -->
             <div class="form-group">
                 <label for="rcp_na_tip">조리팁</label>
-                <textarea id="rcp_na_tip" name="rcp_na_tip" rows="5"></textarea>
+                <textarea id="rcp_na_tip" name="rcp_na_tip" rows="5"
+                          th:text="${userRecipe != null ? userRecipe.tips : ''}"></textarea>
             </div>
 
             <!-- 해시태그 (HASH_TAG) -->
             <div class="form-group">
                 <label for="hash_tag">해시태그</label>
-                <textarea id="hash_tag" name="hash_tag" rows="1"></textarea>
+                <textarea id="hash_tag" name="hash_tag" rows="1"
+                          th:text="${userRecipe != null ? userRecipe.hashTag : ''}"></textarea>
             </div>
 
             <!-- 숨겨진 USER_ID -->
@@ -161,7 +177,7 @@
 
             <!-- 제출 버튼 -->
             <div class="form-group">
-                <button type="submit">레시피 등록</button>
+                <button type="submit" th:text="${userRecipe != null ? '수정하기' : '레시피 등록'}"></button>
             </div>
         </form>
     </div>
@@ -193,22 +209,38 @@
         }
 
         // 요리 순서 추가 기능
-        let manualStepCounter = 1;
+        let manualStepCounter = document.querySelectorAll('.manual-item').length;
 
         function addManualStep() {
             const manualSection = document.getElementById('manualSection');
             const newManualItem = document.createElement('div');
             newManualItem.classList.add('manual-item');
             newManualItem.innerHTML = `
-            <input type="text" name="manual" placeholder="요리 순서" required>
-            <div class="image-upload" onclick="triggerFileUpload('manual_img_${manualStepCounter}')">
-                <input type="file" id="manual_img_${manualStepCounter}" name="manual_img" accept="image/*" onchange="previewImage(event, 'manualImagePreview${manualStepCounter}')">
-                <span>이미지 업로드</span>
-                <img id="manualImagePreview${manualStepCounter}">
-            </div>
-        `;
+        <input type="text" name="manual" placeholder="요리 순서" required>
+        <div class="image-upload" onclick="triggerFileUpload('manual_img_${manualStepCounter}')">
+            <input type="file" id="manual_img_${manualStepCounter}" name="manual_img" accept="image/*" onchange="previewImage(event, 'manualImagePreview${manualStepCounter}')">
+            <span>이미지 업로드</span>
+            <img id="manualImagePreview${manualStepCounter}">
+        </div>
+    `;
             manualSection.appendChild(newManualItem);
             manualStepCounter++;
+        }
+
+        // Trigger file upload click
+        function triggerFileUpload(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        // Preview uploaded image
+        function previewImage(event, previewId) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById(previewId);
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 
