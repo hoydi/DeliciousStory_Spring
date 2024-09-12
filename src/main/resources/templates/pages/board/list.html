@@ -3,51 +3,63 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 
-<th:block layout:fragment="title">
-    <title>자유게시판</title>
-</th:block>
+    <th:block layout:fragment="title">
+        <title>자유게시판</title>
+    </th:block>
 
-<th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/boardList.css}">
-	<link rel="stylesheet" th:href="@{/css/index.css}">
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/boardList.css}">
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+    </th:block>
 
-</th:block>
+    <th:block layout:fragment="javascript">
+        <!--    <script th:src="@{/js/index.js}"></script>-->
+    </th:block>
 
+    <th:block layout:fragment="containerFragment">
+        <div class="container">
+            <h1>자유게시판</h1>
 
-<th:block layout:fragment="javascript">
-    <!--    <script th:src="@{/js/index.js}"></script>-->
-</th:block>
-
-<th:block layout:fragment="containerFragment">
-    <div class="container">
-		<h1>자유게시판</h1>
-		       <table>
-		           <thead>
-		               <tr>
-		                   <th>번호</th>
-		                   <th>작성자</th>
-		                   <th>제목</th>
-		                   <th>내용</th>
-		                   <th>작성일자</th>
-		                   <th>조회 수</th>
-		               </tr>
-		           </thead>
-		           <tbody> <!--게시글 클릭하면 이동하는 링크 만들어야 함-->
-		               <tr th:each="board : ${boards}"> <!--board 다 가지고 옴-->
-		                   <td th:text="${board.postId}"></td>
-		                   <td th:text="${board.userId}">작성자</td>
-						   <td>
-						              <!-- 제목을 클릭하면 상세보기 페이지로 이동하는 링크 생성 -->
-						              <a th:href="@{/boards/{id}(id=${board.postId})}" th:text="${board.title}">제목</a>
-						          </td>
-			                   <td th:text="${board.content}">내용</td>
-		                   <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
-		                   <td th:text="${board.views}">조회 수</td>
-		               </tr>
-		           </tbody>
-		       </table>
-	<a class="btn secondary" th:href="@{/boards/post}">글쓰기</a> 
-    </div>  
-</th:block>
-
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:40px;">번호</th>
+                            <th style="width:500px;">제목</th>
+                            <th style="width:100px;">작성자</th>
+                            <th style="width:100px;">작성일자</th>
+                            <th style="width:50px;">조회 수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="board : ${boards}">
+                            <td th:text="${board.postId}"></td>
+                            <td>
+                                <!-- 제목을 클릭하면 상세보기 페이지로 이동하는 링크 생성 -->
+                                <a th:href="@{/boards/{id}(id=${board.postId})}" th:text="${board.title}">제목</a>
+                            </td>
+                            <td th:text="${board.userId}">작성자</td>
+                            <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+                            <td th:text="${board.views}">조회 수</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- 버튼들을 감싸는 컨테이너 추가 -->
+                <div class="button-container">
+                    <a class="btn secondary" th:href="@{/}">메인으로 이동하기</a>
+                    <a class="btn secondary" th:href="@{/boards/post}">글 작성하기</a>
+                </div>
+                
+                <!-- 검색 폼을 감싸는 컨테이너 추가 -->
+                <div class="form-container">
+                    <form th:action="@{/boards/search}" method="get">
+                        <input type="text" name="query" placeholder="제목으로 검색" class="form-control" style="width:300px; display:inline-block;">
+                        <button type="submit" class="btn btn-primary">검색</button>
+                        <a class="btn btn-secondary" th:href="@{/boards}" style="margin-left: 10px;">뒤로가기</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </th:block>
 </html>

@@ -175,6 +175,19 @@
     justify-content: center;
 }
 
+@media (max-width: 1217px) {
+	.recipe-list {
+	width:800px;
+	margin:auto;
+	}
+}
+@media (max-width: 900px) {
+	.recipe-list {
+	width:100%;
+	}
+}
+
+
 .box-container {
     position: relative;
     padding: 16px;

@@ -3,14 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* 수직 정렬을 위해 column 설정 */
+    flex-direction: column;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* 전체 화면 너비로 확장 */
-    max-width: 1200px; /* 최대 너비 조정 (원하는 크기로 변경 가능) */
-    margin: 0 auto; /* 중앙 정렬 */
+    width: 100%;
+    max-width: 1200px;
 }
 
 /* 페이지 헤더 */
@@ -50,21 +49,22 @@
 
 /* 각 열의 가로 비율 설정 */
 .table th:nth-child(1),
-.table td:nth-child(1), /* 번호 */
-.table th:nth-child(4),
-.table td:nth-child(4), /* 댓글수 */
-.table th:nth-child(5),
-.table td:nth-child(5)  /* 조회수 */ {
-    width: 8%; /* 5%로 설정해서 좁게 만듭니다 */
+.table td:nth-child(1), /* 번호 */ {
+	width: 20%; /* 너비를 20%로 설정 */
+	text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .table th:nth-child(2),
 .table td:nth-child(2) /* 글 제목 */ {
-    width: 45%; /* 글 제목을 넓게 만듭니다 (원래보다 3배 확장) */
+    width: 30%; /* 글 제목을 넓게 만듭니다 (원래보다 3배 확장) */
 }
 
 .table th:nth-child(3),
 .table td:nth-child(3), /* 작성자 */
+.table th:nth-child(4),
+.table td:nth-child(4), /* 댓글수 */
+.table th:nth-child(5),
+.table td:nth-child(5)  /* 조회수 */
 .table th:nth-child(6),
 .table td:nth-child(6)  /* 작성일 */ {
     width: 15%; /* 나머지 열들 */
@@ -90,6 +90,17 @@
 }
 
 /* 검색 바 */
+.button1 {	width: 300px;
+	height: 29px;
+	vertical-align: middle;
+}
+
+.button2 {
+	width: 50px;
+	height: 35px;
+	vertical-align: middle;
+}
+
 .search-bar {
     display: flex;
     justify-content: center;

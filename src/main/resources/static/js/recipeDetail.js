@@ -10,7 +10,6 @@ function speakText(elementId) {
 	}
 }
 
-// TTS 기능을 위한 JavaScript 코드
 let tts = null;
 let isPlaying = false;
 
@@ -32,22 +31,130 @@ function speakTextAll(textId) {
 }
 
 function toggleTTS() {
-	const manualText = document.getElementById('recipeManual').textContent;
+    const manualText = document.getElementById('recipeManual').textContent;
 
-	// ** 및 NULL을 제외하고 텍스트를 필터링
-	let filteredText = manualText
-		.split('**') // ** 구분자로 분리
-		.filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
-		.join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
+    // ** 및 NULL을 제외하고 텍스트를 필터링
+    let filteredText = manualText
+        .split('**') // ** 구분자로 분리
+        .filter(line => line.trim() !== 'NULL' && line.trim() !== '') // NULL 및 빈 줄 필터링
+        .join('. '); // 각 문장을 마침표로 이어붙이기 (선택 사항)
 
-	if (isPlaying) {
-		speechSynthesis.cancel();  // TTS 중지
-	} else {
-		tts = new SpeechSynthesisUtterance(filteredText);
-		speechSynthesis.speak(tts);  // TTS 시작
-	}
+    const ttsButton = document.getElementById('ttsButton');
 
-	isPlaying = !isPlaying;  // 상태 토글
+    if (isPlaying) {
+        // TTS가 재생 중인 경우, 중지 처리
+        speechSynthesis.cancel();  // 현재 재생 중인 TTS를 중지
+        ttsButton.innerText = '전체재생';  // 버튼 텍스트 변경
+        isPlaying = false;  // 재생 상태 업데이트
+    } else {
+        // TTS가 중지되었거나 처음 시작하는 경우
+        tts = new SpeechSynthesisUtterance(filteredText);
+        tts.lang = 'ko-KR';  // 한국어 설정
+
+        // TTS가 끝났을 때 처리
+        tts.onend = () => {
+            ttsButton.innerText = '전체재생';  // TTS가 끝나면 버튼을 '전체재생'으로 변경
+            isPlaying = false;  // 재생 상태 업데이트
+        };
+
+        speechSynthesis.speak(tts);  // TTS 시작
+        ttsButton.innerText = '중지';  // 버튼 텍스트 변경
+        isPlaying = true;  // 재생 상태 업데이트
+    }
+}
+
+// 좋아요 상태 확인 함수
+function checkLikeStatus(recipeId) {
+	const likeButton = document.getElementById("likeButton");
+
+	// 좋아요 상태 확인
+	fetch(`/siteRecipe/${recipeId}/like/status`, {
+		method: 'GET'
+	})
+		.then(response => response.json()) // JSON 응답으로 파싱
+		.then(status => {
+			if (status.status === "alreadyLiked") {
+				likeButton.innerText = "좋아요 취소";
+				likeButton.setAttribute('onclick', 'handleLikeCancel()');
+			} else if (status.status === "notLoggedIn") {
+				likeButton.innerText = "로그인이 필요합니다";
+				likeButton.removeAttribute('onclick');
+			} else {
+				likeButton.innerText = "좋아요";
+				likeButton.setAttribute('onclick', 'handleLike()');
+			}
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+// 좋아요 등록 처리
+function handleLike() {
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+
+	fetch(`/siteRecipe/${recipeId}/like`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest'  // AJAX 요청임을 명시
+		}
+	})
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
+		.then(data => {
+			if (data.status === 'liked') {
+				alert('좋아요가 등록되었습니다.');
+				likeButton.innerText = "좋아요 취소";
+				likeButton.setAttribute('onclick', 'handleLikeCancel()');
+			} else if (data.status === 'alreadyLiked') {
+				alert('이미 좋아요를 누른 상태입니다.');
+			} else if (data.status === 'notLoggedIn') {
+				alert('로그인이 필요합니다.');
+				window.location.href = '/login';  // 로그인 페이지로 리다이렉트
+			}
+		})
+		.catch(error => console.error('Error:', error));
+}
+// 좋아요 취소 처리
+function handleLikeCancel() {
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+
+	fetch(`/siteRecipe/${recipeId}/like/cancel`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => {
+			// HTML 응답인지 확인
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return response.json(); // JSON이면 파싱
+			} else {
+				return response.text(); // HTML일 경우 텍스트로 처리
+			}
+		})
+		.then(data => {
+			if (data.status === 'cancelled') {
+				alert('좋아요가 취소되었습니다.');
+				likeButton.innerText = "좋아요";
+				likeButton.setAttribute('onclick', 'handleLike()');
+			} else if (data.status === 'notLiked') {
+				alert('좋아요 상태가 아닙니다.');
+			} else if (data.status === 'notLoggedIn') {
+				alert('로그인이 필요합니다.');
+				window.location.href = '/login';  // 로그인 페이지로 리다이렉트
+			}
+		})
+		.catch(error => console.error('Error:', error));
 }
 
 // 조리법 및 이미지 매칭 처리 함수
@@ -76,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const span = document.createElement('span');
 		span.id = `recipeManualLine${index}`;
 		span.classList.add('clickable-text');
-		span.innerText = `${line.trim()}`; // 번호 붙이기
+		span.innerText = `${line.trim()}`;
 		span.onclick = () => speakText(span.id);
 		stepDiv.appendChild(span);
 
@@ -95,7 +202,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		// 조리법 및 이미지를 컨테이너에 추가
 		manualContainer.appendChild(stepDiv);
 	});
+
+	// 페이지 로드 시 좋아요 상태 확인
+	const likeButton = document.getElementById("likeButton");
+	const recipeId = likeButton.getAttribute("data-recipe-id");
+	checkLikeStatus(recipeId);  // 좋아요 상태 확인
 });
-
-
-// 좋아요 관련 함수
