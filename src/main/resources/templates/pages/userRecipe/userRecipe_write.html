@@ -1,8 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>레시피 등록</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<th:block layout:fragment="title">
+    <title>타이틀</title>
+</th:block>
+
+<th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <style>
         .container {
@@ -63,134 +67,139 @@
             margin-bottom: 10px;
         }
     </style>
-</head>
-<body>
+</th:block>
 
-<div class="container">
-    <form action="/userRecipe_write" method="post" enctype="multipart/form-data">
-        <!-- 제목 (RCP_NM) -->
-        <div class="form-group">
-            <label for="rcp_nm">레시피 제목</label>
-            <input type="text" id="rcp_nm" name="rcp_nm" required>
-        </div>
+<th:block layout:fragment="javascript">
+    <script th:src="@{/js/userRecipeList.js}"></script>
 
-        <!-- 조리방법 (RCP_WAY2) -->
-        <div class="form-group">
-            <label for="rcp_way2">조리방법</label>
-            <select id="rcp_way2" name="rcp_way2" required>
-                <option value="찌기">찌기</option>
-                <option value="굽기">굽기</option>
-                <option value="끓이기">끓이기</option>
-                <option value="기타">기타</option>
-            </select>
-        </div>
+</th:block>
 
-        <!-- 요리종류 (RCP_PAT2) -->
-        <div class="form-group">
-            <label for="rcp_pat2">요리종류</label>
-            <select id="rcp_pat2" name="rcp_pat2" required>
-                <option value="반찬">반찬</option>
-                <option value="국&찌개">국&찌개</option>
-                <option value="디저트">디저트</option>
-                <option value="기타">기타</option>
-            </select>
-        </div>
-
-        <!-- 이미지 업로드 (ATT_FILE_NO_MAIN) -->
-        <div class="form-group">
-            <label>메인 이미지</label>
-            <div class="image-upload" id="mainImageUpload" onclick="triggerFileUpload('att_file_no_main')">
-                <input type="file" id="att_file_no_main" name="att_file_no_main" accept="image/*"
-                       onchange="previewImage(event, 'mainImagePreview')">
-                <span>이미지 업로드</span>
-                <img id="mainImagePreview">
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <form action="/userRecipe_write" method="post" enctype="multipart/form-data">
+            <!-- 제목 (RCP_NM) -->
+            <div class="form-group">
+                <label for="rcp_nm">레시피 제목</label>
+                <input type="text" id="rcp_nm" name="rcp_nm" required>
             </div>
-        </div>
 
-        <!-- 재료 정보 (RCP_PARTS_DTLS) -->
-        <div class="form-group">
-            <label>재료 정보</label>
-            <div id="ingredientsSection">
-                <div class="ingredient-item">
-                    <input type="text" name="rcp_parts_dtls" placeholder="재료" required>
+            <!-- 조리방법 (RCP_WAY2) -->
+            <div class="form-group">
+                <label for="rcp_way2">조리방법</label>
+                <select id="rcp_way2" name="rcp_way2" required>
+                    <option value="찌기">찌기</option>
+                    <option value="굽기">굽기</option>
+                    <option value="끓이기">끓이기</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+
+            <!-- 요리종류 (RCP_PAT2) -->
+            <div class="form-group">
+                <label for="rcp_pat2">요리종류</label>
+                <select id="rcp_pat2" name="rcp_pat2" required>
+                    <option value="반찬">반찬</option>
+                    <option value="국&찌개">국&찌개</option>
+                    <option value="디저트">디저트</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+
+            <!-- 이미지 업로드 (ATT_FILE_NO_MAIN) -->
+            <div class="form-group">
+                <label>메인 이미지</label>
+                <div class="image-upload" id="mainImageUpload" onclick="triggerFileUpload('att_file_no_main')">
+                    <input type="file" id="att_file_no_main" name="att_file_no_main" accept="image/*"
+                           onchange="previewImage(event, 'mainImagePreview')">
+                    <span>이미지 업로드</span>
+                    <img id="mainImagePreview">
                 </div>
             </div>
-            <button type="button" class="plus-btn" onclick="addIngredient()">+</button>
-        </div>
 
-        <!-- 요리 순서 및 이미지 (MANUAL, MANUAL_IMG) -->
-        <div class="form-group">
-            <label>요리 순서</label>
-            <div id="manualSection">
-                <div class="manual-item">
-                    <input type="text" name="manual" placeholder="요리 순서" required>
-                    <div class="image-upload" onclick="triggerFileUpload('manual_img_0')">
-                        <input type="file" id="manual_img_0" name="manual_img" accept="image/*"
-                               onchange="previewImage(event, 'manualImagePreview0')">
-                        <span>이미지 업로드</span>
-                        <img id="manualImagePreview0">
+            <!-- 재료 정보 (RCP_PARTS_DTLS) -->
+            <div class="form-group">
+                <label>재료 정보</label>
+                <div id="ingredientsSection">
+                    <div class="ingredient-item">
+                        <input type="text" name="rcp_parts_dtls" placeholder="재료" required>
                     </div>
                 </div>
+                <button type="button" class="plus-btn" onclick="addIngredient()">+</button>
             </div>
-            <button type="button" class="plus-btn" onclick="addManualStep()">+</button>
-        </div>
 
-        <!-- 조리팁 (RCP_NA_TIP) -->
-        <div class="form-group">
-            <label for="rcp_na_tip">조리팁</label>
-            <textarea id="rcp_na_tip" name="rcp_na_tip" rows="5"></textarea>
-        </div>
+            <!-- 요리 순서 및 이미지 (MANUAL, MANUAL_IMG) -->
+            <div class="form-group">
+                <label>요리 순서</label>
+                <div id="manualSection">
+                    <div class="manual-item">
+                        <input type="text" name="manual" placeholder="요리 순서" required>
+                        <div class="image-upload" onclick="triggerFileUpload('manual_img_0')">
+                            <input type="file" id="manual_img_0" name="manual_img" accept="image/*"
+                                   onchange="previewImage(event, 'manualImagePreview0')">
+                            <span>이미지 업로드</span>
+                            <img id="manualImagePreview0">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="plus-btn" onclick="addManualStep()">+</button>
+            </div>
 
-        <!-- 해시태그 (HASH_TAG) -->
-        <div class="form-group">
-            <label for="hash_tag">해시태그</label>
-            <textarea id="hash_tag" name="hash_tag" rows="1"></textarea>
-        </div>
+            <!-- 조리팁 (RCP_NA_TIP) -->
+            <div class="form-group">
+                <label for="rcp_na_tip">조리팁</label>
+                <textarea id="rcp_na_tip" name="rcp_na_tip" rows="5"></textarea>
+            </div>
 
-        <!-- 숨겨진 USER_ID -->
-        <input type="hidden" th:value="${user.userId}" name="user_id">
+            <!-- 해시태그 (HASH_TAG) -->
+            <div class="form-group">
+                <label for="hash_tag">해시태그</label>
+                <textarea id="hash_tag" name="hash_tag" rows="1"></textarea>
+            </div>
 
-        <!-- 제출 버튼 -->
-        <div class="form-group">
-            <button type="submit">레시피 등록</button>
-        </div>
-    </form>
-</div>
+            <!-- 숨겨진 USER_ID -->
+            <input type="hidden" th:value="${user.userId}" name="user_id">
 
-<script>
-    // 파일 업로드 트리거
-    function triggerFileUpload(inputId) {
-        document.getElementById(inputId).click();
-    }
+            <!-- 제출 버튼 -->
+            <div class="form-group">
+                <button type="submit">레시피 등록</button>
+            </div>
+        </form>
+    </div>
 
-    // 이미지 미리보기 기능
-    function previewImage(event, previewId) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            const output = document.getElementById(previewId);
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
+    <script>
+        // 파일 업로드 트리거
+        function triggerFileUpload(inputId) {
+            document.getElementById(inputId).click();
+        }
 
-    // 재료 정보 추가 기능
-    function addIngredient() {
-        const ingredientsSection = document.getElementById('ingredientsSection');
-        const newIngredient = document.createElement('div');
-        newIngredient.classList.add('ingredient-item');
-        newIngredient.innerHTML = `<input type="text" name="rcp_parts_dtls" placeholder="추가 재료" required>`;
-        ingredientsSection.appendChild(newIngredient);
-    }
+        // 이미지 미리보기 기능
+        function previewImage(event, previewId) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById(previewId);
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-    // 요리 순서 추가 기능
-    let manualStepCounter = 1;
+        // 재료 정보 추가 기능
+        function addIngredient() {
+            const ingredientsSection = document.getElementById('ingredientsSection');
+            const newIngredient = document.createElement('div');
+            newIngredient.classList.add('ingredient-item');
+            newIngredient.innerHTML = `<input type="text" name="rcp_parts_dtls" placeholder="추가 재료" required>`;
+            ingredientsSection.appendChild(newIngredient);
+        }
 
-    function addManualStep() {
-        const manualSection = document.getElementById('manualSection');
-        const newManualItem = document.createElement('div');
-        newManualItem.classList.add('manual-item');
-        newManualItem.innerHTML = `
+        // 요리 순서 추가 기능
+        let manualStepCounter = 1;
+
+        function addManualStep() {
+            const manualSection = document.getElementById('manualSection');
+            const newManualItem = document.createElement('div');
+            newManualItem.classList.add('manual-item');
+            newManualItem.innerHTML = `
             <input type="text" name="manual" placeholder="요리 순서" required>
             <div class="image-upload" onclick="triggerFileUpload('manual_img_${manualStepCounter}')">
                 <input type="file" id="manual_img_${manualStepCounter}" name="manual_img" accept="image/*" onchange="previewImage(event, 'manualImagePreview${manualStepCounter}')">
@@ -198,10 +207,11 @@
                 <img id="manualImagePreview${manualStepCounter}">
             </div>
         `;
-        manualSection.appendChild(newManualItem);
-        manualStepCounter++;
-    }
-</script>
+            manualSection.appendChild(newManualItem);
+            manualStepCounter++;
+        }
+    </script>
 
-</body>
+</th:block>
+
 </html>
