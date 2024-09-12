@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/mypage_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/mypage_layout}">
 
 <th:block layout:fragment="title">
-    <title>My Page</title>
+	<title>My Page</title>
 </th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/user.css}">
+	<link rel="stylesheet" th:href="@{/css/user.css}">
 </th:block>
 
-<th:block layout:fragment="javascript">
-    <!--    <script th:src="@{/js/index.js}"></script>-->
-</th:block>
 <th:block layout:fragment="containerFragment">
-    <div class="container">
-        <h2>My Page</h2>
-        <form action="/update" method="post">
-            <div class="form-group">
-                <label for="userId">User ID:</label>
-                <input type="text" id="userId" name="userId" th:value="${user.userId}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="userPw">Password:</label>
-                <input type="password" id="userPw" name="userPw" required>
-            </div>
-            <div class="form-group">
-                <label for="userEmail">Email:</label>
-                <input type="email" id="userEmail" name="userEmail" th:value="${user.userEmail}" required>
-            </div>
-            <button type="submit" class="btn">Update</button>
-        </form>
-    </div>
-</th:block>
+	<div class="container">
+		<h2>My Page</h2>
+		<form action="/update" method="post">
+			<div class="form-group">
+				<label for="userId">User ID:</label> <input type="text" id="userId"
+					name="userId" th:value="${user.userId}" readonly>
+			</div>
 
+			<div class="form-group">
+				<label for="userPw">Current Password:</label> <input type="password"
+					id="userPw" name="userPw" required>
+			</div>
+
+			<div class="form-group">
+				<label for="newPassword">New Password:</label> <input
+					type="password" id="newPassword" name="newPassword">
+			</div>
+
+			<div class="form-group">
+				<label for="userEmail">Email:</label> <input type="email"
+					id="userEmail" name="userEmail" th:value="${user.userEmail}"
+					required>
+			</div>
+
+			<div class="form-group">
+				<label for="userName">Name:</label> <input type="text" id="userName"
+					name="userName" th:value="${user.userName}" required>
+			</div>
+
+			<button type="submit" class="btn">Update</button>
+		</form>
+	</div>
+</th:block>
 </html>

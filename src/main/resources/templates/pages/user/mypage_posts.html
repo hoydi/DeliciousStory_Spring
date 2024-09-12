@@ -4,47 +4,60 @@
 	layout:decorate="~{fragments/mypage_layout}">
 
 <head>
-<title>내 게시글</title>
-<link rel="stylesheet" th:href="@{/css/user.css}">
-<link rel="stylesheet" th:href="@{/css/mypage_posts.css}">
+<th:block layout:fragment="title">
+	<title>작성글 리스트</title>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/user.css}">
+	<link rel="stylesheet" th:href="@{/css/mypage_posts.css}">
+</th:block>
+
+<th:block layout:fragment="javascript">
+	<script th:src="@{/js/mypagePosts.js}"></script>
+</th:block>
 </head>
 
 <body>
-	<div class="container">
-		<h2>내 게시글</h2>
+	<th:block layout:fragment="containerFragment">
+		<div class="container">
+			<h2>작성글 리스트</h2>
+			<div class="post-grid">
+				<!-- 게시글이 없는 경우 메시지 출력 -->
+				<th:block th:if="${#lists.isEmpty(boards)}">
+					<p>작성한 게시글이 없습니다.</p>
+				</th:block>
 
-		<!-- 게시글 테이블 -->
-		<table class="table">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>글 제목</th>
-					<th>작성자</th>
-					<th>댓글수</th>
-					<th>조회수</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="board : ${boards}">
-					<td th:text="${board.postId}"></td>
-					<td th:text="${board.title}">제목</td>
-					<td th:text="${board.userId}">작성자</td>
-					<td th:text="${board.content}">내용</td>
-					<td th:text="${board.views}">조회 수</td>
-					<td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
-				</tr>
-			</tbody>
-		</table>
+				<table>
+					<thead>
+						<tr>
+							<th style="width: 40px;">번호</th>
+							<th style="width: 500px;">제목</th>
+							<th style="width: 100px;">작성일자</th>
+							<th style="width: 50px;">조회 수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- 내가 작성한 게시글 반복 출력 -->
+						<tr th:each="board : ${boards}">
+							<td th:text="${board.postId}"></td>
+							<td><a th:href="@{/boards/{id}(id=${board.postId})}"
+								th:text="${board.title}">제목</a></td>
+							<td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+							<td th:text="${board.views}">조회 수</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-		<!-- 검색과 페이지네이션 -->
-		<div class="search-pagination">
-			<form method="get" th:action="@{/mypage/posts}">
-				<input class="button1" type="text" name="keyword"
-					placeholder="검색어를 입력하세요..." />
-				<button class="button2" type="submit">검색</button>
-			</form>
+			<!-- 페이지 상단으로 이동하는 버튼 -->
+			<button class="scroll-to-top" onclick="scrollToTop()">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+					fill="currentColor" width="24px" height="24px">
+                <path d="M12 4l-6 6h12l-6-6z"></path>
+            </svg>
+			</button>
 		</div>
-	</div>
+	</th:block>
 </body>
 </html>
