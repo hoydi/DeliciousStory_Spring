@@ -5,6 +5,9 @@ import com.i5.ds.Recipe.SiteRecipe.Recipe;
 import com.i5.ds.Recipe.SiteRecipe.RecipeService;
 import com.i5.ds.Recipe.UserRecipe.UserRecipe;
 import com.i5.ds.Recipe.UserRecipe.UserRecipeService;
+import com.i5.ds.Upload.FileTransferService;
+import com.i5.ds.User.User;
+import com.i5.ds.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -14,11 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -30,6 +33,10 @@ public class RecipeController {
     private UserRecipeService userRecipeService;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private FileTransferService fileTransferService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/siteRecipetest")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
@@ -63,41 +70,137 @@ public class RecipeController {
                                  @RequestParam(defaultValue = "20") int size) {
 
         Page<UserRecipe> userRecipePage = userRecipeService.getUserRecipes(page, size);
-        model.addAttribute("userRecipes", userRecipePage.getContent());
+        List<UserRecipe> userRecipes = userRecipePage.getContent();
+
+        // mainImageUrl을 수정
+        for (UserRecipe recipe : userRecipes) {
+            String mainImageUrl = recipe.getMainImageUrl();
+            if (mainImageUrl != null && !mainImageUrl.isEmpty()) {
+                mainImageUrl = "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F" + mainImageUrl;
+                recipe.setMainImageUrl(mainImageUrl); // 수정된 URL 설정
+            }
+        }
+
+        // 수정된 userRecipes를 모델에 추가
+        model.addAttribute("userRecipes", userRecipes);
         model.addAttribute("userCurrentPage", page);
         model.addAttribute("userTotalPages", userRecipePage.getTotalPages());
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        // 전체 데이터의 갯수 출력
-        System.out.println("Total recipes: " + userRecipePage.getContent().size());
 
-        // 3번째 데이터가 존재하면 해당 데이터의 이름 출력
-        if (userRecipePage.getContent().size() >= 3) {
-            System.out.println("Name of the 3rd recipe: " + userRecipePage.getContent().get(2).getName());
+        // 디버그용 출력
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Total recipes: " + userRecipes.size());
+
+        if (userRecipes.size() >= 3) {
+            System.out.println("Name of the 3rd recipe: " + userRecipes.get(2).getName());
         } else {
             System.out.println("Less than 3 recipes available.");
         }
+
         return "pages/userRecipe/userRecipe_list";
     }
 
     @GetMapping("/userRecipe/{id}")
     public String getUserRecipeById(@PathVariable("id") Long id, Model model) {
         UserRecipe userRecipe = userRecipeService.getRecipeById(id);
+
+        // mainImageUrl 수정
+        String mainImageUrl = userRecipe.getMainImageUrl();
+        if (mainImageUrl != null && !mainImageUrl.isEmpty()) {
+            mainImageUrl = "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F" + mainImageUrl;
+            userRecipe.setMainImageUrl(mainImageUrl);
+        }
+
+        // manual, ingredients, manualImage를 |,|로 분리
+        List<String> manualList = Arrays.asList(userRecipe.getManual().split("\\|,\\|"));
+        List<String> ingredientsList = Arrays.asList(userRecipe.getIngredients().split("\\|,\\|"));
+        List<String> manualImageList = Arrays.asList(userRecipe.getManualImage().split("\\|,\\|"));
+        for (int i = 0; i < manualImageList.size(); i++) {
+            if (manualImageList.get(i) != null && !manualImageList.get(i).isEmpty()) {
+                // 리스트의 i번째 값을 수정할 때 set() 사용
+                manualImageList.set(i, "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F" + manualImageList.get(i));
+            }
+        }
+
+        // 모델에 추가
         model.addAttribute("userRecipe", userRecipe);
+        model.addAttribute("manualList", manualList);
+        model.addAttribute("ingredientsList", ingredientsList);
+        model.addAttribute("manualImageList", manualImageList);
+
         return "pages/userRecipe/userRecipe_detail";
     }
 
-    @GetMapping("/userRecipe_write")
-    public String getUserRecipeWrite() {
 
+    @GetMapping("/userRecipe_write")
+    public String getUserRecipeWrite(Model model) {
+        // 현재 사용자 정보를 가져오는 로직
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName(); // 현재 로그인한 사용자 ID를 가져옴
+
+        // 사용자 정보를 DB에서 가져오기
+        Optional<User> userOpt = userService.findByUserId(currentUserId);
+        if (userOpt.isPresent()) {
+            model.addAttribute("user", userOpt.get());
+        } else {
+            // 사용자 정보가 없을 경우 처리 (예: 에러 메시지 추가)
+            model.addAttribute("error", "User not found.");
+        }
         return "pages/userRecipe/userRecipe_write";
     }
 
-    @PostMapping("/userRecipe_save")
-    public String saveUserRecipe(@ModelAttribute UserRecipe userRecipe) {
-        userRecipeService.saveUserRecipe(userRecipe);
-        return "redirect:/user_recipe";
+    @PostMapping("/userRecipe_write")
+    public String saveUserRecipe(@RequestParam("rcp_nm") String recipeName,
+                                 @RequestParam("rcp_way2") String cookingMethod,
+                                 @RequestParam("rcp_pat2") String dishType,
+                                 @RequestParam("att_file_no_main") MultipartFile mainImageFile,
+                                 @RequestParam("rcp_parts_dtls") List<String> ingredients,
+                                 @RequestParam("manual") List<String> manuals,
+                                 @RequestParam("manual_img") List<MultipartFile> manualImages,
+                                 @RequestParam("rcp_na_tip") String tips,
+                                 @RequestParam("hash_tag") String hashTag,
+                                 @RequestParam("user_id") String userId) throws IOException {
 
+        // 메인 이미지 업로드 (파일이 있는지 확인)
+        String mainImageUrl = null;
+        if (mainImageFile != null && !mainImageFile.isEmpty()) {
+            mainImageUrl = fileTransferService.uploadFileToExternalApi(mainImageFile, recipeName).getBody().get("fileName");
+        }
+
+        // 요리 순서와 이미지를 |,|로 구분하여 연결
+        StringBuilder manualBuilder = new StringBuilder();
+        StringBuilder manualImageBuilder = new StringBuilder();
+
+        for (int i = 0; i < manuals.size(); i++) {
+            // 요리 순서 추가
+            manualBuilder.append(manuals.get(i));
+
+            // 이미지 업로드 (파일이 있는지 확인)
+            String manualImageUrl = null;
+            if (manualImages.get(i) != null && !manualImages.get(i).isEmpty()) {
+                manualImageUrl = fileTransferService.uploadFileToExternalApi(manualImages.get(i), recipeName).getBody().get("fileName");
+            }
+
+            // 이미지 URL 추가
+            manualImageBuilder.append(manualImageUrl != null ? manualImageUrl : "");
+
+            if (i < manuals.size() - 1) {
+                manualBuilder.append("|,|");
+                manualImageBuilder.append("|,|");
+            }
+        }
+
+        // 재료를 |,| 구분자로 연결
+        String ingredientsString = String.join("|,|", ingredients);
+
+        // UserRecipe 객체 생성
+        UserRecipe userRecipe = new UserRecipe(recipeName, cookingMethod, dishType, hashTag, mainImageUrl, ingredientsString, tips, manualBuilder.toString(), manualImageBuilder.toString(), new Date(), userId);
+
+        // 저장
+        userRecipeService.saveUserRecipe(userRecipe);
+
+        return "redirect:/userRecipe";
     }
+
 
     // 모든 레시피 이름과 ID를 불러오는 API
     @GetMapping("/search")

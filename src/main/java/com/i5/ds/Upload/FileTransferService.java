@@ -54,7 +54,7 @@ public class FileTransferService {
         System.out.println(responseEntity.getHeaders());
         Map<String, String> responseMap = new HashMap<>();
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
-            responseMap.put("fileUrl", "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F" + fileName);
+            responseMap.put("fileName", fileName);
             responseMap.put("responseBody", responseEntity.getBody());
             return ResponseEntity.ok(responseMap);
         } else {
