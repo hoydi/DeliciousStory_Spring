@@ -53,12 +53,14 @@
                 <!-- 이미지 URL 텍스트를 포함하는 요소 -->
                 <div id="recipeImageUrls" th:text="${recipe.manualImageUrl}" style="display: none;"></div>
                 <!-- 이미지가 표시될 영역 -->
-                <div id="recipeImages"></div>
-                <div id="recipeManual" style="display: none;" th:text="${recipe.manual}"></div>
+				<div class="recipeWrap">
+                	<div id="recipeImages"></div>
+                	<div id="recipeManual" style="display: none;" th:text="${recipe.manual}"></div>
+				</div>
             
 
             <div id="recipeManualContainer"></div>
-            <button onclick="history.back()">뒤로 가기</button>
+            <button class="backbutton" onclick="history.back()">뒤로 가기</button>
         </div>
     </div>
 </th:block>

@@ -72,13 +72,29 @@ button:hover {
 /* 텍스트 클릭 스타일 */
 .clickable-text {
     cursor: pointer;
+	width: 80%;
+	font-size: 18px;
+	margin-right: 10px;
 }
 
 .clickable-text:hover {
     color: blue;
 }
 
+.recipe-step {
+	display: flex;
+	margin-top: 30px;
+}
+
 hr {
 	color: gray;
 	margin: 80px 0 80px 0;
+}
+
+strong {
+	margin-right: 15px;
+}
+
+.backbutton {
+	margin: 50px 0 50px 0;
 }
