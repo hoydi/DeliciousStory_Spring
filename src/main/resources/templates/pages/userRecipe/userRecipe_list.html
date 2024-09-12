@@ -17,14 +17,8 @@
 </th:block>
 
 <th:block layout:fragment="containerFragment">
-    <div class="container">
+    <div class="container" style="display: flex; flex-direction: column;">
         <!-- 로그인한 유저에게만 보이는 저장 버튼 -->
-        <div th:if="${#authentication.principal != 'anonymousUser'}">
-            <p>로그인된 유저 아이디: <span th:text="${#authentication.principal.username}">User</span></p>
-            <a href="/userRecipe_write" class="button-link">
-                <button type="button">글쓰기</button>
-            </a>
-        </div>
         <div th:if="${#authentication.principal == 'anonymousUser'}">
             <p>로그인해주세요</p>
         </div>
@@ -36,10 +30,11 @@
             <th:block th:each="recipe : ${userRecipes}">
                 <div class="recipe-item"
                      style="position: relative; padding: 16px; background-color: white; cursor: pointer;"
-                     th:onclick="'location.href=\'/recipe/' + ${recipe.id} + '\''">
+                     th:onclick="'location.href=\'/userRecipe/' + ${recipe.id} + '\''">
                     <div class="image-container" style="position: relative;">
                         <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지"
-                             style="border-radius: 4px; width: 250px; height: 250px;">
+                             style="border-radius: 4px; width: 250px; height: 250px;"
+                             th:if="${recipe.mainImageUrl != null}">
                     </div>
                     <div class="recipe-details" style="margin-top: 8px;">
                         <p class="calories" style="font-size: 12px; color: #8C8C8C;"
@@ -58,6 +53,12 @@
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 17-7-7h14l-7 7z"></path>
             </svg>
         </button>
+        <div name="write" th:if="${#authentication.principal != 'anonymousUser'}" style="padding-top: 30px;">
+            <!--            <p>로그인된 유저 아이디: <span th:text="${#authentication.principal.username}">User</span></p>-->
+            <a href="/userRecipe_write" class="button-link">
+                <button type="button">글쓰기</button>
+            </a>
+        </div>
     </div>
 </th:block>
 

@@ -32,16 +32,16 @@ public class UserRecipe {
     private String dishType;
 
     @Column(name = "info_eng")
-    private Double energy;
+    private Integer energy;
 
     @Column(name = "info_car")
-    private Double calories;
+    private Integer calories;
 
     @Column(name = "info_pro")
-    private Double protein;
+    private Integer protein;
 
     @Column(name = "info_fat")
-    private Double fat;
+    private Integer fat;
 
     @Column(name = "hash_tag")
     private String hashTag;
@@ -66,7 +66,7 @@ public class UserRecipe {
     public UserRecipe() {
     }
 
-    public UserRecipe(Long id, String name, String cookingMethod, String dishType, Double energy, Double calories, Double protein, Double fat, String hashTag, String mainImageUrl, String thumbnailImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
+    public UserRecipe(Long id, String name, String cookingMethod, String dishType, Integer energy, Integer calories, Integer protein, Integer fat, String hashTag, String mainImageUrl, String thumbnailImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
         this.calories = calories;
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
@@ -86,18 +86,13 @@ public class UserRecipe {
         this.userId = userId;
     }
 
-    public UserRecipe(String name, String cookingMethod, String dishType, Double energy, Double calories, Double protein, Double fat, String hashTag, String mainImageUrl, String thumbnailImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
-        this.calories = calories;
+    public UserRecipe(String name, String cookingMethod, String dishType, String hashTag, String mainImageUrl, String ingredients, String tips, String manual, String manualImage, Date regDate, String userId) {
         this.cookingMethod = cookingMethod;
         this.dishType = dishType;
-        this.energy = energy;
-        this.fat = fat;
         this.ingredients = ingredients;
         this.mainImageUrl = mainImageUrl;
         this.manual = manual;
         this.name = name;
-        this.protein = protein;
-        this.thumbnailImageUrl = thumbnailImageUrl;
         this.tips = tips;
         this.hashTag = hashTag;
         this.manualImage = manualImage;
@@ -106,11 +101,11 @@ public class UserRecipe {
     }
 
 
-    public Double getCalories() {
+    public Integer getCalories() {
         return calories;
     }
 
-    public void setCalories(Double calories) {
+    public void setCalories(Integer calories) {
         this.calories = calories;
     }
 
@@ -130,19 +125,19 @@ public class UserRecipe {
         this.dishType = dishType;
     }
 
-    public Double getEnergy() {
+    public Integer getEnergy() {
         return energy;
     }
 
-    public void setEnergy(Double energy) {
+    public void setEnergy(Integer energy) {
         this.energy = energy;
     }
 
-    public Double getFat() {
+    public Integer getFat() {
         return fat;
     }
 
-    public void setFat(Double fat) {
+    public void setFat(Integer fat) {
         this.fat = fat;
     }
 
@@ -186,11 +181,11 @@ public class UserRecipe {
         this.name = name;
     }
 
-    public Double getProtein() {
+    public Integer getProtein() {
         return protein;
     }
 
-    public void setProtein(Double protein) {
+    public void setProtein(Integer protein) {
         this.protein = protein;
     }
 
