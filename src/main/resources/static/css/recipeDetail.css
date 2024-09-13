@@ -1,11 +1,4 @@
 /* 중앙 정렬 및 레이아웃 조정 */
-.container {
-    max-width: 1200px;
-    margin: 0 auto; /* 중앙 정렬 */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 모든 요소를 중앙으로 정렬 */
-}
 
 .recipe-header {
     display: flex;
@@ -25,6 +18,10 @@
 	margin-top: 20px;
 }
 
+.recipe-detail {
+	width: 1040px !important;
+}
+
 .recipe-detail p {
     font-size: 1.2em;
     margin: 20px 0;
@@ -33,6 +30,10 @@
 
 .recipe-detail strong {
 	font-size: 22px;
+}
+
+#recipeManualContainer {
+	margin: 80px 0;
 }
 
 #recipeIngredients{
@@ -49,7 +50,7 @@
 }
 
 button {
-    background-color: #007bff;
+    background-color: #db0000;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -60,7 +61,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #b61111;
 }
 
 /* 조리법 줄 바꿈 스타일 */
@@ -73,7 +74,6 @@ button:hover {
 .clickable-text {
     cursor: pointer;
 	width: 80%;
-	font-size: 18px;
 	margin-right: 10px;
 }
 
@@ -97,4 +97,11 @@ strong {
 
 .backbutton {
 	margin: 50px 0 50px 0;
+}
+
+img {
+    width: 500px !important;
+    height: auto !important;
+    object-fit: cover !important;
+	border-radius: 5px;
 }

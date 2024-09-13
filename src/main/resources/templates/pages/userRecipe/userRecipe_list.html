@@ -34,7 +34,6 @@
                      th:onclick="'location.href=\'/userRecipe/' + ${recipe.id} + '\''">
                     <div class="image-container" style="position: relative;">
                         <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지"
-                             style="border-radius: 4px; width: 250px; height: 250px;"
                              th:if="${recipe.mainImageUrl != null}">
                     </div>
                     <div class="recipe-details" style="margin-top: 8px;">
