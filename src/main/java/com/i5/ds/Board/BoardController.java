@@ -106,6 +106,16 @@ public class BoardController {
         return "pages/board/list";
     }
     
+    @GetMapping("/boards")
+    public String getBoards(@RequestParam(defaultValue = "0") int page, Model model) {
+        Page<Board> boardPage = boardService.getBoardsPaged(page, 10); // 페이지 크기 10
+        model.addAttribute("boards", boardPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", boardPage.getTotalPages());
+        return "pages/board/list";
+    }
+
+    
  
 
 }

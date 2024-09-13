@@ -49,16 +49,19 @@
 			<!-- 페이지네이션 부분 추가 -->
 			<div class="pagination">
 			    <!-- 이전 페이지 버튼 -->
-			    <a class="btn btn-secondary" th:href="@{/boards(page=${currentPage - 1})}" th:if="${currentPage > 0}">이전</a>
+			    <a class="btn" th:href="@{/boards(page=${currentPage - 1})}" th:if="${currentPage > 0}">이전</a>
 
 			    <!-- 페이지 번호 -->
 			    <th:block th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-			        <a class="btn btn-secondary" th:href="@{/boards(page=${i})}" th:text="${i + 1}">1</a>
+			        <a class="btn" th:href="@{/boards(page=${i})}" th:text="${i + 1}">1</a>
 			    </th:block>
 
 			    <!-- 다음 페이지 버튼 -->
-			    <a class="btn btn-secondary" th:href="@{/boards(page=${currentPage + 1})}" th:if="${currentPage + 1 < totalPages}">다음</a>
+			    <a class="btn" th:href="@{/boards(page=${currentPage + 1})}" th:if="${currentPage + 1 < totalPages}">다음</a>
 			</div>
+
+
+
 
 
             <!-- 버튼들을 감싸는 컨테이너 추가 -->
