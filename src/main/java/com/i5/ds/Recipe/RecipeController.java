@@ -105,15 +105,18 @@ public class RecipeController {
 
         // mainImageUrl 수정
         String mainImageUrl = userRecipe.getMainImageUrl();
-        if (mainImageUrl != null && !mainImageUrl.isEmpty()) {
+        if (mainImageUrl == null) {
+            mainImageUrl = ""; // null일 때 빈 문자열로 대체
+        } else if (!mainImageUrl.isEmpty()) {
             mainImageUrl = "https://axpt92hqzxmy.objectstorage.ap-chuncheon-1.oci.customer-oci.com/n/axpt92hqzxmy/b/bucket_ds/o/image%2F" + mainImageUrl;
-            userRecipe.setMainImageUrl(mainImageUrl);
         }
+        userRecipe.setMainImageUrl(mainImageUrl);
 
         // manual, ingredients, manualImage를 |,|로 분리
-        List<String> manualList = Arrays.asList(userRecipe.getManual().split("\\|,\\|"));
-        List<String> ingredientsList = Arrays.asList(userRecipe.getIngredients().split("\\|,\\|"));
-        List<String> manualImageList = Arrays.asList(userRecipe.getManualImage().split("\\|,\\|"));
+        List<String> manualList = userRecipe.getManual() != null ? Arrays.asList(userRecipe.getManual().split("\\|,\\|")) : new ArrayList<>();
+        List<String> ingredientsList = userRecipe.getIngredients() != null ? Arrays.asList(userRecipe.getIngredients().split("\\|,\\|")) : new ArrayList<>();
+        List<String> manualImageList = userRecipe.getManualImage() != null ? Arrays.asList(userRecipe.getManualImage().split("\\|,\\|")) : new ArrayList<>();
+
         for (int i = 0; i < manualImageList.size(); i++) {
             if (manualImageList.get(i) != null && !manualImageList.get(i).isEmpty()) {
                 // 리스트의 i번째 값을 수정할 때 set() 사용
