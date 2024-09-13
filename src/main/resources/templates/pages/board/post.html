@@ -5,6 +5,7 @@
 
 <!-- 페이지 제목 설정 -->
 <th:block layout:fragment="title">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>자유게시판 글 작성하기</title>
 </th:block>
 
@@ -45,28 +46,29 @@
 <!-- 컨테이너 영역 시작 -->
 <th:block layout:fragment="containerFragment">
     <div class="container">
-		<form th:action="@{/boards/post}" method="post">
-		    <input type="hidden" name="userId" th:value="${user.userId}">
+        <form th:action="@{/boards/post}" method="post">
+            <input type="hidden" name="userId" th:value="${user.userId}">
 
-		    <!-- 제목 입력 필드 -->
-		    <div class="form-group">
-		        <h2 style="text-align:center">글 작성하기</h2>
-		        <label for="title">제목</label>
-		        <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
-		    </div>
+            <!-- 제목 입력 필드 -->
+            <div class="form-group">
+                <h2 style="text-align:center">글 작성하기</h2>
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요" required>
+            </div>
 
-		    <!-- 내용 입력 필드 -->
-		    <div class="form-group">
-		        <label for="content">내용</label>
-		        <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요" required></textarea>
-		    </div>
+            <!-- 내용 입력 필드 -->
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea id="content" name="content" class="form-control" rows="20" placeholder="내용을 입력하세요"
+                          required></textarea>
+            </div>
 
-		    <!-- 제출 버튼 및 뒤로가기 버튼 -->
-		    <div style="text-align:center">
-		        <button type="submit" class="btn btn-primary">작성하기</button>
-		        <a class="btn btn-secondary" th:href="@{/boards}">뒤로가기</a>
-		    </div>
-		</form>
+            <!-- 제출 버튼 및 뒤로가기 버튼 -->
+            <div style="text-align:center">
+                <button type="submit" class="btn btn-primary">작성하기</button>
+                <a class="btn btn-secondary" th:href="@{/boards}">뒤로가기</a>
+            </div>
+        </form>
     </div>
 </th:block>
 <!-- 컨테이너 영역 끝 -->

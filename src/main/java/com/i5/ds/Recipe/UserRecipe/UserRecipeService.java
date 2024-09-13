@@ -34,4 +34,8 @@ public class UserRecipeService {
     public void saveUserRecipe(UserRecipe userRecipe) {
         userRecipeRepository.save(userRecipe);
     }
+
+    public void deleteUserRecipeById(Long id) {
+        userRecipeRepository.deleteById(id);
+    }
 }

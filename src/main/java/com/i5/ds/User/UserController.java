@@ -3,6 +3,7 @@ package com.i5.ds.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,8 @@ public class UserController {
 	private LikeService likeService;
 	@Autowired
 	private LikeService recipeService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	/**
 	 * 로그인 페이지 표시
@@ -84,19 +87,38 @@ public class UserController {
 		return "pages/user/mypage_info"; // Thymeleaf 템플릿 파일의 경로
 	}
 
+	@PostMapping("/update")
+	public String updateUser(@RequestParam String userId, @RequestParam String userPw, @RequestParam String userName,
+			@RequestParam String userEmail, @RequestParam(required = false) String newPassword) {
+
+		// 현재 비밀번호 검증
+		User user = userService.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+		// 현재 비밀번호가 일치하는지 확인
+		if (!passwordEncoder.matches(userPw, user.getUserPw())) {
+			throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+		}
+
+		// 새로운 비밀번호가 제공된 경우 비밀번호 업데이트
+		if (newPassword != null && !newPassword.isEmpty()) {
+			userService.updateUserPassword(userId, newPassword);
+		}
+
+		// 사용자 이름과 이메일만 업데이트
+		userService.updateUser(userId, userName, userEmail);
+
+		return "redirect:/mypage";
+	}
+
 	@GetMapping("/mypage/posts")
 	public String getUserPosts(Model model) {
-		// 현재 사용자 정보를 가져오는 로직
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserId = authentication.getName(); // 현재 로그인한 사용자 ID를 가져옴
 
-		// 사용자 ID로 게시글 목록을 가져오는 서비스 호출
-		List<Board> boards = boardService.getBoardsByUserId(currentUserId);
+		List<Board> boards = boardService.getBoardsByUserId(currentUserId); // 사용자 ID로 게시글 조회
+		model.addAttribute("boards", boards); // 모델에 게시글 추가
 
-		// 모델에 게시글 목록을 추가
-		model.addAttribute("boards", boards);
-
-		return "pages/user/mypage_posts"; // 게시글 목록을 보여주는 뷰를 반환
+		return "pages/user/mypage_posts"; // 게시글 목록 페이지로 이동
 	}
 
 	@GetMapping("/mypage/likes")
@@ -120,19 +142,4 @@ public class UserController {
 		return "pages/user/mypage_likes";
 	}
 
-	/**
-	 * 사용자 정보 업데이트 처리
-	 *
-	 * @param userId    사용자 ID
-	 * @param userName  사용자 이름
-	 * @param userEmail 사용자 이메일
-	 * @param userPw    사용자비번
-	 * @return 사용자 정보 업데이트 완료 페이지로 리다이렉트
-	 */
-	@PostMapping("/update")
-	public String updateUser(@RequestParam String userId, @RequestParam String userName, @RequestParam String userEmail,
-			@RequestParam String userPw) {
-		userService.updateUser(userId, userName, userEmail, userPw);
-		return "redirect:/update";
-	}
 }

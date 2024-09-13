@@ -31,4 +31,9 @@ public class MainController {
         model.addAttribute("userRecipes", userRecipePage.getContent());
         return "index"; // index.html 페이지로 리턴
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "pages/test";
+    }
 }
