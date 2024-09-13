@@ -1,6 +1,9 @@
 package com.i5.ds.Board;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,15 +12,13 @@ import java.util.Optional;
 @Service
 public class BoardService {
 
-	@Autowired
-	private BoardRepository boardRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
-	public List<Board> getBoardsByUserId(String userId) {
-		return boardRepository.findByUserId(userId);
-	}
-    // 모든 게시글을 조회합니다.
-    public List<Board> getAllBoards() {
-        return boardRepository.findAll();
+    // 모든 게시글을 페이지네이션하여 조회
+    public Page<Board> getBoardsPaged(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return boardRepository.findAllByOrderByPostDateDesc(pageable);
     }
 
     // 특정 ID의 게시글을 조회합니다.
@@ -37,10 +38,21 @@ public class BoardService {
     public void deleteBoard(Integer id) {
         boardRepository.deleteById(id);
     }
+
+    
     // 대소문자 구분 없이 제목으로 게시글 검색
     public List<Board> searchBoardsByTitle(String title) {
         return boardRepository.searchByTitleIgnoringCase(title);
     }
     
-    
+ // 사용자 ID로 게시글 목록을 가져오는 메서드
+    public List<Board> getBoardsByUserId(String userId) {
+        return boardRepository.findByUserId(userId);
+    }
+
+	public Page<Board> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
