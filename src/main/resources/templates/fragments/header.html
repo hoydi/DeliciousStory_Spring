@@ -10,18 +10,14 @@
     <div class="header" th:fragment="headerFragment">
         <link rel="stylesheet" th:href="@{/css/header.css}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <script th:src="@{/js/header.js}"></script>
-		
-		
-		
+
         <div class="logo">
             <a th:href="@{/}" class="logo-link">
                 <div class="logo-image"></div>
             </a>
         </div>
-		
-		
-		
+
+
         <div class="gnb">
             <ul>
                 <li><a th:href="@{/siteRecipe}">공식레시피</a></li>
@@ -34,24 +30,24 @@
             </ul>
         </div>
 
-		<!--검색 영역-->
-		<div class="h-search-bar">
-		            <input type="text" id="h-search-input" placeholder="오늘의 메뉴" onfocus="loadAllRecipes()"
-		                   oninput="filterRecipes()">
-		            <button>
-		                <span class="material-icons">search</span>
-		            </button>
-		            <ul id="h-search-results" class="dropdown-menu"></ul>
-		        </div>
+        <!--검색 영역-->
+        <div class="h-search-bar">
+            <input type="text" id="h-search-input" placeholder="오늘의 메뉴" onfocus="loadAllRecipes()"
+                   oninput="filterRecipes()">
+            <button>
+                <span class="material-icons">search</span>
+            </button>
+            <ul id="h-search-results" class="dropdown-menu"></ul>
+        </div>
 
 
-		
-<!--		메뉴 토글 영역-->
+        <!--		메뉴 토글 영역-->
         <div class="menu-toggle">
             <button id="toggleButton">
                 <span class="material-icons">menu</span>
             </button>
             <div class="mobile-menu" id="mobileMenu">
+                <div id="menuhead">menu</div>
                 <button onclick="window.location.href='/siteRecipe'">공식레시피</button>
                 <button onclick="window.location.href='/userRecipe'">모두의레시피</button>
                 <button onclick="window.location.href='/boards'">자유게시판</button>

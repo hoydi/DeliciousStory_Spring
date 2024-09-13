@@ -19,6 +19,7 @@ body {
 
 .container {
     max-width: 90%;
+	min-height:50vh;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -26,6 +27,7 @@ body {
 	justify-content: center;
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
 }
 
 h2 {
@@ -55,6 +57,7 @@ h2 {
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+	border-radius: 5px;
 }
 
 .btn.secondary {
