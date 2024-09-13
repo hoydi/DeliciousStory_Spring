@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragments/layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title th:text="${recipe.name}"></title>
 </th:block>
 
@@ -23,15 +24,15 @@
             <div class="recipe-header">
                 <!-- 레시피 이미지 -->
                 <img th:src="${recipe.mainImageUrl}" alt="레시피 이미지" class="main-image">
-                
+
                 <!-- 레시피 정보 (이름, 재료) -->
                 <div class="recipe-info">
                     <h1 id="recipeTitle" class="clickable-text" th:text="${recipe.name}"
                         onclick="speakText('recipeTitle')">레시피 이름</h1>
                     <p>
                         <strong>재료</strong> <br> <span id="recipeIngredients"
-                            th:text="${recipe.ingredients}" class="clickable-text"
-                            onclick="speakText('recipeIngredients')">재료 목록</span>
+                                                       th:text="${recipe.ingredients}" class="clickable-text"
+                                                       onclick="speakText('recipeIngredients')">재료 목록</span>
                     </p>
                 </div>
             </div>
@@ -39,23 +40,23 @@
             <!-- 좋아요 버튼을 이미지 아래 왼쪽으로 이동 -->
             <div class="like-button">
                 <button id="likeButton" th:data-recipe-id="${recipe.id}"
-                    th:text="${liked != null && liked ? '좋아요 취소' : '좋아요'}"></button>
+                        th:text="${liked != null && liked ? '좋아요 취소' : '좋아요'}"></button>
             </div>
-			
-			<hr>
+
+            <hr>
 
             <!-- 조리법 및 이미지 -->
             <p>
                 <strong>조리법</strong>
                 <button id="ttsButton" onclick="toggleTTS()">전체재생</button>
-				
-			</p>
-                <!-- 이미지 URL 텍스트를 포함하는 요소 -->
-                <div id="recipeImageUrls" th:text="${recipe.manualImageUrl}" style="display: none;"></div>
-                <!-- 이미지가 표시될 영역 -->
-                <div id="recipeImages"></div>
-                <div id="recipeManual" style="display: none;" th:text="${recipe.manual}"></div>
-            
+
+            </p>
+            <!-- 이미지 URL 텍스트를 포함하는 요소 -->
+            <div id="recipeImageUrls" th:text="${recipe.manualImageUrl}" style="display: none;"></div>
+            <!-- 이미지가 표시될 영역 -->
+            <div id="recipeImages"></div>
+            <div id="recipeManual" style="display: none;" th:text="${recipe.manual}"></div>
+
 
             <div id="recipeManualContainer"></div>
             <button onclick="history.back()">뒤로 가기</button>

@@ -4,6 +4,7 @@
       layout:decorate="~{fragments/layout}">
 
 <th:block layout:fragment="title">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title th:text="${userRecipe != null ? userRecipe.name : '레시피 등록'}"></title>
 </th:block>
 

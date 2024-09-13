@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{fragments/mypage_layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/mypage_layout}">
 
 <head>
-<th:block layout:fragment="title">
-	<title>작성글 리스트</title>
-</th:block>
+    <th:block layout:fragment="title">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>작성글 리스트</title>
+    </th:block>
 
-<th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{/css/user.css}">
-	<link rel="stylesheet" th:href="@{/css/mypage_posts.css}">
-</th:block>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/user.css}">
+        <link rel="stylesheet" th:href="@{/css/mypage_posts.css}">
+    </th:block>
 
-<th:block layout:fragment="javascript">
-	<script th:src="@{/js/mypagePosts.js}"></script>
-</th:block>
+    <th:block layout:fragment="javascript">
+        <script th:src="@{/js/mypagePosts.js}"></script>
+    </th:block>
 </head>
 
 <body>
-	<th:block layout:fragment="containerFragment">
-		<div class="container">
-			<h2>작성글 리스트</h2>
-			<div class="post-grid">
-				<!-- 게시글이 없는 경우 메시지 출력 -->
-				<th:block th:if="${#lists.isEmpty(boards)}">
-					<p>작성한 게시글이 없습니다.</p>
-				</th:block>
+<th:block layout:fragment="containerFragment">
+    <div class="container">
+        <h2>작성글 리스트</h2>
+        <div class="post-grid">
+            <!-- 게시글이 없는 경우 메시지 출력 -->
+            <th:block th:if="${#lists.isEmpty(boards)}">
+                <p>작성한 게시글이 없습니다.</p>
+            </th:block>
 
-				<table>
-					<thead>
-						<tr>
-							<th style="width: 40px;">번호</th>
-							<th style="width: 500px;">제목</th>
-							<th style="width: 100px;">작성일자</th>
-							<th style="width: 50px;">조회 수</th>
-						</tr>
-					</thead>
-					<tbody>
-						<!-- 내가 작성한 게시글 반복 출력 -->
-						<tr th:each="board : ${boards}">
-							<td th:text="${board.postId}"></td>
-							<td><a th:href="@{/boards/{id}(id=${board.postId})}"
-								th:text="${board.title}">제목</a></td>
-							<td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
-							<td th:text="${board.views}">조회 수</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 40px;">번호</th>
+                    <th style="width: 500px;">제목</th>
+                    <th style="width: 100px;">작성일자</th>
+                    <th style="width: 50px;">조회 수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 내가 작성한 게시글 반복 출력 -->
+                <tr th:each="board : ${boards}">
+                    <td th:text="${board.postId}"></td>
+                    <td><a th:href="@{/boards/{id}(id=${board.postId})}"
+                           th:text="${board.title}">제목</a></td>
+                    <td th:text="${#dates.format(board.postDate, 'yyyy-MM-dd')}">작성일자</td>
+                    <td th:text="${board.views}">조회 수</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-			<!-- 페이지 상단으로 이동하는 버튼 -->
-			<button class="scroll-to-top" onclick="scrollToTop()">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-					fill="currentColor" width="24px" height="24px">
+        <!-- 페이지 상단으로 이동하는 버튼 -->
+        <button class="scroll-to-top" onclick="scrollToTop()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="currentColor" width="24px" height="24px">
                 <path d="M12 4l-6 6h12l-6-6z"></path>
             </svg>
-			</button>
-		</div>
-	</th:block>
+        </button>
+    </div>
+</th:block>
 </body>
 </html>
