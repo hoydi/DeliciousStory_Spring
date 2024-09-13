@@ -62,18 +62,20 @@
 
 
             <!-- 버튼들을 감싸는 컨테이너 추가 -->
-            <div class="button-container">
-                <a class="btn secondary" th:href="@{/}">메인으로 이동하기</a>
-                <a class="btn secondary" th:href="@{/boards/post}">글 작성하기</a>
+            <div class="button-container write-btn">
+                <a class="btn secondary" th:href="@{/boards/post}">작성</a>
             </div>
 
             <!-- 검색 폼을 감싸는 컨테이너 추가 -->
             <div class="form-container">
                 <form th:action="@{/boards/search}" method="get">
-                    <input type="text" name="query" placeholder="제목으로 검색" class="form-control"
+                    <input type="text" name="query" placeholder="제목으로 검색" class="form-control board-search"
                            style="width:300px; display:inline-block;">
                     <button type="submit" class="btn btn-primary">검색</button>
-                    <a class="btn btn-secondary" th:href="@{/boards}" style="margin-left: 10px;">뒤로가기</a>
+                    <div class="back-btn">
+						<a class="btn btn-secondary" th:href="@{/}">메인</a>
+						<a class="btn btn-secondary" th:href="@{/boards}">목록</a>
+					</div>
                 </form>
             </div>
         </div>

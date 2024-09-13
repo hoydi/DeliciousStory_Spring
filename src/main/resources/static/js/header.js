@@ -1,17 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 메뉴 토글 코드
     const menuToggle = document.querySelector("#toggleButton");
     const mobileMenu = document.querySelector("#mobileMenu");
 
     menuToggle.addEventListener("click", function (event) {
         event.stopPropagation(); // 클릭 이벤트 전파 방지
+        console.log('Menu toggle button clicked');
         mobileMenu.classList.toggle("show");
     });
-
-    document.addEventListener("click", function (event) {
-        if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+    mobileMenu.addEventListener("click", function (event) {
+        if (mobileMenu.classList.contains("show")) {
             mobileMenu.classList.remove("show");
         }
+        event.stopPropagation(); // 클릭 이벤트 전파 방지
     });
 
     // 실시간 검색 관련 코드

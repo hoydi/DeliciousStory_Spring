@@ -67,16 +67,12 @@
             <button onclick="history.back()">뒤로 가기</button>
             <!-- Update and Delete buttons -->
             <div name="write" th:if="${#authentication.principal != 'anonymousUser'}" style="padding-top: 30px;">
-                <!--            <p>로그인된 유저 아이디: <span th:text="${#authentication.principal.username}">User</span></p>-->
-                <a href="/userRecipe_write" class="button-link">
-                    <button type="button">글쓰기</button>
-                </a>
-            </div>
             <a th:href="@{/userRecipe_update/{id}(id=${userRecipe.id})}"><button type="button">수정</button></a>
 
             <form th:action="@{/userRecipe_delete/{id}(id=${userRecipe.id})}" method="post" style="display:inline;">
                 <button type="submit">삭제</button>
             </form>
+            </div>
         </div>
     </div>
 </th:block>

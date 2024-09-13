@@ -1,6 +1,9 @@
 /* 공통 스타일 */
 
-ul, li{text-decoration: none; list-style:none;}
+ul, li {
+    text-decoration: none;
+    list-style: none;
+}
 
 .header {
     background-color: white;
@@ -39,18 +42,16 @@ ul, li{text-decoration: none; list-style:none;}
     .logo-image {
         width: 100px; /* 변경된 로고 너비 */
         height: 100px; /* 변경된 로고 높이 */
-		background-size: cover; /* 이미지 크기 조정 */
-		background-position: center; /* 이미지 위치 조정 */
+        background-size: cover; /* 이미지 크기 조정 */
+        background-position: center; /* 이미지 위치 조정 */
         background-image: url('/images/DSlogo4.png');
     }
-	
-	.logo-link:hover .logo-image {
-	    background-image: url('/images/DSlogo5.png');
-}
+
+    .logo-link:hover .logo-image {
+        background-image: url('/images/DSlogo5.png');
+    }
 
 }
-
-
 
 
 .gnb {
@@ -130,65 +131,10 @@ ul, li{text-decoration: none; list-style:none;}
     align-items: center;
 }
 
-/* 검색 결과 드롭다운 메뉴 */
-.dropdown-menu {
-	display: none;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 16px;
-    margin-top: 10px; /* 검색창과의 간격 조정 */
-    width: 100%;
-    max-width: 400px;
-    max-height: 240px;
-    overflow-y: auto;
-    position: absolute;
-    top: 30px;
-    z-index: 1000; /* z-index 값을 높게 설정 */
-}
-
-.dropdown-menu ul {
-    padding: 0;
-    margin: 0;
-}
-
-.dropdown-menu ul li {
-    padding: 8px 0;
-    border-bottom: 1px solid #EEEEEE;
-}
-
-.dropdown-menu ul li button {
-    background: none;
-    border: none;
-    color: black;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-}
-
-
-.dropdown-menu ul li button:hover {
-    color: #DB0000;
-}
-
-/* 검색 결과 드롭다운 메뉴 항목 */
-.dropdown-item {
-    padding: 8px 0;
-    border-bottom: 1px solid #EEEEEE;
-    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-    transition: color 0.1s ease; /* 색상 변경 애니메이션 추가 */
-}
-
-/* 마우스 오버 시 색상 변경 */
-.dropdown-item:hover {
-    color: #DB0000;
-}
-
-
 /* 메뉴 토글 버튼 */
 .menu-toggle {
-	flex-grow: 1;
-	justify-content: end;
+    flex-grow: 1;
+    justify-content: end;
     display: none;
     position: relative;
 }
@@ -197,37 +143,97 @@ ul, li{text-decoration: none; list-style:none;}
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0; /* padding을 제거하여 크기 조정 시 여백이 생기지 않도록 함 */
+}
+
+
+/* 아이콘 크기 조정 */
+#toggleButton .material-icons {
+    font-size: 300%; /* 기본 아이콘 크기 조정 */
+}
+
+/* 작은 화면에서 아이콘 크기 조정 */
+@media (max-width: 768px) {
+    #toggleButton .material-icons {
+        font-size: 300%; /* 모바일 화면에서 아이콘 크기 조정 */
+    }
+}
+
+/* 더 작은 화면에서 아이콘 크기 조정 */
+@media (max-width: 480px) {
+    #toggleButton .material-icons {
+        font-size: 250%; /* 더 작은 모바일 화면에서 아이콘 크기 조정 */
+    }
+}
+
+
+/* 기본 상태에서는 메뉴와 뒤의 화면 모두 클릭 가능 */
+body, .mobile-menu {
+    pointer-events: auto;
+}
+
+/* 메뉴가 열리면 뒤의 화면은 클릭 불가능 */
+body.menu-open .overlay {
+    pointer-events: none;
 }
 
 /* 모바일 메뉴 */
 .mobile-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 16px;
-    width: 150px;
-    max-height: 240px;
-    overflow-y: auto;
-    z-index: 9999;
+    position: fixed; /* 전체 화면을 덮도록 위치 설정 */
+    top: 0; /* 상단 여백 없음 */
+    left: 0;
+    width: 100vw; /* 전체 화면 너비 */
+    height: 100vh; /* 전체 화면 높이 */
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 0; /* 모서리 둥글기 제거 */
+    padding-top: 0; /* 상단에 20% 여백 추가 */
+    display: none; /* 기본적으로 숨김 */
+    z-index: 9999; /* 최상위 레벨 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+/* 'show' 클래스가 적용될 때 보이도록 설정 */
+.mobile-menu.show {
+    display: flex; /* .show 클래스가 있을 때 보이도록 설정 */
 }
 
 /* 버튼 스타일 */
 .mobile-menu button {
+    margin-left: 10%;
     background: none;
     border: none;
     color: black;
-    text-align: left;
-    width: 100%;
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    width: 100%; /* 버튼의 너비를 100%로 설정 */
+    max-width: 100%; /* 버튼의 최대 너비를 화면 너비로 설정 */
+    box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
     cursor: pointer;
-    padding: 3px 6px;
-    font-size: 14px;
+    padding: 20px; /* 버튼 내 여백 조정 */
+    font-size: 2em;
     text-decoration: none;
     position: relative;
     transition: color 0.3s ease;
+    overflow: hidden; /* 버튼 영역을 넘는 텍스트를 숨김 */
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+    text-overflow: ellipsis; /* 텍스트가 버튼 영역을 넘을 때 생략 부호(...) 표시 */
 }
+
+/* 모바일 화면 크기에서 폰트 크기 및 패딩 조절 */
+@media (max-width: 768px) {
+    .mobile-menu button {
+        font-size: 2em; /* 모바일 화면에서 폰트 크기 조절 */
+        padding: 15px; /* 패딩 조절 */
+    }
+}
+
+/* 더 작은 모바일 화면에서 폰트 크기 및 패딩 조절 */
+@media (max-width: 480px) {
+    .mobile-menu button {
+        font-size: 1.5em; /* 더 작은 모바일 화면에서 폰트 크기 조절 */
+        padding: 10px; /* 패딩 조절 */
+    }
+}
+
 
 /* 버튼 오버 시 스타일 */
 .mobile-menu button:hover {
@@ -253,13 +259,23 @@ ul, li{text-decoration: none; list-style:none;}
 /* 각 버튼을 한 줄에 하나씩 배치 */
 .mobile-menu button {
     display: block;
-    margin-bottom: 3px; /* 버튼 간의 간격 조정 */
+    margin-bottom: 10px; /* 버튼 간의 간격 조정 */
 }
 
 /* 마지막 버튼의 여백 제거 */
 .mobile-menu button:last-child {
     margin-bottom: 0;
 }
+
+
+.mobile-menu {
+    display: none; /* 기본적으로 숨김 */
+}
+
+.mobile-menu.show {
+    display: block !important; /* 강제 적용 */
+}
+
 
 /* 반응형 스타일 */
 @media (max-width: 1150px) {
@@ -271,8 +287,322 @@ ul, li{text-decoration: none; list-style:none;}
         display: flex;
     }
 
-	.logo{
-	justify-content: start;
-}
+    .logo {
+        justify-content: start;
+    }
 }
 
+/* 공통 스타일 */
+
+ul, li {
+    text-decoration: none;
+    list-style: none;
+}
+
+.header {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.logo {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* 기본 상태 이미지 */
+.logo-image {
+    width: 220px; /* 기본 로고 너비 */
+    height: 100px; /* 기본 로고 높이 */
+    background-image: url('/images/DSlogo3.png');
+    background-size: cover; /* 이미지 크기 조정 */
+    background-position: center; /* 이미지 위치 조정 */
+    transition: background-image 0.3s ease; /* 이미지 변경 애니메이션 */
+}
+
+/* 마우스 오버 시 이미지 변경 */
+.logo-link:hover .logo-image {
+    background-image: url('/images/DSlogo.png');
+}
+
+/* 화면 너비가 1150px 이하일 때 */
+@media (max-width: 800px) {
+    .logo-image {
+        width: 100px; /* 변경된 로고 너비 */
+        height: 100px; /* 변경된 로고 높이 */
+        background-size: cover; /* 이미지 크기 조정 */
+        background-position: center; /* 이미지 위치 조정 */
+        background-image: url('/images/DSlogo4.png');
+    }
+
+    .logo-link:hover .logo-image {
+        background-image: url('/images/DSlogo5.png');
+    }
+
+}
+
+
+.gnb {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.gnb ul {
+    display: flex;
+    gap: 24px;
+}
+
+.gnb ul li {
+    list-style: none;
+}
+
+.gnb ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.gnb ul li a:hover {
+    color: #DB0000;
+}
+
+.gnb ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 3px;
+    background-color: #DB0000;
+    transition: width 0.3s ease;
+}
+
+.gnb ul li a:hover::after {
+    width: 100%;
+}
+
+/* 검색 바 */
+.h-search-bar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* 검색 입력 */
+.h-search-bar input {
+    background-color: transparent;
+    border: 1px solid #D1D5DB;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 32px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    outline: none;
+    margin-right: 4px; /* 입력 필드와 버튼 사이의 간격 조정 */
+}
+
+/* 검색 버튼 */
+.h-search-bar button {
+    color: #888888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex; /* 버튼 내 아이콘 중앙 정렬 */
+    align-items: center;
+}
+
+/* 메뉴 토글 버튼 */
+.menu-toggle {
+    flex-grow: 1;
+    justify-content: end;
+    display: none;
+    position: relative;
+}
+
+.menu-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0; /* padding을 제거하여 크기 조정 시 여백이 생기지 않도록 함 */
+}
+
+
+/* 아이콘 크기 조정 */
+#toggleButton .material-icons {
+    font-size: 300%; /* 기본 아이콘 크기 조정 */
+}
+
+/* 작은 화면에서 아이콘 크기 조정 */
+@media (max-width: 768px) {
+    #toggleButton .material-icons {
+        font-size: 300%; /* 모바일 화면에서 아이콘 크기 조정 */
+    }
+}
+
+/* 더 작은 화면에서 아이콘 크기 조정 */
+@media (max-width: 480px) {
+    #toggleButton .material-icons {
+        font-size: 250%; /* 더 작은 모바일 화면에서 아이콘 크기 조정 */
+    }
+}
+
+
+/* 기본 상태에서는 메뉴와 뒤의 화면 모두 클릭 가능 */
+body, .mobile-menu {
+    pointer-events: auto;
+}
+
+/* 메뉴가 열리면 뒤의 화면은 클릭 불가능 */
+body.menu-open .overlay {
+    pointer-events: none;
+}
+
+/* 모바일 메뉴 */
+.mobile-menu {
+    position: fixed; /* 전체 화면을 덮도록 위치 설정 */
+    top: 0; /* 상단 여백 없음 */
+    left: 0;
+    width: 100vw; /* 전체 화면 너비 */
+    height: 100vh; /* 전체 화면 높이 */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0; /* 모서리 둥글기 제거 */
+
+    display: none; /* 기본적으로 숨김 */
+    z-index: 9999; /* 최상위 레벨 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 표시 */
+}
+
+/* 'show' 클래스가 적용될 때 보이도록 설정 */
+.mobile-menu.show {
+    display: flex; /* .show 클래스가 있을 때 보이도록 설정 */
+}
+
+/* 버튼 스타일 */
+.mobile-menu button {
+    margin-left: 10%;
+    background: none;
+    border: none;
+    color: black;
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    width: 100%; /* 버튼의 너비를 100%로 설정 */
+    max-width: 100%; /* 버튼의 최대 너비를 화면 너비로 설정 */
+    box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
+    cursor: pointer;
+    padding: 20px; /* 버튼 내 여백 조정 */
+    font-size: 2em;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+    overflow: hidden; /* 버튼 영역을 넘는 텍스트를 숨김 */
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+    text-overflow: ellipsis; /* 텍스트가 버튼 영역을 넘을 때 생략 부호(...) 표시 */
+}
+
+/* 모바일 화면 크기에서 폰트 크기 및 패딩 조절 */
+@media (max-width: 768px) {
+    .mobile-menu button {
+        font-size: 2em; /* 모바일 화면에서 폰트 크기 조절 */
+        padding: 15px; /* 패딩 조절 */
+    }
+
+    #menuhead {
+        font-size: 2em; /* 모바일 화면에서 폰트 크기 조절 */
+    }
+}
+
+/* 더 작은 모바일 화면에서 폰트 크기 및 패딩 조절 */
+@media (max-width: 480px) {
+    .mobile-menu button {
+        font-size: 1.5em; /* 더 작은 모바일 화면에서 폰트 크기 조절 */
+        padding: 10px; /* 패딩 조절 */
+    }
+
+    #menuhead {
+        font-size: 1.5em; /* 더 작은 모바일 화면에서 폰트 크기 조절 */
+    }
+}
+
+
+/* 버튼 오버 시 스타일 */
+.mobile-menu button:hover {
+    color: #DB0000;
+}
+
+/* 버튼 오버 시 밑줄 */
+.mobile-menu button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #DB0000;
+    transition: width 0.3s ease;
+}
+
+.mobile-menu button:hover::after {
+    width: 100%;
+}
+
+/* 각 버튼을 한 줄에 하나씩 배치 */
+.mobile-menu button {
+    display: block;
+    margin-bottom: 10px; /* 버튼 간의 간격 조정 */
+}
+
+/* 마지막 버튼의 여백 제거 */
+.mobile-menu button:last-child {
+    margin-bottom: 0;
+}
+
+
+.mobile-menu {
+    display: none; /* 기본적으로 숨김 */
+}
+
+.mobile-menu.show {
+    display: block !important; /* 강제 적용 */
+}
+
+
+/* 반응형 스타일 */
+@media (max-width: 1150px) {
+    .gnb {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .logo {
+        justify-content: start;
+    }
+}
+
+#menuhead {
+    width: 100%; /* 가로 100% */
+    height: 10%; /* 세로 5% */
+    align-content: center;
+    background-color: black; /* 배경색 검은색 */
+    color: white; /* 폰트 색상 흰색 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 2em; /* 기본 폰트 크기 */
+    padding: 0 0 10px; /* 상단 여백을 제거하고 하단에만 여백 추가 */
+    box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
+    margin-bottom: 10%;
+}

@@ -144,3 +144,10 @@ table tfoot tr {
     margin: 0 10px; /* 버튼들 사이 간격 추가 */
 }
 
+form{vertical-align: top;}
+
+.board-search{padding: 10px 15px; }
+
+.back-btn{text-align: center; margin:20px;}
+
+.write-btn{justify-content: end;}
