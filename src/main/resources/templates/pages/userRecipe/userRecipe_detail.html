@@ -52,17 +52,19 @@
                 <strong>조리법</strong>
                 <button id="ttsButton" onclick="toggleTTS()">전체재생</button>
             </p>
-            <div id="recipeManualContainer">
-                <!-- 요리 순서와 이미지 출력 -->
-                <div th:each="manual, iterStat : ${manualList}">
-                    <p th:text="${manual}"></p>
-                    <!-- 이미지 URL이 없는 경우 기본 이미지를 표시 -->
-                    <img th:if="${#lists.size(manualImageList) > iterStat.index}"
-                         th:src="${manualImageList[iterStat.index]}"
-                         alt="요리 순서 이미지"
-                         style="width:200px"/>
-                </div>
-            </div>
+			<div id="recipeManualContainer" style="display: flex; flex-direction: column; gap: 20px;">
+			    <!-- 요리 순서와 이미지 출력 -->
+			    <div th:each="manual, iterStat : ${manualList}" style="display: flex; align-items: flex-start; gap: 20px;">
+			        <!-- 왼쪽에 텍스트 배치 -->
+			        <p th:text="${manual}" style="flex: 1; margin: 0;"></p>
+			        
+			        <!-- 오른쪽에 이미지 배치, 이미지 URL이 없는 경우 기본 이미지를 표시 -->
+			        <img th:if="${#lists.size(manualImageList) > iterStat.index}"
+			             th:src="${manualImageList[iterStat.index]}"
+			             alt="요리 순서 이미지"
+			             style="width: 200px; height: auto; object-fit: cover; flex-shrink: 0;"/>
+			    </div>
+			</div>
 
             <button onclick="history.back()">뒤로 가기</button>
             <!-- Update and Delete buttons -->

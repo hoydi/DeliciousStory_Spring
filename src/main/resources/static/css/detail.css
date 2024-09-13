@@ -5,6 +5,11 @@
 	flex-direction: column;
 }
 
+.p {
+    display: contents;
+}
+
+
 .title-section {
     text-align: center;
     margin-bottom: 30px; /* 제목과 내용 사이 간격 */

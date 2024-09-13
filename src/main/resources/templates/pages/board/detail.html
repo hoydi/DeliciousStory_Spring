@@ -19,12 +19,26 @@
             <h1 th:text="${board.title}">게시글 제목</h1>
         </div>
         <div class="content-section">
-            <p th:text="${board.content}">게시글 내용</p>
+            <p th:utext="${board.content}">게시글 내용</p>
         </div>
+
+		<!-- 삭제 버튼 추가 -->
+		<div class="button-section">
+		    <form th:action="@{/boards/{id}/delete(id=${board.postId})}" method="post" 
+		          onsubmit="return confirm('정말 삭제하시겠습니까?');">
+		        <input type="hidden" name="_method" value="delete" />
+		        <button type="submit" class="btn btn-danger">삭제</button>
+		    </form>
+		</div>
+
+
+
+        <!-- 목록으로 돌아가기 버튼 -->
         <div class="button-section">
             <a href="/boards" class="btn-back">목록으로 돌아가기</a>
         </div>
     </div>
+	
 </th:block>
 
 </html>
