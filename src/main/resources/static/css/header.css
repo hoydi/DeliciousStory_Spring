@@ -478,7 +478,7 @@ body.menu-open .overlay {
     left: 0;
     width: 100vw; /* 전체 화면 너비 */
     height: 100vh; /* 전체 화면 높이 */
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0; /* 모서리 둥글기 제거 */
 
     display: none; /* 기본적으로 숨김 */
