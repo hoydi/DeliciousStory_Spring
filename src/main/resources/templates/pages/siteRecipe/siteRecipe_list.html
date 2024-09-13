@@ -19,11 +19,13 @@
 
 <th:block layout:fragment="containerFragment">
 	<div class="container">
+		<!-- 레시피 그리드 -->
 		<div class="recipe-grid" th:data-total-pages="${totalPages}"
 			th:data-current-page="${currentPage}">
 			<!-- Thymeleaf 반복문으로 레시피 항목 생성 -->
 			<th:block th:each="recipe : ${recipes}">
 				<div class="recipe-item" th:data-recipe-name="${recipe.name}"
+					th:data-recipe-url="@{/siteRecipe/{id}(id=${recipe.id})}"
 					th:onclick="'location.href=\'/siteRecipe/' + ${recipe.id} + '\''"
 					onmouseenter="speakRecipeName(this)">
 					<div class="image-container" style="position: relative;">
@@ -32,12 +34,10 @@
 						<div class="image-overlay">
 							<p class="overlay-text">상세보기</p>
 						</div>
-
 					</div>
 					<div class="recipe-details" style="margin-top: 8px;">
-						<p class="recipe-name" th:text="${recipe.name}">
+						<p class="recipe-name" th:text="${recipe.name}"></p>
 						<p class="tips" th:text="${recipe.tips}"></p>
-						</p>
 					</div>
 				</div>
 			</th:block>
@@ -48,7 +48,7 @@
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
 				fill="currentColor" width="24px" height="24px">
 		           <path d="M12 4l-6 6h12l-6-6z"></path>
-		       </svg>
+		    </svg>
 		</button>
 	</div>
 </th:block>
