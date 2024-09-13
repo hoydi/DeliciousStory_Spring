@@ -606,3 +606,58 @@ body.menu-open .overlay {
     box-sizing: border-box; /* padding과 border가 width에 포함되도록 설정 */
     margin-bottom: 10%;
 }
+
+
+/* 검색 결과 드롭다운 메뉴 */
+.dropdown-menu {
+    display: none;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 10px; /* 검색창과의 간격 조정 */
+    width: 100%;
+    max-width: 400px;
+    max-height: 240px;
+    overflow-y: auto;
+    position: absolute;
+    top: 30px;
+    z-index: 1000; /* z-index 값을 높게 설정 */
+}
+
+.dropdown-menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.dropdown-menu ul li button {
+    background: none;
+    border: none;
+    color: black;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+.dropdown-menu ul li button:hover {
+    color: #DB0000;
+}
+
+/* 검색 결과 드롭다운 메뉴 항목 */
+.dropdown-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEEE;
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    transition: color 0.1s ease; /* 색상 변경 애니메이션 추가 */
+}
+
+/* 마우스 오버 시 색상 변경 */
+.dropdown-item:hover {
+    color: #DB0000;
+}
